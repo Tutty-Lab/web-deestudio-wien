@@ -7,16 +7,16 @@ import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
-import { DRAFTS } from "@/data/drafts";
-import { SERVICES, STUDIOS, getStudio } from "@/data/site";
+import HeadSpaFeature from "@/components/HeadSpaFeature";
+import { HEAD_SPA, SERVICES, STUDIOS, getStudio } from "@/data/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return DRAFTS.flatMap((d) => STUDIOS.map((s) => ({ draft: d.key, slug: s.slug })));
+  return STUDIOS.map((s) => ({ slug: s.slug }));
 }
 
-type Params = { params: Promise<{ draft: string; slug: string }> };
+type Params = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = getStudio((await params).slug);
@@ -24,15 +24,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function StudioPage({ params }: Params) {
-  const { draft, slug } = await params;
+  const { slug } = await params;
   const s = getStudio(slug);
   if (!s) notFound();
-  const base = `/${draft}`;
   const other = STUDIOS.find((o) => o.slug !== s.slug)!;
 
   return (
     <>
-      <Header base={base} overHero />
+      <Header overHero />
       <main>
         {/* HERO */}
         <section
@@ -102,6 +101,8 @@ export default async function StudioPage({ params }: Params) {
           </div>
         </section>
 
+        {s.slug === HEAD_SPA.studio && <HeadSpaFeature />}
+
         {/* SERVICES */}
         <section className="section section-alt">
           <div className="wrap">
@@ -123,7 +124,7 @@ export default async function StudioPage({ params }: Params) {
               ))}
             </div>
             <div style={{ textAlign: "center", marginTop: 56 }}>
-              <Link href={`${base}/preise`} className="link-arrow">
+              <Link href="/preise" className="link-arrow">
                 Preisliste ansehen →
               </Link>
             </div>
@@ -150,7 +151,7 @@ export default async function StudioPage({ params }: Params) {
             <h2 className="display h-lg" style={{ margin: "18px 0 32px" }}>
               {other.brand} <span className="serif">·</span> {other.location}
             </h2>
-            <Link href={`${base}/studio/${other.slug}`} className="btn">
+            <Link href={`/studio/${other.slug}`} className="btn">
               Zum Studio {other.location}
             </Link>
           </div>

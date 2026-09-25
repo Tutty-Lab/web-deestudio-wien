@@ -6,14 +6,13 @@ import Gallery from "@/components/Gallery";
 import FAQ from "@/components/FAQ";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
+import HeadSpaFeature from "@/components/HeadSpaFeature";
 import { SERVICES, STUDIOS } from "@/data/site";
 
-const base = "/a";
-
-export default function HomeA() {
+export default function Home() {
   return (
     <>
-      <Header base={base} overHero />
+      <Header overHero />
       <main>
         {/* HERO */}
         <section
@@ -41,7 +40,10 @@ export default function HomeA() {
               paddingBottom: "clamp(56px, 10vh, 120px)",
             }}
           >
-            <p className="eyebrow" style={{ color: "rgba(255,255,255,.75)" }}>
+            <Link href="/head-spa" className="hero-badge">
+              ✦ Neu: Head Spa bei Dee Studio
+            </Link>
+            <p className="eyebrow" style={{ color: "rgba(255,255,255,.75)", margin: 0 }}>
               Nails · Lashes · Head Spa — Wien
             </p>
             <h1 className="display h-xl" style={{ margin: "20px 0 36px" }}>
@@ -58,6 +60,9 @@ export default function HomeA() {
           </div>
         </section>
 
+        {/* HEAD SPA — promoted service */}
+        <HeadSpaFeature />
+
         {/* STUDIOS */}
         <section id="studios" className="section">
           <div className="wrap">
@@ -71,7 +76,7 @@ export default function HomeA() {
             <div className="studio-grid">
               {STUDIOS.map((s, i) => (
                 <Reveal key={s.slug} delay={i * 120}>
-                  <Link href={`${base}/studio/${s.slug}`} className="studio-card group">
+                  <Link href={`/studio/${s.slug}`} className="studio-card group">
                     <div className="media bw zoom" style={{ position: "absolute", inset: 0 }}>
                       <Image src={s.cover} alt={s.brand} fill sizes="(max-width: 720px) 100vw, 50vw" />
                     </div>
@@ -134,7 +139,7 @@ export default function HomeA() {
               ))}
             </div>
             <div style={{ textAlign: "center", marginTop: 56 }}>
-              <Link href={`${base}/preise`} className="link-arrow">
+              <Link href="/preise" className="link-arrow">
                 Alle Preise ansehen →
               </Link>
             </div>

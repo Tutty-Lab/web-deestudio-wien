@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { INSTAGRAM, STUDIOS } from "@/data/site";
 
-export default function Footer({ base }: { base: string }) {
+export default function Footer() {
   return (
     <footer className="footer">
       <div className="wrap">
@@ -34,7 +34,7 @@ export default function Footer({ base }: { base: string }) {
                   </li>
                 )}
                 <li style={{ marginTop: 8 }}>
-                  <Link href={`${base}/studio/${s.slug}`}>Studio ansehen →</Link>
+                  <Link href={`/studio/${s.slug}`}>Studio ansehen →</Link>
                 </li>
               </ul>
             </div>

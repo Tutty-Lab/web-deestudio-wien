@@ -41,7 +41,7 @@ export const STUDIOS: Studio[] = [
       "5 Minuten vom Westbahnhof",
     ],
     intro:
-      "Unser erstes Studio im Herzen Wiens – kreatives Nageldesign, Pediküre und Beauty-Rituale in ruhiger, luxuriöser Atmosphäre.",
+      "Unser erstes Studio im Herzen Wiens – kreatives Nageldesign, Lashes und unser Head Spa: Beauty-Rituale in ruhiger, luxuriöser Atmosphäre.",
     cover: "/images/site/g-10.12-5.webp",
     interior: ["/images/site/g-10.12-6.webp", "/images/site/g-10.12-4.webp"],
   },
@@ -96,7 +96,7 @@ export const SERVICES: Service[] = [
   {
     key: "head-spa",
     title: "Head Spa",
-    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele.",
+    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele – exklusiv bei Dee Studio.",
     image: "/images/ig/ig01.jpg",
     from: "auf Anfrage",
   },
@@ -108,6 +108,23 @@ export const SERVICES: Service[] = [
     from: "ab 40 €",
   },
 ];
+
+// Head Spa is offered at Dee Studio (Neubaugürtel) and is the service the client wants to promote.
+export const HEAD_SPA = {
+  studio: "neubauguertel",
+  title: "Head Spa",
+  tagline: "Relax. Refresh. Glow.",
+  lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar – während Sie ganz abschalten.",
+  images: ["/images/ig/ig01.jpg", "/images/ig/ig05.jpg"],
+  steps: [
+    { title: "Ankommen", text: "Kurze Beratung zu Kopfhaut, Haar und Ihren Wünschen." },
+    { title: "Reinigen", text: "Sanfte Tiefenreinigung von Kopfhaut und Haar mit warmem Wasser." },
+    { title: "Massage", text: "Entspannende Massage von Kopf, Nacken und Schultern." },
+    { title: "Pflege", text: "Nährende Pflege für glänzendes Haar und eine ausgeglichene Kopfhaut." },
+  ],
+  benefits: ["Tiefenentspannung & Stressabbau", "Gesunde, ausgeglichene Kopfhaut", "Glänzendes, gepflegtes Haar", "Ideal als Geschenk"],
+  price: "Preis auf Anfrage",
+};
 
 export type PriceGroup = { title: string; note?: string; items: [string, string][] };
 

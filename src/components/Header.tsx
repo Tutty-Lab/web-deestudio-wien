@@ -5,9 +5,9 @@ import Link from "next/link";
 import { STUDIOS } from "@/data/site";
 import { useBooking } from "./BookingProvider";
 
-type Props = { base: string; overHero?: boolean };
+type Props = { overHero?: boolean };
 
-export default function Header({ base, overHero = false }: Props) {
+export default function Header({ overHero = false }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { openBooking } = useBooking();
@@ -34,12 +34,13 @@ export default function Header({ base, overHero = false }: Props) {
       <header className={`header ${state}`}>
         <div className="wrap header-inner">
           <nav className="nav" aria-label="Hauptnavigation">
+            <Link href="/head-spa">Head Spa</Link>
             {STUDIOS.map((s) => (
-              <Link key={s.slug} href={`${base}/studio/${s.slug}`}>
+              <Link key={s.slug} href={`/studio/${s.slug}`}>
                 {s.location}
               </Link>
             ))}
-            <Link href={`${base}/preise`}>Preise</Link>
+            <Link href="/preise">Preise</Link>
           </nav>
           <button
             className={`burger ${open ? "open" : ""}`}
@@ -52,7 +53,7 @@ export default function Header({ base, overHero = false }: Props) {
             <span />
           </button>
 
-          <Link href={base} className="logo" onClick={close}>
+          <Link href="/" className="logo" onClick={close}>
             Dee Studio
             <small>Wien</small>
           </Link>
@@ -74,15 +75,18 @@ export default function Header({ base, overHero = false }: Props) {
       </header>
 
       <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
-        <Link className="big" href={base} onClick={close}>
+        <Link className="big" href="/" onClick={close}>
           Start
         </Link>
+        <Link className="big" href="/head-spa" onClick={close}>
+          Head Spa
+        </Link>
         {STUDIOS.map((s) => (
-          <Link key={s.slug} className="big" href={`${base}/studio/${s.slug}`} onClick={close}>
+          <Link key={s.slug} className="big" href={`/studio/${s.slug}`} onClick={close}>
             {s.location}
           </Link>
         ))}
-        <Link className="big" href={`${base}/preise`} onClick={close}>
+        <Link className="big" href="/preise" onClick={close}>
           Preise
         </Link>
         <button

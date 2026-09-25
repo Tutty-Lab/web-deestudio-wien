@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Josefin_Sans, Montserrat, Cormorant_Garamond } from "next/font/google";
+import BookingProvider from "@/components/BookingProvider";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const display = Josefin_Sans({
@@ -38,6 +40,7 @@ export const metadata: Metadata = {
     "Pediküre Wien",
   ],
   icons: { icon: "/favicon.png" },
+  // Remove before pointing the real domain here; keeps the vercel.app preview out of search results.
   robots: { index: false, follow: false },
   openGraph: {
     title: "Dee Studio | Nails, Lashes & Head Spa in Wien",
@@ -51,7 +54,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={`${display.variable} ${body.variable} ${serif.variable}`}>
-      <body>{children}</body>
+      <body>
+        <div className="site">
+          <BookingProvider>
+            {children}
+            <Footer />
+          </BookingProvider>
+        </div>
+      </body>
     </html>
   );
 }
