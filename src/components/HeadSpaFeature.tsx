@@ -30,7 +30,7 @@ export default function HeadSpaFeature({ showMore = true }: { showMore?: boolean
               <li key={b}>{b}</li>
             ))}
           </ul>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36 }}>
+          <div className="cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36 }}>
             <BookButton studio={HEAD_SPA.studio} className="btn btn-solid">
               Head Spa buchen
             </BookButton>

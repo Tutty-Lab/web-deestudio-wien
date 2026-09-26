@@ -42,7 +42,7 @@ export default function StudioInfo({ studio, showMap = true }: { studio: Studio;
           ))}
         </ul>
       )}
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div className="cta-row" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         <BookButton studio={studio.slug} className="btn btn-solid" />
         <a
           className="btn"

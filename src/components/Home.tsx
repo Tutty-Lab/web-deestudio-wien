@@ -51,7 +51,7 @@ export default function Home() {
               <br />
               Dee Studio!
             </h1>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+            <div className="cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
               <BookButton className="btn" />
               <a className="btn" href="#studios">
                 Unsere Studios

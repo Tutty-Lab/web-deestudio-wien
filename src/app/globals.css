@@ -940,3 +940,94 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Fixes: contrast & touch ---------- */
+/* Solid buttons flip to white on black sections so they stay visible. */
+.section-invert .btn-solid,
+.on-dark .btn-solid {
+  background: #fff;
+  color: #0a0a0a;
+  border-color: #fff;
+}
+.section-invert .btn-solid:hover,
+.on-dark .btn-solid:hover {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.theme-dark .section-invert .btn-solid {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #0a0a0a;
+}
+
+/* Larger hit areas without changing the look. */
+.info-list a,
+.link-arrow {
+  position: relative;
+}
+.burger::before,
+.info-list a::before,
+.link-arrow::before {
+  content: "";
+  position: absolute;
+  inset: -12px -8px;
+}
+
+@media (max-width: 720px) {
+  .studio-card {
+    aspect-ratio: 5 / 6;
+  }
+  .studio-card-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .gal-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 22px;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+  .gal-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .gal-tabs button {
+    flex: none;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .info-grid {
+    gap: 72px;
+  }
+  .info-grid > * + * {
+    border-top: 1px solid var(--line);
+    padding-top: 56px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cta-row {
+    flex-direction: column;
+    align-items: stretch !important;
+    width: 100%;
+  }
+  .cta-row > .btn {
+    width: 100%;
+  }
+  .headspa-benefits li {
+    padding: 14px 0;
+  }
+}
+@media (max-width: 360px) {
+  .hero-badge {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 8px 12px;
+  }
+}

@@ -67,7 +67,7 @@ export default async function StudioPage({ params }: Params) {
                 {s.location}
               </span>
             </h1>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div className="cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <BookButton studio={s.slug} className="btn" />
               <a className="btn" href={s.phoneHref}>
                 {s.phone}
