@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import BookButton from "./BookButton";
-import { HEAD_SPA } from "@/data/site";
+import { HEAD_SPA, studioPath } from "@/data/site";
 
 export default function HeadSpaFeature({ showMore = true }: { showMore?: boolean }) {
   return (
@@ -28,7 +28,7 @@ export default function HeadSpaFeature({ showMore = true }: { showMore?: boolean
               Head Spa buchen
             </BookButton>
             {showMore && (
-              <Link href="/head-spa" className="btn btn-outline-light">
+              <Link href={studioPath(HEAD_SPA.studio, "head-spa")} className="btn btn-outline-light">
                 Mehr erfahren
               </Link>
             )}

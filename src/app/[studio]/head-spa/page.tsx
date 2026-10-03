@@ -1,27 +1,43 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
-import { HEAD_SPA, getStudio } from "@/data/site";
+import { HEAD_SPA, STUDIOS, getStudio, studioPath } from "@/data/site";
 
-export const metadata: Metadata = {
-  title: "Head Spa Wien | Dee Studio Neubaugürtel",
-  description:
-    "Head Spa in Wien bei Dee Studio am Neubaugürtel: Reinigung, Massage und Pflege für Kopfhaut und Haar. Tiefenentspannung, jetzt online buchen.",
-  alternates: { canonical: "/head-spa" },
-};
+export const dynamicParams = false;
 
-export default function HeadSpaPage() {
-  const studio = getStudio(HEAD_SPA.studio)!;
+// Only studios that offer Head Spa get this page.
+export function generateStaticParams() {
+  return STUDIOS.filter((s) => s.headSpa).map((s) => ({ studio: s.slug }));
+}
+
+type Params = { params: Promise<{ studio: string }> };
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const s = getStudio((await params).studio);
+  if (!s) return {};
+  return {
+    title: `Head Spa Wien | ${s.brand} ${s.location}`,
+    description:
+      "Head Spa in Wien bei Dee Studio am Neubaugürtel: Reinigung, Massage und Pflege für Kopfhaut und Haar. Tiefenentspannung, jetzt online buchen.",
+    alternates: { canonical: studioPath(s, "head-spa") },
+  };
+}
+
+export default async function HeadSpaPage({ params }: Params) {
+  const studio = getStudio((await params).studio);
+  if (!studio?.headSpa) notFound();
 
   return (
     <>
-      <Header />
+      <Header studio={studio} />
       <main>
         <PageHead
+          home={{ label: studio.brand, href: studioPath(studio) }}
           crumbs={[{ label: "Head Spa" }]}
           eyebrow={`Exklusiv bei ${studio.brand}, ${studio.location}`}
           title="Head Spa"
@@ -92,7 +108,7 @@ export default function HeadSpaPage() {
               </h2>
               <p className="lead">{studio.intro}</p>
               <div className="media" style={{ aspectRatio: "4 / 3", marginTop: 32 }}>
-                <Image src={HEAD_SPA.images[1]} alt="Dee Studio Neubaugürtel" fill sizes="(max-width: 860px) 100vw, 50vw" />
+                <Image src={studio.cover} alt={`${studio.brand} ${studio.location}`} fill sizes="(max-width: 860px) 100vw, 50vw" />
               </div>
             </Reveal>
             <Reveal delay={100}>

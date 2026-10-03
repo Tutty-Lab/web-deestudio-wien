@@ -116,7 +116,6 @@ export type Style = {
   description: string;
   intro: string[];
   price: { label: string; value: string };
-  studio?: string;
   faqs: { q: string; a: string }[];
   related: string[];
 };
@@ -154,7 +153,7 @@ export const STYLES: Style[] = [
     h1: "Chrome Nails in Wien",
     title: "Chrome Nails Wien | Glazed & Metallic | Dee Studio",
     description:
-      "Chrome Nails in Wien: Glazed Donut Nails, Silber, Metallic-Effekte und Chrome-Akzente auf jeder Länge. Bei Dee Studio im 15. und 3. Bezirk.",
+      "Chrome Nails in Wien: Glazed Donut Nails, Silber, Metallic-Effekte und Chrome-Akzente auf jeder Länge. Bei Dee Studio am Neubaugürtel, 1150 Wien.",
     intro: [
       "Chrome Nails glänzen wie poliertes Metall oder schimmern zart wie Perlmutt. Der Effekt entsteht durch ein feines Chrome-Pulver, das auf die Farbe eingearbeitet wird.",
       "Bei uns reicht die Auswahl vom dezenten Glazed Look auf kurzen Nägeln bis zu silbernen XXL Designs mit Struktur. Chrome lässt sich mit fast jeder Farbe und jedem Design kombinieren.",
@@ -229,7 +228,7 @@ export const STYLES: Style[] = [
     h1: "Acrylnägel in Wien",
     title: "Acrylnägel Wien | Neues Set & Auffüllen | Dee Studio",
     description:
-      "Acrylnägel in Wien: neues Set ab 50 €, Auffüllen ab 42 €. Natürlich, mit Farbe, French oder Ombré. Dee Studio, Neubaugürtel und Fasangasse.",
+      "Acrylnägel in Wien: neues Set ab 50 €, Auffüllen ab 42 €. Natürlich, mit Farbe, French oder Ombré. Dee Studio am Neubaugürtel.",
     intro: [
       "Acrylnägel sind robust, vielseitig und die Basis für fast jedes Design. Wir modellieren Ihr neues Set auf Tips in der Form und Länge, die zu Ihren Händen passt.",
       "Damit Ihre Nägel lange schön bleiben, empfehlen wir nach 3 bis 4 Wochen ein Auffüllen. Dabei wird der nachgewachsene Bereich aufgefüllt und das Design aufgefrischt.",
@@ -285,7 +284,6 @@ export const STYLES: Style[] = [
       "Ob natürlicher Look für den Alltag oder dichtes Volumen für den großen Auftritt: Wir beraten Sie vorab, welcher Stil zu Ihnen passt.",
     ],
     price: { label: "Wimpernverlängerung", value: "auf Anfrage" },
-    studio: "neubauguertel",
     faqs: [
       {
         q: "Wie lange hält eine Wimpernverlängerung?",

@@ -1,21 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { STUDIOS } from "@/data/site";
+import { STUDIOS, studioPath, type Studio } from "@/data/site";
 import { useBooking } from "./BookingProvider";
 
-type Props = { transparent?: boolean };
+type Props = {
+  /** The studio sub-site this header belongs to; omitted on the landing page. */
+  studio?: Studio;
+  transparent?: boolean;
+};
 
-export default function Header({ transparent = false }: Props) {
+function navFor(s: Studio) {
+  return [
+    { href: studioPath(s), label: "Start", exact: true },
+    ...(s.headSpa ? [{ href: studioPath(s, "head-spa"), label: "Head Spa" }] : []),
+    ...(s.gallery ? [{ href: studioPath(s, "galerie"), label: "Galerie" }] : []),
+    { href: studioPath(s, "preise"), label: "Preise" },
+    { href: `${studioPath(s)}#kontakt`, label: "Kontakt", anchor: true },
+  ];
+}
+
+export default function Header({ studio, transparent = false }: Props) {
   const pathname = usePathname();
   const { openBooking } = useBooking();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [studiosOpen, setStudiosOpen] = useState(false);
   const [showBar, setShowBar] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,146 +46,92 @@ export default function Header({ transparent = false }: Props) {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    if (!studiosOpen) return;
-    const onDown = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) setStudiosOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setStudiosOpen(false);
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [studiosOpen]);
-
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
-  const current = (href: string) => (isActive(href) ? "page" : undefined);
-  const closeAll = () => {
-    setMenuOpen(false);
-    setStudiosOpen(false);
-  };
-
+  const nav = studio ? navFor(studio) : [];
+  const isActive = (item: { href: string; exact?: boolean; anchor?: boolean }) =>
+    !item.anchor && (item.exact ? pathname === item.href : pathname.startsWith(item.href));
+  const others = STUDIOS.filter((s) => s.slug !== studio?.slug);
+  const close = () => setMenuOpen(false);
   const variant = menuOpen ? "menu-open" : transparent && !scrolled ? "transparent" : "";
 
   return (
     <>
       <header className={`header ${variant}`}>
         <div className="wrap header-inner">
-          <Link href="/" className="logo" aria-label="Dee Studio Startseite" onClick={closeAll}>
-            Dee Studio
-            <small>Wien</small>
+          <Link
+            href={studio ? studioPath(studio) : "/"}
+            className="logo"
+            aria-label={studio ? `${studio.brand} Startseite` : "Dee Studio Wien"}
+            onClick={close}
+          >
+            {studio ? studio.brand : "Dee Studio"}
+            <small>{studio ? studio.location : "Wien"}</small>
           </Link>
 
-          <nav className="nav" aria-label="Hauptnavigation">
-            <Link href="/" className={`nav-link ${isActive("/") ? "active" : ""}`} aria-current={current("/")}>
-              Start
-            </Link>
-            <Link
-              href="/head-spa"
-              className={`nav-link ${isActive("/head-spa") ? "active" : ""}`}
-              aria-current={current("/head-spa")}
-            >
-              Head Spa
-            </Link>
-            <div ref={dropdownRef} className={`nav-item ${studiosOpen ? "open" : ""}`}>
-              <button
-                className={`nav-link ${isActive("/studio") ? "active" : ""}`}
-                aria-expanded={studiosOpen}
-                aria-haspopup="true"
-                onClick={() => setStudiosOpen(!studiosOpen)}
-              >
-                Studios <span className="caret" aria-hidden="true" />
-              </button>
-              <div className="dropdown">
-                {STUDIOS.map((s) => (
-                  <Link
-                    key={s.slug}
-                    href={`/studio/${s.slug}`}
-                    className={isActive(`/studio/${s.slug}`) ? "active" : ""}
-                    aria-current={current(`/studio/${s.slug}`)}
-                    onClick={closeAll}
-                  >
-                    <strong>{s.brand}</strong>
-                    <span>
-                      {s.street}, {s.city}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <Link
-              href="/galerie"
-              className={`nav-link ${isActive("/galerie") ? "active" : ""}`}
-              aria-current={current("/galerie")}
-            >
-              Galerie
-            </Link>
-            <Link
-              href="/preise"
-              className={`nav-link ${isActive("/preise") ? "active" : ""}`}
-              aria-current={current("/preise")}
-            >
-              Preise
-            </Link>
-          </nav>
+          {studio && (
+            <nav className="nav" aria-label="Hauptnavigation">
+              {nav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-link ${isActive(item) ? "active" : ""}`}
+                  aria-current={isActive(item) ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          )}
 
-          <button className={`btn btn-sm header-cta ${variant === "transparent" ? "btn-outline-light" : "btn-primary"}`} onClick={() => openBooking()}>
+          <button
+            className={`btn btn-sm header-cta ${variant === "transparent" ? "btn-outline-light" : "btn-primary"}`}
+            onClick={() => openBooking(studio?.slug)}
+          >
             Termin buchen
           </button>
 
-          <button
-            className={`burger ${menuOpen ? "open" : ""}`}
-            aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          {studio && (
+            <button
+              className={`burger ${menuOpen ? "open" : ""}`}
+              aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          )}
         </div>
       </header>
 
-      <nav className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-label="Mobile Navigation" aria-hidden={!menuOpen}>
-        <Link className={`m-link ${isActive("/") ? "active" : ""}`} href="/" onClick={closeAll}>
-          Start
-        </Link>
-        <Link className={`m-link ${isActive("/head-spa") ? "active" : ""}`} href="/head-spa" onClick={closeAll}>
-          Head Spa
-        </Link>
-        <Link className={`m-link ${isActive("/galerie") ? "active" : ""}`} href="/galerie" onClick={closeAll}>
-          Galerie
-        </Link>
-        <Link className={`m-link ${isActive("/preise") ? "active" : ""}`} href="/preise" onClick={closeAll}>
-          Preise
-        </Link>
-        <p className="eyebrow group-label">Studios</p>
-        {STUDIOS.map((s) => (
-          <Link
-            key={s.slug}
-            className={`m-link ${isActive(`/studio/${s.slug}`) ? "active" : ""}`}
-            href={`/studio/${s.slug}`}
-            onClick={closeAll}
+      {studio && (
+        <nav className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-label="Mobile Navigation" aria-hidden={!menuOpen}>
+          {nav.map((item) => (
+            <Link key={item.href} className={`m-link ${isActive(item) ? "active" : ""}`} href={item.href} onClick={close}>
+              {item.label}
+            </Link>
+          ))}
+          <p className="eyebrow group-label">Unsere anderen Studios</p>
+          {others.map((s) => (
+            <Link key={s.slug} className="m-link" href={studioPath(s)} onClick={close}>
+              {s.brand}
+              <small>{s.district}</small>
+            </Link>
+          ))}
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              close();
+              openBooking(studio.slug);
+            }}
           >
-            {s.brand}
-            <small>{s.district}</small>
-          </Link>
-        ))}
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            closeAll();
-            openBooking();
-          }}
-        >
-          Termin buchen
-        </button>
-      </nav>
+            Termin buchen
+          </button>
+        </nav>
+      )}
 
       <div className={`mobile-cta ${showBar && !menuOpen ? "show" : ""}`}>
-        <button className="btn btn-primary" onClick={() => openBooking()}>
+        <button className="btn btn-primary" onClick={() => openBooking(studio?.slug)}>
           Termin buchen
         </button>
       </div>

@@ -19,9 +19,9 @@ export function salonLd(s: Studio) {
   return {
     "@context": "https://schema.org",
     "@type": "NailSalon",
-    "@id": `${SITE.url}/studio/${s.slug}#salon`,
+    "@id": `${SITE.url}/${s.slug}#salon`,
     name: s.brand,
-    url: `${SITE.url}/studio/${s.slug}`,
+    url: `${SITE.url}/${s.slug}`,
     image: `${SITE.url}${s.cover}`,
     telephone: s.phone.replace(/\s/g, ""),
     ...(s.email ? { email: s.email } : {}),

@@ -8,16 +8,23 @@ Khách đã chốt phương án A (Classic).
 | Neubaugürtel | Dee Studio (có Head Spa) | Neubaugürtel 23a, 1150 Wien | +43 660 6868888 | Treatwell `dee-studio` |
 | Fasangasse | Vanilla by Dee / Hi Nails | Fasangasse 32, 1030 Wien | +43 660 9333999 | Treatwell `hi-nails-salon` |
 
-## Routes
+## Cấu trúc
 
-- `/`: trang chủ, khối Head Spa nổi bật ngay dưới hero
-- `/head-spa`: landing page Head Spa (chỉ có ở Dee Studio Neubaugürtel)
-- `/studio/neubauguertel`, `/studio/fasangasse`: trang từng tiệm (JSON-LD NailSalon)
-- `/galerie`: tổng hợp mẫu móng
-- `/galerie/{stil}`: 7 trang SEO theo kiểu móng: french-nails-wien, chrome-nails-wien, nail-art-wien,
-  xxl-naegel-wien, acrylnaegel-wien, babyboomer-naegel-wien, wimpernverlaengerung-wien
-- `/preise`: bảng giá
+Trang chủ là trang giới thiệu chung; mỗi studio là một site con riêng, có menu, footer và nút đặt lịch riêng.
+
+- `/`: giới thiệu Dee Studio Wien + 2 thẻ chọn studio
+- `/dee-studio`: Dee Studio, Neubaugürtel (Nails, Lashes, Head Spa)
+  - `/dee-studio/head-spa`
+  - `/dee-studio/galerie` và 7 trang SEO `/dee-studio/galerie/{stil}`: french-nails-wien, chrome-nails-wien,
+    nail-art-wien, xxl-naegel-wien, acrylnaegel-wien, babyboomer-naegel-wien, wimpernverlaengerung-wien
+  - `/dee-studio/preise`
+- `/vanilla-by-dee`: Vanilla by Dee, Fasangasse (Nails, Pediküre)
+  - `/vanilla-by-dee/preise`
 - `/sitemap.xml`, `/robots.txt`: sinh tự động
+
+Mỗi studio trong `STUDIOS` (`src/data/site.ts`) tự bật các trang của mình:
+`headSpa: true` thì có trang Head Spa, `gallery: true` thì có Galerie và các trang SEO,
+`services` quyết định dịch vụ hiển thị. Khi Vanilla có ảnh riêng, bật `gallery` là có ngay galerie.
 
 Nội dung: `src/data/site.ts` (studio, dịch vụ, Head Spa, giá, FAQ) và `src/data/gallery.ts` (ảnh + trang SEO).
 
@@ -56,6 +63,7 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 - Thêm ảnh cho từng kiểu móng, đặc biệt Chrome (2 ảnh), French, Babyboomer, Wimpern (3 ảnh).
   Trang SEO càng nhiều ảnh thật càng tốt.
 - Giá Head Spa và Lashes.
+- Bảng giá của Vanilla by Dee: hiện dùng chung bảng giá của Dee Studio, cần khách xác nhận.
 
 ## Ghi chú pháp lý
 

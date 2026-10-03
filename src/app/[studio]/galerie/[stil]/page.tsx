@@ -9,57 +9,60 @@ import FAQ from "@/components/FAQ";
 import BookButton from "@/components/BookButton";
 import JsonLd, { breadcrumbLd, faqLd } from "@/components/JsonLd";
 import { STYLES, getStyle, imagesForStyle } from "@/data/gallery";
-import { STUDIOS, getStudio } from "@/data/site";
+import { STUDIOS, getStudio, studioPath } from "@/data/site";
 import { soft } from "@/lib/text";
 
 export const dynamicParams = false;
 
+// Style pages live under studios that have their own gallery.
 export function generateStaticParams() {
-  return STYLES.map((s) => ({ stil: s.slug }));
+  return STUDIOS.filter((st) => st.gallery).flatMap((st) => STYLES.map((s) => ({ studio: st.slug, stil: s.slug })));
 }
 
-type Params = { params: Promise<{ stil: string }> };
+type Params = { params: Promise<{ studio: string; stil: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const s = getStyle((await params).stil);
+  const { studio, stil } = await params;
+  const s = getStyle(stil);
   if (!s) return {};
   const cover = imagesForStyle(s.slug)[0];
   return {
     title: s.title,
     description: s.description,
-    alternates: { canonical: `/galerie/${s.slug}` },
+    alternates: { canonical: studioPath(studio, `galerie/${s.slug}`) },
     openGraph: { title: s.title, description: s.description, images: cover ? [cover.src] : undefined },
   };
 }
 
 export default async function StylePage({ params }: Params) {
-  const { stil } = await params;
+  const { studio: studioSlug, stil } = await params;
   const s = getStyle(stil);
-  if (!s) notFound();
+  const st = getStudio(studioSlug);
+  if (!s || !st?.gallery) notFound();
+  const galerie = studioPath(st, "galerie");
   const images = imagesForStyle(s.slug);
-  const studios = s.studio ? STUDIOS.filter((st) => st.slug === s.studio) : STUDIOS;
-  const bookStudio = s.studio ? getStudio(s.studio)?.slug : undefined;
 
   return (
     <>
-      <Header />
+      <Header studio={st} />
       <JsonLd
         data={breadcrumbLd([
-          { name: "Start", path: "/" },
-          { name: "Galerie", path: "/galerie" },
-          { name: s.name, path: `/galerie/${s.slug}` },
+          { name: st.brand, path: studioPath(st) },
+          { name: "Galerie", path: galerie },
+          { name: s.name, path: `${galerie}/${s.slug}` },
         ])}
       />
       <JsonLd data={faqLd(s.faqs)} />
       <main>
         <PageHead
-          crumbs={[{ label: "Galerie", href: "/galerie" }, { label: s.name }]}
-          eyebrow={`${images.length} Beispiele aus unseren Studios`}
+          home={{ label: st.brand, href: studioPath(st) }}
+          crumbs={[{ label: "Galerie", href: galerie }, { label: s.name }]}
+          eyebrow={`${images.length} Beispiele von ${st.brand}`}
           title={soft(s.h1)}
           intro={s.intro[0]}
         >
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <BookButton studio={bookStudio} />
+            <BookButton studio={st.slug} />
           </div>
         </PageHead>
 
@@ -82,7 +85,7 @@ export default async function StylePage({ params }: Params) {
         <section className="section section-alt">
           <div className="wrap split top">
             <Reveal>
-              <p className="eyebrow">{soft(s.name)} bei Dee Studio</p>
+              <p className="eyebrow">{soft(s.name)} bei {st.brand}</p>
               <h2 className="display h-lg" style={{ margin: "14px 0 24px" }}>
                 Was Sie erwartet
               </h2>
@@ -100,11 +103,11 @@ export default async function StylePage({ params }: Params) {
                   <span className="val">{s.price.value}</span>
                 </div>
                 <p className="price-note" style={{ marginTop: 12 }}>
-                  Erhältlich in: {studios.map((st) => `${st.brand} (${st.district})`).join(", ")}
+                  {st.brand}, {st.street}, {st.city}
                 </p>
                 <div className="btn-row" style={{ marginTop: 24 }}>
-                  <BookButton studio={bookStudio} />
-                  <Link href="/preise" className="btn btn-secondary">
+                  <BookButton studio={st.slug} />
+                  <Link href={studioPath(st, "preise")} className="btn btn-secondary">
                     Alle Preise
                   </Link>
                 </div>
@@ -137,7 +140,7 @@ export default async function StylePage({ params }: Params) {
                 const img = imagesForStyle(slug)[0];
                 return (
                   <li key={slug}>
-                    <Link href={`/galerie/${slug}`} className="style-card group">
+                    <Link href={`${galerie}/${slug}`} className="style-card group">
                       <div className="media bw zoom">
                         <Image src={img.src} alt={img.alt} fill sizes="(max-width: 600px) 50vw, 25vw" />
                       </div>
@@ -148,7 +151,7 @@ export default async function StylePage({ params }: Params) {
               })}
             </ul>
             <div className="btn-row" style={{ marginTop: 40 }}>
-              <Link href="/galerie" className="btn btn-secondary">
+              <Link href={galerie} className="btn btn-secondary">
                 Zur Galerie
               </Link>
             </div>

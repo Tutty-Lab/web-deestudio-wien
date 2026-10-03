@@ -1,4 +1,5 @@
 export type Studio = {
+  /** URL segment of the studio's own sub-site, e.g. /dee-studio */
   slug: string;
   brand: string;
   location: string;
@@ -12,14 +13,22 @@ export type Studio = {
   mapQuery: string;
   hours: { days: string; time: string }[];
   transit?: string[];
+  tagline: string;
   intro: string;
+  about: string[];
+  hero: string;
   cover: string;
   interior: string[];
+  /** Keys from SERVICES offered here. */
+  services: string[];
+  headSpa?: boolean;
+  /** Has its own gallery and SEO style pages. */
+  gallery?: boolean;
 };
 
 export const STUDIOS: Studio[] = [
   {
-    slug: "neubauguertel",
+    slug: "dee-studio",
     brand: "Dee Studio",
     location: "Neubaugürtel",
     district: "1150 Wien",
@@ -40,13 +49,22 @@ export const STUDIOS: Studio[] = [
       "Straßenbahn 6, 9, 18, 49 bis Urban-Loritz-Platz",
       "5 Minuten vom Westbahnhof",
     ],
+    tagline: "Nails, Lashes & Head Spa",
     intro:
       "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
+    about: [
+      "Bei Dee Studio beginnt Schönheit mit Pflege. Unsere Artists arbeiten mit aktuellen Techniken und hochwertigen Produkten, für Nail Art, die Ihre Persönlichkeit zeigt.",
+      "Neu bei uns: der Head Spa. Eine Auszeit für Kopf und Seele, nur wenige Minuten vom Westbahnhof.",
+    ],
+    hero: "/images/nails/chrome-nails-silber-xxl-wien.webp",
     cover: "/images/studio/dee-studio-neubauguertel-innen.webp",
     interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
+    services: ["nails", "head-spa", "lashes", "pedicure"],
+    headSpa: true,
+    gallery: true,
   },
   {
-    slug: "fasangasse",
+    slug: "vanilla-by-dee",
     brand: "Vanilla by Dee",
     location: "Fasangasse",
     district: "1030 Wien",
@@ -61,11 +79,17 @@ export const STUDIOS: Studio[] = [
       { days: "Samstag", time: "09:00 - 18:00" },
       { days: "Sonntag", time: "Geschlossen" },
     ],
-    intro:
-      "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
+    tagline: "Nails & Pediküre",
+    intro: "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
+    about: [
+      "Vanilla by Dee bringt die Handschrift von Dee Studio in den dritten Bezirk. Sorgfältige Maniküre, kreatives Nageldesign und gepflegte Füße.",
+      "Ob schneller Shellac in der Mittagspause oder ein neues Set mit Nail Art: Wir nehmen uns Zeit für Sie.",
+    ],
     // No photos of this studio yet: nail work stands in until the client sends interior shots.
+    hero: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
     cover: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
     interior: ["/images/nails/chrome-glazed-nails-natur-wien.webp", "/images/nails/acrylnaegel-modellage-wien.jpg"],
+    services: ["nails", "pedicure"],
   },
 ];
 
@@ -76,6 +100,12 @@ export const SITE = {
 };
 
 export const getStudio = (slug: string) => STUDIOS.find((s) => s.slug === slug);
+
+/** Path inside a studio sub-site, e.g. studioPath(s, "preise") gives /dee-studio/preise */
+export const studioPath = (s: Studio | string, sub = "") => {
+  const slug = typeof s === "string" ? s : s.slug;
+  return sub ? `/${slug}/${sub}` : `/${slug}`;
+};
 
 export type Service = {
   key: string;
@@ -118,7 +148,7 @@ export const SERVICES: Service[] = [
 
 // Head Spa is offered at Dee Studio (Neubaugürtel) and is the service the client wants to promote.
 export const HEAD_SPA = {
-  studio: "neubauguertel",
+  studio: "dee-studio",
   title: "Head Spa",
   tagline: "Relax. Refresh. Glow.",
   lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar, während Sie ganz abschalten.",

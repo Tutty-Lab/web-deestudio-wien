@@ -3,6 +3,8 @@ import Link from "next/link";
 type Crumb = { label: string; href?: string };
 
 type Props = {
+  /** First breadcrumb, normally the studio's own start page. */
+  home?: { label: string; href: string };
   crumbs: Crumb[];
   eyebrow?: string;
   title: React.ReactNode;
@@ -11,14 +13,14 @@ type Props = {
 };
 
 /** Header block for every sub page: breadcrumb trail + page title, so visitors always know where they are. */
-export default function PageHead({ crumbs, eyebrow, title, intro, children }: Props) {
+export default function PageHead({ home = { label: "Start", href: "/" }, crumbs, eyebrow, title, intro, children }: Props) {
   return (
     <section className="page-head">
       <div className="wrap">
         <nav aria-label="Brotkrümelnavigation">
           <ol className="crumbs">
             <li>
-              <Link href="/">Start</Link>
+              <Link href={home.href}>{home.label}</Link>
             </li>
             {crumbs.map((c, i) =>
               c.href && i < crumbs.length - 1 ? (
