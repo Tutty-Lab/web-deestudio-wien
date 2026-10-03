@@ -14,9 +14,7 @@ export default function FAQ() {
           <div key={item.q} className={`faq-item ${isOpen ? "open" : ""}`}>
             <button className="faq-q" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}>
               <span>{item.q}</span>
-              <span className="plus" aria-hidden="true">
-                +
-              </span>
+              <span className="plus" aria-hidden="true" />
             </button>
             <div className="faq-a">
               <div>

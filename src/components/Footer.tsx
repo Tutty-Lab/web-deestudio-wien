@@ -7,21 +7,22 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer-top">
           <div>
-            <div className="logo" style={{ justifySelf: "start", textAlign: "left", fontSize: 24 }}>
+            <Link href="/" className="logo" style={{ fontSize: 22 }}>
               Dee Studio
-            </div>
-            <p style={{ marginTop: 20, maxWidth: 320, color: "#a8a8a4" }}>
-              Nails · Lashes · Head Spa. Zwei Studios, ein Anspruch – Relax. Refresh. Glow.
+              <small>Wien</small>
+            </Link>
+            <p style={{ marginTop: 24, maxWidth: 300, color: "#a3a3a0" }}>
+              Nails, Lashes und Head Spa. Zwei Studios in Wien.
             </p>
-            <p style={{ marginTop: 20 }}>
+            <p style={{ marginTop: 16 }}>
               <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-                @dee.studio.wien
+                Instagram @dee.studio.wien
               </a>
             </p>
           </div>
           {STUDIOS.map((s) => (
             <div key={s.slug}>
-              <h4>{s.brand}</h4>
+              <h2>{s.brand}</h2>
               <ul>
                 <li>{s.street}</li>
                 <li>{s.city}</li>
@@ -34,13 +35,15 @@ export default function Footer() {
                   </li>
                 )}
                 <li style={{ marginTop: 8 }}>
-                  <Link href={`/studio/${s.slug}`}>Studio ansehen →</Link>
+                  <Link href={`/studio/${s.slug}`} style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
+                    Studio ansehen
+                  </Link>
                 </li>
               </ul>
             </div>
           ))}
           <div>
-            <h4>Öffnungszeiten</h4>
+            <h2>Öffnungszeiten</h2>
             <ul>
               {STUDIOS[0].hours.map((h) => (
                 <li key={h.days}>
@@ -52,10 +55,10 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Dee Studio Wien</span>
-          <span style={{ display: "flex", gap: 24 }}>
+          <nav aria-label="Rechtliches">
             <a href="#">Impressum</a>
             <a href="#">Datenschutz</a>
-          </span>
+          </nav>
         </div>
       </div>
     </footer>

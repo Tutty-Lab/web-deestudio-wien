@@ -1,26 +1,24 @@
 import type { Studio } from "@/data/site";
 import BookButton from "./BookButton";
+import MapEmbed from "./MapEmbed";
 
-export function mapSrc(s: Studio) {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(s.mapQuery)}&z=16&output=embed`;
-}
+type Props = { studio: Studio; showMap?: boolean; showTitle?: boolean };
 
-export default function StudioInfo({ studio, showMap = true }: { studio: Studio; showMap?: boolean }) {
+export default function StudioInfo({ studio, showMap = true, showTitle = true }: Props) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-      <div>
-        <p className="eyebrow" style={{ margin: 0 }}>
-          {studio.district}
-        </p>
-        <h3 className="display h-md" style={{ margin: "12px 0 0" }}>
-          {studio.brand}
-        </h3>
-        <p style={{ margin: "6px 0 0", color: "var(--muted)" }}>{studio.location}</p>
-      </div>
+    <div className="info-block">
+      {showTitle && (
+        <div>
+          <p className="eyebrow">{studio.district}</p>
+          <h3 className="display h-md" style={{ marginTop: 10 }}>
+            {studio.brand}
+          </h3>
+        </div>
+      )}
       <ul className="info-list">
         <li>
           <span>Adresse</span>
-          <span style={{ textAlign: "right" }}>
+          <span>
             {studio.street}, {studio.city}
           </span>
         </li>
@@ -36,26 +34,24 @@ export default function StudioInfo({ studio, showMap = true }: { studio: Studio;
         ))}
       </ul>
       {studio.transit && (
-        <ul className="info-list" style={{ fontSize: 14, color: "var(--muted)" }}>
+        <ul className="info-list plain">
           {studio.transit.map((t) => (
             <li key={t}>{t}</li>
           ))}
         </ul>
       )}
-      <div className="cta-row" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <BookButton studio={studio.slug} className="btn btn-solid" />
+      <div className="btn-row">
+        <BookButton studio={studio.slug} className="btn btn-primary" />
         <a
-          className="btn"
+          className="btn btn-secondary"
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(studio.mapQuery)}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Route
+          Route planen
         </a>
       </div>
-      {showMap && (
-        <iframe className="map" title={`Karte ${studio.brand}`} src={mapSrc(studio)} loading="lazy" />
-      )}
+      {showMap && <MapEmbed query={studio.mapQuery} title={`Karte ${studio.brand}`} />}
     </div>
   );
 }

@@ -20,7 +20,11 @@ export default function BookingProvider({ children }: { children: React.ReactNod
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const list = focus ? STUDIOS.filter((s) => s.slug === focus) : STUDIOS;
@@ -30,31 +34,29 @@ export default function BookingProvider({ children }: { children: React.ReactNod
       {children}
       {open && (
         <div className="modal-backdrop" onClick={() => setOpen(false)}>
-          <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" aria-label="Schließen" onClick={() => setOpen(false)}>
-              ×
-            </button>
+          <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close" aria-label="Schließen" onClick={() => setOpen(false)} />
             <p className="eyebrow">Termin buchen</p>
-            <h2 className="display h-md" style={{ margin: "12px 0 0" }}>
+            <h2 id="booking-title" className="display h-md">
               {focus ? list[0].brand : "Wählen Sie Ihr Studio"}
             </h2>
-            <div className="modal-grid" style={focus ? { gridTemplateColumns: "1fr" } : undefined}>
+            <div className={`modal-grid ${focus ? "single" : ""}`}>
               {list.map((s) => (
                 <div key={s.slug} className="modal-opt">
-                  <div>
-                    <p className="eyebrow" style={{ margin: 0 }}>
-                      {s.district}
-                    </p>
-                    <h3 className="display h-sm" style={{ margin: "8px 0 4px" }}>
-                      {s.brand}
-                    </h3>
-                    <p style={{ margin: 0, fontSize: 14, color: "#6b6b6b" }}>{s.street}</p>
-                  </div>
-                  <a className="btn btn-solid" href={s.booking} target="_blank" rel="noopener noreferrer">
+                  <p className="eyebrow">{s.district}</p>
+                  <h3 className="display h-sm">{s.brand}</h3>
+                  <p>{s.street}</p>
+                  <a className="btn btn-primary" href={s.booking} target="_blank" rel="noopener noreferrer">
                     Online buchen
                   </a>
-                  <a className="btn" href={s.phoneHref}>
-                    {s.phone}
+                  <a className="btn btn-secondary" href={s.phoneHref}>
+                    Anrufen {s.phone}
                   </a>
                 </div>
               ))}

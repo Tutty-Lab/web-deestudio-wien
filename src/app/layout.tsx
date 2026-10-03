@@ -29,7 +29,7 @@ const serif = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Dee Studio | Nails, Lashes & Head Spa in Wien",
   description:
-    "Dee Studio – Nagelstudio, Wimpern & Head Spa in Wien. Zwei Studios: Neubaugürtel (1150) und Vanilla by Dee in der Fasangasse (1030). Jetzt online buchen.",
+    "Dee Studio: Nagelstudio, Wimpern und Head Spa in Wien. Zwei Studios: Neubaugürtel (1150) und Vanilla by Dee in der Fasangasse (1030). Jetzt online buchen.",
   keywords: [
     "Nagelstudio Wien",
     "Nail Studio Vienna",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   openGraph: {
     title: "Dee Studio | Nails, Lashes & Head Spa in Wien",
-    description: "Zwei Studios in Wien – Neubaugürtel & Fasangasse.",
+    description: "Zwei Studios in Wien: Neubaugürtel und Fasangasse.",
     siteName: "Dee Studio",
     locale: "de_AT",
     type: "website",

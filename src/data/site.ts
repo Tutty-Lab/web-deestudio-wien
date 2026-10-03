@@ -31,17 +31,17 @@ export const STUDIOS: Studio[] = [
     booking: "https://buchung.treatwell.at/ort/dee-studio/",
     mapQuery: "Neubaugürtel 23a, 1150 Wien",
     hours: [
-      { days: "Mo – Fr", time: "09:00 – 19:00" },
-      { days: "Samstag", time: "09:00 – 18:00" },
+      { days: "Mo - Fr", time: "09:00 - 19:00" },
+      { days: "Samstag", time: "09:00 - 18:00" },
       { days: "Sonntag", time: "Geschlossen" },
     ],
     transit: [
-      "U6 Burggasse – Stadthalle, Ausgang Urban-Loritz-Platz",
-      "Straßenbahn 6, 9, 18, 49 – Urban-Loritz-Platz",
+      "U6 Burggasse-Stadthalle, Ausgang Urban-Loritz-Platz",
+      "Straßenbahn 6, 9, 18, 49 bis Urban-Loritz-Platz",
       "5 Minuten vom Westbahnhof",
     ],
     intro:
-      "Unser erstes Studio im Herzen Wiens – kreatives Nageldesign, Lashes und unser Head Spa: Beauty-Rituale in ruhiger, luxuriöser Atmosphäre.",
+      "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
     cover: "/images/site/g-10.12-5.webp",
     interior: ["/images/site/g-10.12-6.webp", "/images/site/g-10.12-4.webp"],
   },
@@ -57,14 +57,14 @@ export const STUDIOS: Studio[] = [
     booking: "https://www.treatwell.at/ort/hi-nails-salon/",
     mapQuery: "Fasangasse 32, 1030 Wien",
     hours: [
-      { days: "Mo – Fr", time: "09:00 – 19:00" },
-      { days: "Samstag", time: "09:00 – 18:00" },
+      { days: "Mo - Fr", time: "09:00 - 19:00" },
+      { days: "Samstag", time: "09:00 - 18:00" },
       { days: "Sonntag", time: "Geschlossen" },
     ],
     intro:
-      "Unser neues Studio im dritten Bezirk – Nails, Lashes und Head Spa. Ein Ort zum Abschalten: Relax. Refresh. Glow.",
+      "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
     cover: "/images/ig/ig12.jpg",
-    interior: ["/images/ig/ig10.jpg", "/images/ig/ig01.jpg"],
+    interior: ["/images/ig/ig07.jpg", "/images/ig/ig03.jpg"],
   },
 ];
 
@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
   {
     key: "nails",
     title: "Nails",
-    lead: "Acryl, Gel-X, Shellac und Nail Art – jedes Set ein Unikat.",
+    lead: "Acryl, Gel-X, Shellac und Nail Art. Jedes Set ist ein Unikat.",
     image: "/images/site/g-10.12-1-1.webp",
     from: "ab 30 €",
   },
@@ -96,14 +96,14 @@ export const SERVICES: Service[] = [
   {
     key: "head-spa",
     title: "Head Spa",
-    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele – exklusiv bei Dee Studio.",
+    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele. Exklusiv bei Dee Studio.",
     image: "/images/ig/ig01.jpg",
     from: "auf Anfrage",
   },
   {
     key: "pedicure",
     title: "Pediküre",
-    lead: "Basic oder Deluxe – gepflegte Füße mit Shellac oder French.",
+    lead: "Basic oder Deluxe, für gepflegte Füße mit Shellac oder French.",
     image: "/images/site/g-10.12-7.webp",
     from: "ab 40 €",
   },
@@ -114,8 +114,9 @@ export const HEAD_SPA = {
   studio: "neubauguertel",
   title: "Head Spa",
   tagline: "Relax. Refresh. Glow.",
-  lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar – während Sie ganz abschalten.",
-  images: ["/images/ig/ig01.jpg", "/images/ig/ig05.jpg"],
+  lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar, während Sie ganz abschalten.",
+  // Second image is the studio itself; replace both with clean Head Spa photos from the client.
+  images: ["/images/ig/ig01.jpg", "/images/site/g-10.12-5.webp"],
   steps: [
     { title: "Ankommen", text: "Kurze Beratung zu Kopfhaut, Haar und Ihren Wünschen." },
     { title: "Reinigen", text: "Sanfte Tiefenreinigung von Kopfhaut und Haar mit warmem Wasser." },
@@ -206,7 +207,7 @@ export const GALLERY: GalleryItem[] = [
   { src: "/images/site/g-11.34.webp", alt: "Silver Chrome Nails", cat: "nails" },
   { src: "/images/ig/ig08.jpg", alt: "Lashes by Dee Studio", cat: "lashes" },
   { src: "/images/site/g-10.12-1-1.webp", alt: "White French mit Steinen", cat: "nails" },
-  { src: "/images/ig/ig10.jpg", alt: "Studio Interior", cat: "studio" },
+  { src: "/images/ig/ig07.jpg", alt: "Pediküre im Studio", cat: "studio" },
   { src: "/images/site/g-11.34-2.webp", alt: "Playful Nail Art", cat: "nails" },
   { src: "/images/ig/ig09.jpg", alt: "Volume Lashes", cat: "lashes" },
   { src: "/images/ig/ig11.jpg", alt: "Floral Long Nails", cat: "nails" },
@@ -216,7 +217,6 @@ export const GALLERY: GalleryItem[] = [
   { src: "/images/site/g-10.12-7.webp", alt: "French Hände & Füße", cat: "nails" },
   { src: "/images/ig/ig02.jpg", alt: "Lash Extensions", cat: "lashes" },
   { src: "/images/site/g-10.12-2-1.webp", alt: "Nail Design", cat: "nails" },
-  { src: "/images/ig/ig05.jpg", alt: "Head Spa Ritual", cat: "spa" },
   { src: "/images/site/g-10.12-3-1.webp", alt: "Nail Design", cat: "nails" },
   { src: "/images/site/g-10.12-5.webp", alt: "Studio Neubaugürtel", cat: "studio" },
 ];
@@ -224,19 +224,19 @@ export const GALLERY: GalleryItem[] = [
 export const FAQ = [
   {
     q: "Wie buche ich einen Termin?",
-    a: "Am einfachsten online über Treatwell – wählen Sie einfach Ihr Studio. Natürlich erreichen Sie uns auch telefonisch oder per Instagram-DM.",
+    a: "Am einfachsten online über Treatwell. Wählen Sie einfach Ihr Studio. Natürlich erreichen Sie uns auch telefonisch oder per Instagram-DM.",
   },
   {
     q: "Kann ich ein Wunschdesign mitbringen?",
-    a: "Unbedingt! Zeigen Sie uns Ihre Inspiration von Instagram oder Pinterest – wir beraten Sie und setzen Ihre Idee um.",
+    a: "Unbedingt! Zeigen Sie uns Ihre Inspiration von Instagram oder Pinterest, wir beraten Sie und setzen Ihre Idee um.",
   },
   {
     q: "Wie lange hält ein neues Set?",
-    a: "Bei guter Pflege 3–4 Wochen. Danach empfehlen wir ein Auffüllen, damit Ihre Nägel perfekt bleiben.",
+    a: "Bei guter Pflege 3 bis 4 Wochen. Danach empfehlen wir ein Auffüllen, damit Ihre Nägel perfekt bleiben.",
   },
   {
     q: "Gibt es Garantie?",
-    a: "Ja – sollte innerhalb der ersten Tage etwas abbrechen, melden Sie sich bei uns. Wir kümmern uns darum.",
+    a: "Ja. Sollte innerhalb der ersten Tage etwas abbrechen, melden Sie sich bei uns. Wir kümmern uns darum.",
   },
 ];
 

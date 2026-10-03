@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
 import BookButton from "@/components/BookButton";
@@ -20,112 +21,95 @@ type Params = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = getStudio((await params).slug);
-  return s ? { title: `${s.brand} ${s.location} | Dee Studio Wien`, description: s.intro } : {};
+  return s ? { title: `${s.brand}, ${s.location} | Dee Studio Wien`, description: s.intro } : {};
 }
 
 export default async function StudioPage({ params }: Params) {
   const { slug } = await params;
   const s = getStudio(slug);
   if (!s) notFound();
-  const other = STUDIOS.find((o) => o.slug !== s.slug)!;
+  const hasHeadSpa = s.slug === HEAD_SPA.studio;
+  const services = SERVICES.filter((sv) => sv.key !== "head-spa" || hasHeadSpa);
 
   return (
     <>
-      <Header overHero />
+      <Header />
       <main>
-        {/* HERO */}
-        <section
-          className="on-dark"
-          style={{ position: "relative", height: "82svh", minHeight: 520, background: "#000", color: "#fff" }}
+        <PageHead
+          crumbs={[{ label: "Studios" }, { label: s.brand }]}
+          eyebrow={`Studio ${STUDIOS.indexOf(s) + 1} von ${STUDIOS.length}, ${s.district}`}
+          title={s.brand}
+          intro={s.intro}
         >
-          <Image
-            src={s.cover}
-            alt={`${s.brand} ${s.location}`}
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: "cover", filter: "grayscale(1) brightness(0.5)" }}
-          />
-          <div
-            className="wrap"
-            style={{
-              position: "relative",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              paddingBottom: "clamp(40px, 8vh, 96px)",
-            }}
-          >
-            <p className="eyebrow" style={{ color: "rgba(255,255,255,.75)" }}>
-              {s.street} · {s.city}
-            </p>
-            <h1 className="display h-xl" style={{ margin: "16px 0 32px" }}>
-              {s.brand}
-              <br />
-              <span className="serif" style={{ fontSize: ".6em" }}>
-                {s.location}
-              </span>
-            </h1>
-            <div className="cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <BookButton studio={s.slug} className="btn" />
-              <a className="btn" href={s.phoneHref}>
-                {s.phone}
-              </a>
-            </div>
+          <div className="btn-row" style={{ marginTop: 24 }}>
+            <BookButton studio={s.slug} />
+            <a className="btn btn-secondary" href={s.phoneHref}>
+              Anrufen
+            </a>
           </div>
-        </section>
+        </PageHead>
 
-        {/* INTRO + INFO */}
+        {/* Which studio am I looking at? */}
+        <nav className="switcher" aria-label="Studio wechseln">
+          {STUDIOS.map((o) => (
+            <Link key={o.slug} href={`/studio/${o.slug}`} aria-current={o.slug === s.slug ? "page" : undefined}>
+              <strong>{o.brand}</strong>
+              <span>
+                {o.location}, {o.district}
+              </span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* INFO */}
         <section className="section">
-          <div className="wrap two-col" style={{ alignItems: "start" }}>
+          <div className="wrap split top">
             <Reveal>
-              <p className="eyebrow">Das Studio</p>
-              <h2 className="display h-lg" style={{ margin: "18px 0 24px" }}>
-                Willkommen
-                <br />
-                <span className="serif">bei</span> {s.brand}
-              </h2>
-              <p className="lead">{s.intro}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 40 }}>
+              <div className="media" style={{ aspectRatio: "4 / 5" }}>
+                <Image src={s.cover} alt={`${s.brand} Innenansicht`} fill priority sizes="(max-width: 860px) 100vw, 50vw" />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
                 {s.interior.map((src) => (
-                  <div key={src} className="media" style={{ aspectRatio: "3 / 4" }}>
-                    <Image src={src} alt={`${s.brand} Interior`} fill sizes="(max-width: 860px) 50vw, 25vw" style={{ objectFit: "cover" }} />
+                  <div key={src} className="media" style={{ aspectRatio: "1" }}>
+                    <Image src={src} alt={`${s.brand} Studio`} fill sizes="(max-width: 860px) 50vw, 25vw" />
                   </div>
                 ))}
               </div>
             </Reveal>
-            <Reveal delay={120}>
-              <StudioInfo studio={s} />
+            <Reveal delay={100}>
+              <p className="eyebrow">Adresse und Öffnungszeiten</p>
+              <h2 className="display h-lg" style={{ margin: "14px 0 32px" }}>
+                So finden Sie uns
+              </h2>
+              <StudioInfo studio={s} showTitle={false} />
             </Reveal>
           </div>
         </section>
 
-        {s.slug === HEAD_SPA.studio && <HeadSpaFeature />}
+        {hasHeadSpa && <HeadSpaFeature />}
 
         {/* SERVICES */}
         <section className="section section-alt">
           <div className="wrap">
             <Reveal className="section-head center">
-              <p className="eyebrow">Behandlungen</p>
-              <h2 className="display h-lg" style={{ margin: 0 }}>
-                Services
-              </h2>
+              <p className="eyebrow">Bei {s.brand}</p>
+              <h2 className="display h-lg">Services</h2>
             </Reveal>
             <div className="service-grid">
-              {SERVICES.map((sv, i) => (
-                <Reveal key={sv.key} delay={i * 90} className="service-tile group">
+              {services.map((sv, i) => (
+                <Reveal key={sv.key} delay={i * 80} className="service-tile group">
                   <div className="media bw zoom">
                     <Image src={sv.image} alt={sv.title} fill sizes="(max-width: 1000px) 50vw, 25vw" />
                   </div>
                   <h3 className="display h-sm">{sv.title}</h3>
                   <p>{sv.lead}</p>
+                  <p className="price">{sv.from}</p>
                 </Reveal>
               ))}
             </div>
-            <div style={{ textAlign: "center", marginTop: 56 }}>
-              <Link href="/preise" className="link-arrow">
-                Preisliste ansehen →
+            <div className="btn-row center" style={{ marginTop: 48 }}>
+              <Link href="/preise" className="btn btn-secondary">
+                Alle Preise
               </Link>
             </div>
           </div>
@@ -136,24 +120,9 @@ export default async function StudioPage({ params }: Params) {
           <div className="wrap">
             <Reveal className="section-head center">
               <p className="eyebrow">Inspiration</p>
-              <h2 className="display h-lg" style={{ margin: 0 }}>
-                Unsere Arbeiten
-              </h2>
+              <h2 className="display h-lg">Unsere Arbeiten</h2>
             </Reveal>
             <Gallery limit={8} />
-          </div>
-        </section>
-
-        {/* OTHER STUDIO */}
-        <section className="section section-invert">
-          <div className="wrap" style={{ textAlign: "center" }}>
-            <p className="eyebrow">Auch in Wien</p>
-            <h2 className="display h-lg" style={{ margin: "18px 0 32px" }}>
-              {other.brand} <span className="serif">·</span> {other.location}
-            </h2>
-            <Link href={`/studio/${other.slug}`} className="btn">
-              Zum Studio {other.location}
-            </Link>
           </div>
         </section>
       </main>

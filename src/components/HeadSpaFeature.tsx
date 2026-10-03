@@ -6,36 +6,29 @@ import { HEAD_SPA } from "@/data/site";
 
 export default function HeadSpaFeature({ showMore = true }: { showMore?: boolean }) {
   return (
-    <section className="section section-invert headspa" id="head-spa">
-      <div className="wrap two-col">
-        <Reveal className="headspa-media">
-          <div className="media" style={{ aspectRatio: "4 / 5" }}>
-            <Image src={HEAD_SPA.images[0]} alt="Head Spa bei Dee Studio" fill sizes="(max-width: 860px) 100vw, 50vw" style={{ objectFit: "cover" }} />
-          </div>
-          <div className="media headspa-inset">
-            <Image src={HEAD_SPA.images[1]} alt="" fill sizes="220px" style={{ objectFit: "cover" }} />
+    <section className="section section-dark" id="head-spa">
+      <div className="wrap split">
+        <Reveal className="feature-media">
+          <div className="media main">
+            <Image src={HEAD_SPA.images[0]} alt="Head Spa bei Dee Studio" fill sizes="(max-width: 860px) 100vw, 50vw" />
           </div>
         </Reveal>
-        <Reveal delay={120}>
-          <p className="eyebrow">Neu bei Dee Studio · Neubaugürtel</p>
-          <h2 className="display h-xl" style={{ margin: "18px 0 8px" }}>
-            Head Spa
-          </h2>
-          <p className="serif" style={{ fontSize: "clamp(24px, 2.6vw, 36px)", margin: "0 0 28px" }}>
-            {HEAD_SPA.tagline}
-          </p>
+        <Reveal delay={100} className="feature-copy">
+          <p className="eyebrow">Neu bei Dee Studio, Neubaugürtel</p>
+          <h2 className="display h-xl">Head Spa</h2>
+          <span className="serif">{HEAD_SPA.tagline}</span>
           <p className="lead">{HEAD_SPA.lead}</p>
-          <ul className="headspa-benefits">
+          <ul className="checklist">
             {HEAD_SPA.benefits.map((b) => (
               <li key={b}>{b}</li>
             ))}
           </ul>
-          <div className="cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36 }}>
-            <BookButton studio={HEAD_SPA.studio} className="btn btn-solid">
+          <div className="btn-row">
+            <BookButton studio={HEAD_SPA.studio} className="btn btn-light">
               Head Spa buchen
             </BookButton>
             {showMore && (
-              <Link href="/head-spa" className="btn">
+              <Link href="/head-spa" className="btn btn-outline-light">
                 Mehr erfahren
               </Link>
             )}
