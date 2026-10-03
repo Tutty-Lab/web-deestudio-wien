@@ -22,10 +22,6 @@ export default function Home() {
         <section className="hero">
           <Image src="/images/nails/chrome-nails-silber-xxl-wien.webp" alt="Nail Art von Dee Studio" fill priority sizes="100vw" />
           <div className="wrap hero-inner">
-            <Link href="/head-spa" className="hero-badge">
-              Neu: Head Spa bei Dee Studio
-            </Link>
-            <p className="eyebrow">Nails, Lashes &amp; Head Spa in Wien</p>
             <h1 className="display h-xl">
               Ja! Das ist
               <br />
