@@ -1373,3 +1373,20 @@ img {
     font-size: 15px;
   }
 }
+.map-consent .map-address {
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 15px;
+  color: var(--fg);
+  max-width: none;
+}
+.map-external {
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 6px 0;
+}
+.map-consent p:last-child {
+  font-size: 12px;
+}

@@ -8,18 +8,27 @@ import { useState } from "react";
  */
 export default function MapEmbed({ query, title }: { query: string; title: string }) {
   const [load, setLoad] = useState(false);
-  const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=16&output=embed`;
+  const q = encodeURIComponent(query);
 
   return (
     <div className="map-box">
       {load ? (
-        <iframe title={title} src={src} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        <iframe title={title} src={`https://www.google.com/maps?q=${q}&z=16&output=embed`} />
       ) : (
         <div className="map-consent">
-          <p>Mit dem Laden der Karte werden Daten an Google übertragen.</p>
+          <p className="map-address">{query}</p>
           <button className="btn btn-secondary btn-sm" onClick={() => setLoad(true)}>
-            Karte laden
+            Karte anzeigen
           </button>
+          <a
+            className="map-external"
+            href={`https://www.google.com/maps/search/?api=1&query=${q}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            In Google Maps öffnen
+          </a>
+          <p>Beim Anzeigen der Karte werden Daten an Google übertragen.</p>
         </div>
       )}
     </div>

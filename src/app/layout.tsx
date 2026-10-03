@@ -56,7 +56,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={`${display.variable} ${body.variable} ${serif.variable}`}>
-      <body>
+      {/* Browser extensions inject attributes into <body>; ignore those mismatches. */}
+      <body suppressHydrationWarning>
         <div className="site">
           <BookingProvider>
             {children}
