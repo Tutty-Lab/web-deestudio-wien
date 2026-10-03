@@ -9,6 +9,7 @@ import Gallery from "@/components/Gallery";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
 import HeadSpaFeature from "@/components/HeadSpaFeature";
+import JsonLd, { breadcrumbLd, salonLd } from "@/components/JsonLd";
 import { HEAD_SPA, SERVICES, STUDIOS, getStudio } from "@/data/site";
 
 export const dynamicParams = false;
@@ -21,7 +22,13 @@ type Params = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = getStudio((await params).slug);
-  return s ? { title: `${s.brand}, ${s.location} | Dee Studio Wien`, description: s.intro } : {};
+  return s
+    ? {
+        title: `Nagelstudio ${s.district}: ${s.brand}, ${s.location}`,
+        description: `${s.intro} ${s.street}, ${s.city}.`,
+        alternates: { canonical: `/studio/${s.slug}` },
+      }
+    : {};
 }
 
 export default async function StudioPage({ params }: Params) {
@@ -34,6 +41,13 @@ export default async function StudioPage({ params }: Params) {
   return (
     <>
       <Header />
+      <JsonLd data={salonLd(s)} />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Start", path: "/" },
+          { name: s.brand, path: `/studio/${s.slug}` },
+        ])}
+      />
       <main>
         <PageHead
           crumbs={[{ label: "Studios" }, { label: s.brand }]}

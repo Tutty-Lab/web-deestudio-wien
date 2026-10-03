@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { INSTAGRAM, STUDIOS } from "@/data/site";
+import { STYLES } from "@/data/gallery";
 
 export default function Footer() {
   return (
@@ -42,6 +43,16 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+          <div>
+            <h2>Galerie</h2>
+            <ul>
+              {STYLES.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/galerie/${s.slug}`}>{s.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div>
             <h2>Öffnungszeiten</h2>
             <ul>

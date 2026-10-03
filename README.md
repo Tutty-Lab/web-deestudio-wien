@@ -10,12 +10,23 @@ Khách đã chốt phương án A (Classic).
 
 ## Routes
 
-- `/`: trang chủ, có khối Head Spa nổi bật ngay dưới hero
-- `/head-spa`: landing page quảng bá Head Spa (Dee Studio Neubaugürtel)
-- `/studio/neubauguertel`, `/studio/fasangasse`: trang từng tiệm
+- `/`: trang chủ, khối Head Spa nổi bật ngay dưới hero
+- `/head-spa`: landing page Head Spa (chỉ có ở Dee Studio Neubaugürtel)
+- `/studio/neubauguertel`, `/studio/fasangasse`: trang từng tiệm (JSON-LD NailSalon)
+- `/galerie`: tổng hợp mẫu móng
+- `/galerie/{stil}`: 7 trang SEO theo kiểu móng: french-nails-wien, chrome-nails-wien, nail-art-wien,
+  xxl-naegel-wien, acrylnaegel-wien, babyboomer-naegel-wien, wimpernverlaengerung-wien
 - `/preise`: bảng giá
+- `/sitemap.xml`, `/robots.txt`: sinh tự động
 
-Toàn bộ nội dung nằm trong `src/data/site.ts`: studio, dịch vụ, Head Spa, bảng giá, gallery, FAQ.
+Nội dung: `src/data/site.ts` (studio, dịch vụ, Head Spa, giá, FAQ) và `src/data/gallery.ts` (ảnh + trang SEO).
+
+## Thêm ảnh hoặc kiểu móng mới
+
+1. Đặt ảnh vào `public/images/nails/` với tên mô tả có từ khóa, ví dụ `french-nails-rosa-kurz-wien.webp`.
+2. Thêm một mục vào `GALLERY` trong `src/data/gallery.ts`: alt tiếng Đức mô tả rõ ảnh, `styles` là các trang SEO mà ảnh thuộc về.
+3. Kiểu móng mới: thêm một mục vào `STYLES` (slug dạng `keyword-wien`, title tối đa ~60 ký tự,
+   description tối đa ~155 ký tự, intro và FAQ viết riêng cho trang đó). Sitemap và footer tự cập nhật.
 
 ## Dev
 
@@ -33,7 +44,21 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 ## Trước khi go-live
 
 - Bỏ `robots: noindex` trong `src/app/layout.tsx`.
+- Domain mặc định là `https://deestudio.at` (dùng cho canonical, sitemap, JSON-LD). Nếu khác, đặt
+  `NEXT_PUBLIC_SITE_URL` trên Vercel.
 - Điền Impressum / Datenschutz (hiện là link `#`).
-- Xác nhận giá Head Spa và Lashes (hiện để "auf Anfrage").
-- Xác nhận ảnh cho từng tiệm; ảnh hiện tại là ảnh demo lấy từ Instagram và web cũ.
-- Nội dung Head Spa, FAQ, Garantie đang là bản nháp.
+- Gửi sitemap lên Google Search Console sau khi trỏ domain.
+
+## Cần khách cung cấp
+
+- Ảnh tiệm Vanilla by Dee (Fasangasse): hiện chưa có, đang dùng ảnh mẫu móng.
+- Ảnh Head Spa sạch (ảnh hiện tại còn chữ của Instagram).
+- Thêm ảnh cho từng kiểu móng, đặc biệt Chrome (2 ảnh), French, Babyboomer, Wimpern (3 ảnh).
+  Trang SEO càng nhiều ảnh thật càng tốt.
+- Giá Head Spa và Lashes.
+
+## Ghi chú pháp lý
+
+- Font (Josefin Sans, Montserrat, Cormorant Garamond) theo SIL OFL, self-host qua next/font, không gọi Google Fonts.
+- Google Maps chỉ tải sau khi khách bấm "Karte laden".
+- Đã loại ảnh có watermark của tiệm khác ("LYLY NAILS") và ảnh khuyến mãi hết hạn.

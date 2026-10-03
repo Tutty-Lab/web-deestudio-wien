@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Josefin_Sans, Montserrat, Cormorant_Garamond } from "next/font/google";
 import BookingProvider from "@/components/BookingProvider";
 import Footer from "@/components/Footer";
+import { SITE } from "@/data/site";
 import "./globals.css";
 
 const display = Josefin_Sans({
@@ -27,6 +28,7 @@ const serif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: "Dee Studio | Nails, Lashes & Head Spa in Wien",
   description:
     "Dee Studio: Nagelstudio, Wimpern und Head Spa in Wien. Zwei Studios: Neubaugürtel (1150) und Vanilla by Dee in der Fasangasse (1030). Jetzt online buchen.",

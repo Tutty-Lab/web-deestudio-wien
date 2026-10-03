@@ -104,6 +104,13 @@ export default function Header({ transparent = false }: Props) {
               </div>
             </div>
             <Link
+              href="/galerie"
+              className={`nav-link ${isActive("/galerie") ? "active" : ""}`}
+              aria-current={current("/galerie")}
+            >
+              Galerie
+            </Link>
+            <Link
               href="/preise"
               className={`nav-link ${isActive("/preise") ? "active" : ""}`}
               aria-current={current("/preise")}
@@ -135,6 +142,9 @@ export default function Header({ transparent = false }: Props) {
         </Link>
         <Link className={`m-link ${isActive("/head-spa") ? "active" : ""}`} href="/head-spa" onClick={closeAll}>
           Head Spa
+        </Link>
+        <Link className={`m-link ${isActive("/galerie") ? "active" : ""}`} href="/galerie" onClick={closeAll}>
+          Galerie
         </Link>
         <Link className={`m-link ${isActive("/preise") ? "active" : ""}`} href="/preise" onClick={closeAll}>
           Preise

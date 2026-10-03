@@ -42,8 +42,8 @@ export const STUDIOS: Studio[] = [
     ],
     intro:
       "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
-    cover: "/images/site/g-10.12-5.webp",
-    interior: ["/images/site/g-10.12-6.webp", "/images/site/g-10.12-4.webp"],
+    cover: "/images/studio/dee-studio-neubauguertel-innen.webp",
+    interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
   },
   {
     slug: "fasangasse",
@@ -63,10 +63,17 @@ export const STUDIOS: Studio[] = [
     ],
     intro:
       "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
-    cover: "/images/ig/ig12.jpg",
-    interior: ["/images/ig/ig07.jpg", "/images/ig/ig03.jpg"],
+    // No photos of this studio yet: nail work stands in until the client sends interior shots.
+    cover: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
+    interior: ["/images/nails/chrome-glazed-nails-natur-wien.webp", "/images/nails/acrylnaegel-modellage-wien.jpg"],
   },
 ];
+
+export const SITE = {
+  // Final domain; set NEXT_PUBLIC_SITE_URL on Vercel if it differs.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://deestudio.at").replace(/\/$/, ""),
+  name: "Dee Studio",
+};
 
 export const getStudio = (slug: string) => STUDIOS.find((s) => s.slug === slug);
 
@@ -83,28 +90,28 @@ export const SERVICES: Service[] = [
     key: "nails",
     title: "Nails",
     lead: "Acryl, Gel-X, Shellac und Nail Art. Jedes Set ist ein Unikat.",
-    image: "/images/site/g-10.12-1-1.webp",
+    image: "/images/nails/french-nails-weiss-steine-wien.webp",
     from: "ab 30 €",
   },
   {
     key: "lashes",
     title: "Lashes",
     lead: "Wimpernverlängerung von natürlich bis Volumen.",
-    image: "/images/ig/ig09.jpg",
+    image: "/images/lashes/wimpern-natuerlich-wien.jpg",
     from: "auf Anfrage",
   },
   {
     key: "head-spa",
     title: "Head Spa",
     lead: "Tiefenentspannung für Kopfhaut, Haar und Seele. Exklusiv bei Dee Studio.",
-    image: "/images/ig/ig01.jpg",
+    image: "/images/headspa/head-spa-dee-studio-wien.jpg",
     from: "auf Anfrage",
   },
   {
     key: "pedicure",
     title: "Pediküre",
     lead: "Basic oder Deluxe, für gepflegte Füße mit Shellac oder French.",
-    image: "/images/site/g-10.12-7.webp",
+    image: "/images/nails/french-nails-haende-fuesse-wien.webp",
     from: "ab 40 €",
   },
 ];
@@ -116,7 +123,7 @@ export const HEAD_SPA = {
   tagline: "Relax. Refresh. Glow.",
   lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar, während Sie ganz abschalten.",
   // Second image is the studio itself; replace both with clean Head Spa photos from the client.
-  images: ["/images/ig/ig01.jpg", "/images/site/g-10.12-5.webp"],
+  images: ["/images/headspa/head-spa-dee-studio-wien.jpg", "/images/studio/dee-studio-neubauguertel-innen.webp"],
   steps: [
     { title: "Ankommen", text: "Kurze Beratung zu Kopfhaut, Haar und Ihren Wünschen." },
     { title: "Reinigen", text: "Sanfte Tiefenreinigung von Kopfhaut und Haar mit warmem Wasser." },
@@ -199,26 +206,6 @@ export const PRICES: PriceGroup[] = [
       ["Nagelreparatur", "8 € / Finger"],
     ],
   },
-];
-
-export type GalleryItem = { src: string; alt: string; cat: "nails" | "lashes" | "spa" | "studio" };
-
-export const GALLERY: GalleryItem[] = [
-  { src: "/images/site/g-11.34.webp", alt: "Silver Chrome Nails", cat: "nails" },
-  { src: "/images/ig/ig08.jpg", alt: "Lashes by Dee Studio", cat: "lashes" },
-  { src: "/images/site/g-10.12-1-1.webp", alt: "White French mit Steinen", cat: "nails" },
-  { src: "/images/ig/ig07.jpg", alt: "Pediküre im Studio", cat: "studio" },
-  { src: "/images/site/g-11.34-2.webp", alt: "Playful Nail Art", cat: "nails" },
-  { src: "/images/ig/ig09.jpg", alt: "Volume Lashes", cat: "lashes" },
-  { src: "/images/ig/ig11.jpg", alt: "Floral Long Nails", cat: "nails" },
-  { src: "/images/ig/ig01.jpg", alt: "Head Spa", cat: "spa" },
-  { src: "/images/site/g-10.12-8.webp", alt: "Pink Marble Nails", cat: "nails" },
-  { src: "/images/ig/ig06.jpg", alt: "Pink Ombré mit Kristallen", cat: "nails" },
-  { src: "/images/site/g-10.12-7.webp", alt: "French Hände & Füße", cat: "nails" },
-  { src: "/images/ig/ig02.jpg", alt: "Lash Extensions", cat: "lashes" },
-  { src: "/images/site/g-10.12-2-1.webp", alt: "Nail Design", cat: "nails" },
-  { src: "/images/site/g-10.12-3-1.webp", alt: "Nail Design", cat: "nails" },
-  { src: "/images/site/g-10.12-5.webp", alt: "Studio Neubaugürtel", cat: "studio" },
 ];
 
 export const FAQ = [

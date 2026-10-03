@@ -991,7 +991,7 @@ img {
 }
 .footer-top {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  grid-template-columns: 1.3fr repeat(4, 1fr);
   gap: 40px;
   padding-bottom: 48px;
   border-bottom: 1px solid #2a2a2a;
@@ -1323,4 +1323,85 @@ img {
 }
 .page-head .h-xl {
   font-size: clamp(40px, 6.4vw, 96px);
+}
+
+/* ================= Galerie ================= */
+.style-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 16px;
+}
+.style-card {
+  display: block;
+}
+.style-card .media {
+  aspect-ratio: 4 / 5;
+}
+.style-card h3 {
+  margin-top: 14px;
+}
+.style-card p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.work-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.work-grid .media {
+  aspect-ratio: 4 / 5;
+}
+.price-card {
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.price-card .price-row {
+  font-size: 17px;
+}
+@media (max-width: 1000px) {
+  .style-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 860px) {
+  .work-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+}
+@media (max-width: 600px) {
+  .style-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 12px;
+  }
+  .style-card h3 {
+    font-size: 16px;
+  }
+}
+
+/* Long German compounds (e.g. Wimpernverlängerung) must wrap on phones. */
+.display {
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+.price-row > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .page-head .h-xl {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+  .price-card .price-row {
+    font-size: 15px;
+  }
 }

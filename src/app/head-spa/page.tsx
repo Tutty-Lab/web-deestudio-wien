@@ -9,7 +9,9 @@ import { HEAD_SPA, getStudio } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Head Spa Wien | Dee Studio Neubaugürtel",
-  description: HEAD_SPA.lead,
+  description:
+    "Head Spa in Wien bei Dee Studio am Neubaugürtel: Reinigung, Massage und Pflege für Kopfhaut und Haar. Tiefenentspannung, jetzt online buchen.",
+  alternates: { canonical: "/head-spa" },
 };
 
 export default function HeadSpaPage() {

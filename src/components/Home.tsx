@@ -7,16 +7,20 @@ import FAQ from "@/components/FAQ";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
 import HeadSpaFeature from "@/components/HeadSpaFeature";
+import JsonLd, { salonLd } from "@/components/JsonLd";
 import { HEAD_SPA, SERVICES, STUDIOS } from "@/data/site";
 
 export default function Home() {
   return (
     <>
       <Header transparent />
+      {STUDIOS.map((s) => (
+        <JsonLd key={s.slug} data={salonLd(s)} />
+      ))}
       <main>
         {/* HERO */}
         <section className="hero">
-          <Image src="/images/site/g-11.34.webp" alt="Nail Art von Dee Studio" fill priority sizes="100vw" />
+          <Image src="/images/nails/chrome-nails-silber-xxl-wien.webp" alt="Nail Art von Dee Studio" fill priority sizes="100vw" />
           <div className="wrap hero-inner">
             <Link href="/head-spa" className="hero-badge">
               Neu: Head Spa bei Dee Studio
@@ -123,6 +127,11 @@ export default function Home() {
               <h2 className="display h-lg">Unsere Arbeiten</h2>
             </Reveal>
             <Gallery bw limit={8} />
+            <div className="btn-row center" style={{ marginTop: 48 }}>
+              <Link href="/galerie" className="btn btn-secondary">
+                Zur Galerie
+              </Link>
+            </div>
           </div>
         </section>
 

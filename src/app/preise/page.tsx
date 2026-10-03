@@ -5,7 +5,11 @@ import PageHead from "@/components/PageHead";
 import PriceList from "@/components/PriceList";
 import BookButton from "@/components/BookButton";
 
-export const metadata: Metadata = { title: "Preise | Dee Studio Wien" };
+export const metadata: Metadata = {
+  title: "Preise | Nagelstudio Wien | Dee Studio",
+  description: "Preisliste von Dee Studio Wien: neues Set ab 50 €, Auffüllen ab 42 €, Shellac ab 30 €, Pediküre ab 40 €. Gültig für beide Studios.",
+  alternates: { canonical: "/preise" },
+};
 
 export default function PricesPage() {
   return (

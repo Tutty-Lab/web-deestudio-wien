@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { GALLERY, type GalleryItem } from "@/data/site";
+import { GALLERY, type GalleryItem } from "@/data/gallery";
 
 const TABS: { key: "all" | GalleryItem["cat"]; label: string }[] = [
   { key: "all", label: "Alle" },
@@ -12,30 +12,29 @@ const TABS: { key: "all" | GalleryItem["cat"]; label: string }[] = [
   { key: "studio", label: "Studio" },
 ];
 
-export default function Gallery({ limit, bw = false }: { limit?: number; bw?: boolean }) {
+type Props = { limit?: number; bw?: boolean; items?: GalleryItem[]; tabs?: boolean };
+
+export default function Gallery({ limit, bw = false, items = GALLERY, tabs = true }: Props) {
   const [tab, setTab] = useState<(typeof TABS)[number]["key"]>("all");
-  const items = GALLERY.filter((g) => tab === "all" || g.cat === tab).slice(0, limit);
+  const shown = items.filter((g) => tab === "all" || g.cat === tab).slice(0, limit);
+  const available = TABS.filter((t) => t.key === "all" || items.some((g) => g.cat === t.key));
 
   return (
     <>
-      <div className="gal-tabs" role="tablist">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            role="tab"
-            aria-selected={tab === t.key}
-            className={tab === t.key ? "active" : ""}
-            onClick={() => setTab(t.key)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {tabs && available.length > 2 && (
+        <div className="gal-tabs" role="tablist" aria-label="Galerie filtern">
+          {available.map((t) => (
+            <button key={t.key} role="tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="gal-grid">
-        {items.map((g) => (
-          <div key={g.src} className={`media zoom ${bw ? "bw" : ""}`}>
-            <Image src={g.src} alt={g.alt} fill sizes="(max-width: 800px) 50vw, 25vw" />
-          </div>
+        {shown.map((g) => (
+          <figure key={g.src} className={`media zoom group ${bw ? "bw" : ""}`} style={{ margin: 0 }}>
+            <Image src={g.src} alt={g.alt} fill sizes="(max-width: 860px) 50vw, 25vw" />
+          </figure>
         ))}
       </div>
     </>
