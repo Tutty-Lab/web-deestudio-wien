@@ -699,7 +699,7 @@ img {
 /* ================= Services ================= */
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
 }
 .service-tile .media {
@@ -1578,4 +1578,34 @@ img {
   .article-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ================= Rating ================= */
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.rating-value {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(64px, 9vw, 120px);
+  line-height: 1;
+}
+.rating-value span {
+  font-size: 0.3em;
+  color: var(--muted);
+}
+.rating-stars {
+  display: flex;
+  gap: 6px;
+}
+/* Stars drawn with CSS (clip-path), no glyphs. */
+.rating-stars span {
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }

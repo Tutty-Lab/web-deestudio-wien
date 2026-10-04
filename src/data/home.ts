@@ -36,11 +36,11 @@ export const VALUES = [
 // No names or portraits yet: the client should send team photos and names before launch.
 export const TEAM = {
   intro:
-    "Hinter Dee Studio steht ein eingespieltes Team aus Nail Artists, Lash Artists und Head Spa Therapeutinnen. Viele von uns arbeiten seit Jahren zusammen und bilden sich laufend weiter, damit Sie von neuen Techniken und Trends profitieren.",
+    "Jede unserer Artists ist handverlesen und in den neuesten Techniken geschult, damit Sie immer das beste Ergebnis bekommen. Unser Team vereint Nail Artists, Lash Artists, Head Spa und Massage unter einem Dach.",
   groups: [
     { title: "Nail Artists", text: "Acryl, Gel-X, Shellac und Nail Art von Hand.", image: "/images/nails/acrylnaegel-modellage-wien.jpg" },
     { title: "Lash Artists", text: "Wimpernverlängerung von 1:1 bis Mega Volume.", image: "/images/lashes/wimpernverlaengerung-wien.jpg" },
-    { title: "Head Spa", text: "Akupressur, Massage und Kopfhautpflege.", image: "/images/headspa/head-spa-dee-studio-wien.jpg" },
+    { title: "Head Spa & Massage", text: "Akupressur, Kopfhautpflege und Körpermassagen.", image: "/images/headspa/head-spa-dee-studio-wien.jpg" },
   ],
 };
 
@@ -64,6 +64,9 @@ export const HYGIENE = {
  * Never add invented reviews: fake testimonials are unlawful in Austria (UWG).
  */
 export const REVIEWS: { name: string; text: string; source: string; studio: string }[] = [];
+
+/** Public Google rating of Dee Studio (Google Maps, October 2026). Update when it changes. */
+export const RATING = { value: "4,8", source: "Google", studio: "Dee Studio, Neubaugürtel" };
 
 export const REVIEW_LINKS = [
   { label: "Bewertungen auf Google", href: "https://www.google.com/maps/search/?api=1&query=Dee+Studio+Neubaug%C3%BCrtel+23a+Wien" },

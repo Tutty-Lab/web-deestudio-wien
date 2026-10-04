@@ -49,7 +49,7 @@ export const STUDIOS: Studio[] = [
       "Straßenbahn 6, 9, 18, 49 bis Urban-Loritz-Platz",
       "5 Minuten vom Westbahnhof",
     ],
-    tagline: "Nails, Lashes & Head Spa",
+    tagline: "Nails, Lashes, Head Spa & Massage",
     intro:
       "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
     about: [
@@ -59,7 +59,7 @@ export const STUDIOS: Studio[] = [
     hero: "/images/nails/chrome-nails-silber-xxl-wien.webp",
     cover: "/images/studio/dee-studio-neubauguertel-innen.webp",
     interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
-    services: ["nails", "head-spa", "lashes", "pedicure"],
+    services: ["nails", "head-spa", "lashes", "pedicure", "massage"],
     headSpa: true,
     gallery: true,
   },
@@ -144,6 +144,14 @@ export const SERVICES: Service[] = [
     image: "/images/nails/french-nails-haende-fuesse-wien.webp",
     from: "ab 40 €",
   },
+  {
+    key: "massage",
+    title: "Massage",
+    lead: "Ganzkörper-, Rücken- und Nackenmassage, auch für Schwangere.",
+    // No massage photo yet; the treatment room stands in.
+    image: "/images/studio/dee-studio-pedikuere-neubauguertel.webp",
+    from: "ab 20 €",
+  },
 ];
 
 // Head Spa is offered at Dee Studio (Neubaugürtel) and is the service the client wants to promote.
@@ -187,6 +195,25 @@ export const DEE_EXTRA_PRICES: PriceGroup[] = [
       ["Anime / Douyin / Manga Style", "130 €"],
       ["Auffüllen (1:1, Light oder Mega Volume)", "55 €"],
       ["Entfernung", "15 €"],
+    ],
+  },
+  {
+    title: "Massage",
+    items: [
+      ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
+      ["Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min.", "ab 40 €"],
+      ["Rückenmassage, 40 bis 75 Min.", "ab 40 €"],
+      ["Ganzkörpermassage, 75 bis 135 Min.", "ab 70 €"],
+      ["Massage für Schwangere, 75 bis 105 Min.", "ab 70 €"],
+    ],
+  },
+  {
+    title: "Pediküre mit Massage",
+    items: [
+      ["Pediküre + Fußmassage", "ab 55 €"],
+      ["Deluxe Pediküre + Fußmassage", "ab 75 €"],
+      ["Deluxe Pediküre + Deluxe Maniküre, jeweils mit Shellac", "130 €"],
+      ["Deluxe Pediküre mit Shellac + Neues Set", "136 €"],
     ],
   },
 ];

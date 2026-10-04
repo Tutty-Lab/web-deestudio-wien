@@ -61,7 +61,8 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 
 - Tên và ảnh thật của team (hiện chỉ có 3 nhóm: Nail, Lash, Head Spa, không có tên người).
 - Xác nhận các quy trình vệ sinh trong `HYGIENE` (`src/data/home.ts`).
-- Review thật (Google/Treatwell, có sự đồng ý) để đưa vào `REVIEWS`. Tuyệt đối không bịa review: vi phạm UWG.
+- Review thật (Google/Treatwell, có sự đồng ý) để đưa vào `REVIEWS`. Không dùng review bịa (UWG). Điểm Google 4,8 trong `RATING` cần cập nhật khi thay đổi.
+- Ảnh massage (hiện dùng ảnh phòng pedicure).
 - Duyệt lại thư ngỏ, tầm nhìn, sứ mệnh, triết lý và 3 bài Magazin.
 
 - Ảnh tiệm Vanilla by Dee (Fasangasse): hiện chưa có, đang dùng ảnh mẫu móng.

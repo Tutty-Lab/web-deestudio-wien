@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import JsonLd, { salonLd } from "@/components/JsonLd";
 import { STUDIOS, studioPath } from "@/data/site";
-import { HYGIENE, LETTER, REVIEWS, REVIEW_LINKS, TEAM, VALUES } from "@/data/home";
+import { HYGIENE, LETTER, RATING, REVIEWS, REVIEW_LINKS, TEAM, VALUES } from "@/data/home";
 import { ARTICLES } from "@/data/magazin";
 
 export const metadata: Metadata = {
@@ -180,9 +180,23 @@ export default function LandingPage() {
             <Reveal className="section-head center">
               <p className="eyebrow">Bewertungen</p>
               <h2 className="display h-lg">Was unsere Kundinnen sagen</h2>
+            </Reveal>
+            <Reveal className="rating">
+              <p className="rating-value">
+                {RATING.value}
+                <span> / 5</span>
+              </p>
+              <div className="rating-stars" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span key={i} />
+                ))}
+              </div>
+              <p className="eyebrow">
+                {RATING.source} Bewertung, {RATING.studio}
+              </p>
               {REVIEWS.length === 0 && (
-                <p className="lead">
-                  Echte Meinungen zählen. Lesen Sie die Bewertungen unserer Kundinnen direkt auf Google und Treatwell.
+                <p className="lead" style={{ marginTop: 16 }}>
+                  Lesen Sie die Erfahrungen unserer Kundinnen direkt auf Google und Treatwell.
                 </p>
               )}
             </Reveal>
