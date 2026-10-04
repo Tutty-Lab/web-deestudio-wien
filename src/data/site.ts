@@ -128,14 +128,14 @@ export const SERVICES: Service[] = [
     title: "Lashes",
     lead: "Wimpernverlängerung von natürlich bis Volumen.",
     image: "/images/lashes/wimpern-natuerlich-wien.jpg",
-    from: "auf Anfrage",
+    from: "ab 65 €",
   },
   {
     key: "head-spa",
     title: "Head Spa",
     lead: "Tiefenentspannung für Kopfhaut, Haar und Seele. Exklusiv bei Dee Studio.",
     image: "/images/headspa/head-spa-dee-studio-wien.jpg",
-    from: "auf Anfrage",
+    from: "ab 65 €",
   },
   {
     key: "pedicure",
@@ -151,20 +151,45 @@ export const HEAD_SPA = {
   studio: "dee-studio",
   title: "Head Spa",
   tagline: "Relax. Refresh. Glow.",
-  lead: "Unser Head Spa ist eine Auszeit für Kopf und Seele: sanfte Reinigung, wohltuende Massage und intensive Pflege für Kopfhaut und Haar, während Sie ganz abschalten.",
+  lead: "Unser Head Spa verbindet traditionelle östliche Methoden mit moderner Kopfhautpflege: Akupressur, Massage, Wasserbogen und Kopfhaut-Bedampfung für tiefe Entspannung.",
   // Second image is the studio itself; replace both with clean Head Spa photos from the client.
   images: ["/images/headspa/head-spa-dee-studio-wien.jpg", "/images/studio/dee-studio-neubauguertel-innen.webp"],
   steps: [
-    { title: "Ankommen", text: "Kurze Beratung zu Kopfhaut, Haar und Ihren Wünschen." },
-    { title: "Reinigen", text: "Sanfte Tiefenreinigung von Kopfhaut und Haar mit warmem Wasser." },
-    { title: "Massage", text: "Entspannende Massage von Kopf, Nacken und Schultern." },
-    { title: "Pflege", text: "Nährende Pflege für glänzendes Haar und eine ausgeglichene Kopfhaut." },
+    { title: "Akupressur", text: "Gezielte Kopf-Akupressur löst Verspannungen und fördert die Durchblutung." },
+    { title: "Massage", text: "Intensive Massage für Nacken und Schultern, dort wo sich Stress festsetzt." },
+    { title: "Wasserbogen", text: "Warmes Wasser fließt sanft über die Kopfhaut und beruhigt den ganzen Körper." },
+    { title: "Pflege", text: "Kopfhaut-Bedampfung und Pflege, je nach Paket ergänzt durch eine Gesichtspflege." },
   ],
-  benefits: ["Tiefenentspannung & Stressabbau", "Gesunde, ausgeglichene Kopfhaut", "Glänzendes, gepflegtes Haar", "Ideal als Geschenk"],
-  price: "Preis auf Anfrage",
+  packages: [
+    { name: "Essential Balance", note: "Basis Paket", duration: "45 Min.", price: "65 €" },
+    { name: "Deep Relax & Care", note: "Premium Paket", duration: "60 Min.", price: "89 €" },
+    { name: "Luxury Healing Journey", note: "VIP Paket", duration: "90 Min.", price: "120 €" },
+  ],
+  benefits: ["Tiefenentspannung & Stressabbau", "Bessere Durchblutung der Kopfhaut", "Gepflegte Kopfhaut und Haar", "Ideal als Geschenk"],
+  price: "ab 65 €",
 };
 
 export type PriceGroup = { title: string; note?: string; items: [string, string][] };
+
+/** Services only Dee Studio offers, shown above the shared nail price list. */
+export const DEE_EXTRA_PRICES: PriceGroup[] = [
+  {
+    title: "Head Spa",
+    items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
+  },
+  {
+    title: "Wimpern",
+    items: [
+      ["Wimpernlifting", "65 €"],
+      ["Wimpernverlängerung 1:1, Neuanlage", "99 €"],
+      ["Light Volume 2:1 / 3:1, Neuanlage", "110 €"],
+      ["Mega Volume 5D bis 8D, Neuanlage", "120 €"],
+      ["Anime / Douyin / Manga Style", "130 €"],
+      ["Auffüllen (1:1, Light oder Mega Volume)", "55 €"],
+      ["Entfernung", "15 €"],
+    ],
+  },
+];
 
 export const PRICES: PriceGroup[] = [
   {

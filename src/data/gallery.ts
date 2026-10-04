@@ -283,7 +283,7 @@ export const STYLES: Style[] = [
       "Eine Wimpernverlängerung öffnet den Blick und spart jeden Morgen Zeit. Unsere Artists setzen jede Extension einzeln, abgestimmt auf Ihre Augenform und Ihre eigenen Wimpern.",
       "Ob natürlicher Look für den Alltag oder dichtes Volumen für den großen Auftritt: Wir beraten Sie vorab, welcher Stil zu Ihnen passt.",
     ],
-    price: { label: "Wimpernverlängerung", value: "auf Anfrage" },
+    price: { label: "Wimpernverlängerung 1:1, Neuanlage", value: "99 €" },
     faqs: [
       {
         q: "Wie lange hält eine Wimpernverlängerung?",

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import PageHead from "@/components/PageHead";
 import PriceList from "@/components/PriceList";
 import BookButton from "@/components/BookButton";
-import { getStudio, studioPath } from "@/data/site";
+import { DEE_EXTRA_PRICES, HEAD_SPA, PRICES, getStudio, studioPath } from "@/data/site";
 
 type Params = { params: Promise<{ studio: string }> };
 
@@ -35,11 +35,11 @@ export default async function PricesPage({ params }: Params) {
           intro={
             s.headSpa ? (
               <>
-                Preise für Lashes und den{" "}
+                Head Spa, Wimpern, Nails und Pediküre. Mehr zum{" "}
                 <Link href={studioPath(s, "head-spa")} style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
-                  Head Spa
-                </Link>{" "}
-                erhalten Sie auf Anfrage oder bei der Online-Buchung.
+                  Head Spa Ritual
+                </Link>
+                .
               </>
             ) : (
               "Alle Preise für Nails und Pediküre. Online buchen oder einfach anrufen."
@@ -48,7 +48,7 @@ export default async function PricesPage({ params }: Params) {
         />
         <section className="section">
           <div className="wrap">
-            <PriceList />
+            <PriceList groups={s.slug === HEAD_SPA.studio ? [...DEE_EXTRA_PRICES, ...PRICES] : PRICES} />
             <div className="btn-row center" style={{ marginTop: 16 }}>
               <BookButton studio={s.slug} />
             </div>

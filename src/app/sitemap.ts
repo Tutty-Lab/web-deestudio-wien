@@ -1,11 +1,16 @@
 import type { MetadataRoute } from "next";
 import { SITE, STUDIOS, studioPath } from "@/data/site";
 import { STYLES } from "@/data/gallery";
+import { ARTICLES } from "@/data/magazin";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths: { path: string; priority: number }[] = [{ path: "/", priority: 1 }];
+  const paths: { path: string; priority: number }[] = [
+    { path: "/", priority: 1 },
+    { path: "/magazin", priority: 0.6 },
+    ...ARTICLES.map((a) => ({ path: `/magazin/${a.slug}`, priority: 0.6 })),
+  ];
   for (const s of STUDIOS) {
     paths.push({ path: studioPath(s), priority: 0.9 }, { path: studioPath(s, "preise"), priority: 0.7 });
     if (s.headSpa) paths.push({ path: studioPath(s, "head-spa"), priority: 0.9 });

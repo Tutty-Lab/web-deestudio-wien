@@ -12,7 +12,8 @@ Khách đã chốt phương án A (Classic).
 
 Trang chủ là trang giới thiệu chung; mỗi studio là một site con riêng, có menu, footer và nút đặt lịch riêng.
 
-- `/`: giới thiệu Dee Studio Wien + 2 thẻ chọn studio
+- `/`: trang giới thiệu chung: Thư ngỏ, Vision/Mission/Philosophie, Team, Hygiene, chọn studio, Bewertungen, Magazin
+- `/magazin` và `/magazin/{slug}`: bài viết SEO (nội dung trong `src/data/magazin.ts`)
 - `/dee-studio`: Dee Studio, Neubaugürtel (Nails, Lashes, Head Spa)
   - `/dee-studio/head-spa`
   - `/dee-studio/galerie` và 7 trang SEO `/dee-studio/galerie/{stil}`: french-nails-wien, chrome-nails-wien,
@@ -26,7 +27,7 @@ Mỗi studio trong `STUDIOS` (`src/data/site.ts`) tự bật các trang của m�
 `headSpa: true` thì có trang Head Spa, `gallery: true` thì có Galerie và các trang SEO,
 `services` quyết định dịch vụ hiển thị. Khi Vanilla có ảnh riêng, bật `gallery` là có ngay galerie.
 
-Nội dung: `src/data/site.ts` (studio, dịch vụ, Head Spa, giá, FAQ) và `src/data/gallery.ts` (ảnh + trang SEO).
+Nội dung trang chủ: `src/data/home.ts`. Nội dung studio: `src/data/site.ts` (studio, dịch vụ, Head Spa, giá, FAQ) và `src/data/gallery.ts` (ảnh + trang SEO).
 
 ## Thêm ảnh hoặc kiểu móng mới
 
@@ -58,11 +59,15 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 
 ## Cần khách cung cấp
 
+- Tên và ảnh thật của team (hiện chỉ có 3 nhóm: Nail, Lash, Head Spa, không có tên người).
+- Xác nhận các quy trình vệ sinh trong `HYGIENE` (`src/data/home.ts`).
+- Review thật (Google/Treatwell, có sự đồng ý) để đưa vào `REVIEWS`. Tuyệt đối không bịa review: vi phạm UWG.
+- Duyệt lại thư ngỏ, tầm nhìn, sứ mệnh, triết lý và 3 bài Magazin.
+
 - Ảnh tiệm Vanilla by Dee (Fasangasse): hiện chưa có, đang dùng ảnh mẫu móng.
 - Ảnh Head Spa sạch (ảnh hiện tại còn chữ của Instagram).
 - Thêm ảnh cho từng kiểu móng, đặc biệt Chrome (2 ảnh), French, Babyboomer, Wimpern (3 ảnh).
   Trang SEO càng nhiều ảnh thật càng tốt.
-- Giá Head Spa và Lashes.
 - Bảng giá của Vanilla by Dee: hiện dùng chung bảng giá của Dee Studio, cần khách xác nhận.
 
 ## Ghi chú pháp lý

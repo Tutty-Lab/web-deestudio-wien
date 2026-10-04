@@ -69,8 +69,33 @@ export default async function HeadSpaPage({ params }: Params) {
                   <li key={b}>{b}</li>
                 ))}
               </ul>
-              <p className="eyebrow">{HEAD_SPA.price}</p>
             </Reveal>
+          </div>
+        </section>
+
+        {/* PACKAGES */}
+        <section className="section section-alt">
+          <div className="wrap">
+            <Reveal className="section-head center">
+              <p className="eyebrow">Drei Pakete</p>
+              <h2 className="display h-lg">Wählen Sie Ihre Auszeit</h2>
+            </Reveal>
+            <ul className="package-grid">
+              {HEAD_SPA.packages.map((p, i) => (
+                <Reveal as="li" key={p.name} delay={i * 80} className="package">
+                  <p className="eyebrow">{p.note}</p>
+                  <h3 className="display h-sm">{p.name}</h3>
+                  <p className="package-meta">{p.duration}</p>
+                  <p className="package-price">{p.price}</p>
+                  <BookButton studio={studio.slug} className="btn btn-secondary">
+                    Buchen
+                  </BookButton>
+                </Reveal>
+              ))}
+            </ul>
+            <p className="price-note" style={{ textAlign: "center", marginTop: 24 }}>
+              Online zu Nebenzeiten bis zu 10 % günstiger.
+            </p>
           </div>
         </section>
 
