@@ -6,13 +6,13 @@ import type { PriceGroup } from "@/data/site";
 // Item names that only make sense with their group ("Mit Farbe") get the group name in front.
 const needsGroup = (label: string) => /^(Mit |Ohne |Basic \+|Deluxe \+|Basis Paket|Premium Paket|VIP Paket)/.test(label);
 
-/** Treatwell-style price menu: horizontal labels (Alle, Nägel, ...), one flat list per label. */
+/** Treatwell-style price menu: horizontal labels (Nägel, Gesicht, Massage), one flat list per label. */
 export default function PriceMenu({ groups }: { groups: PriceGroup[] }) {
   const ORDER = ["Nägel", "Gesicht", "Massage"];
-  const labels = ["Alle", ...[...new Set(groups.map((g) => g.category))].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))];
-  const [active, setActive] = useState("Alle");
+  const labels = [...[...new Set(groups.map((g) => g.category))].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))];
+  const [active, setActive] = useState(labels[0]);
   const rows = groups
-    .filter((g) => active === "Alle" || g.category === active)
+    .filter((g) => g.category === active)
     .flatMap((g) => g.items.map(([label, price]) => [needsGroup(label) ? `${g.title} ${label[0].toLowerCase()}${label.slice(1)}` : label, price]));
 
   return (
