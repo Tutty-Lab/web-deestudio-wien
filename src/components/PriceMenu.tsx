@@ -4,21 +4,21 @@ import { useState } from "react";
 import PriceList from "./PriceList";
 import type { PriceGroup } from "@/data/site";
 
-/** Full price list with category filter; "Alle" shows everything. */
+/** Price list grouped under horizontal labels (Nägel, Pediküre, Wimpern...), one label at a time. */
 export default function PriceMenu({ groups }: { groups: PriceGroup[] }) {
-  const [active, setActive] = useState("all");
-  const shown = active === "all" ? groups : groups.filter((g) => g.id === active);
+  const labels = [...new Set(groups.map((g) => g.category))];
+  const [active, setActive] = useState(labels[0]);
 
   return (
     <>
-      <div className="gal-tabs price-tabs" role="toolbar" aria-label="Preise nach Kategorie">
-        {[{ id: "all", title: "Alle" }, ...groups].map((g) => (
-          <button key={g.id} aria-pressed={active === g.id} onClick={() => setActive(g.id)}>
-            {g.title}
+      <div className="gal-tabs price-tabs" role="tablist" aria-label="Preise nach Kategorie">
+        {labels.map((l) => (
+          <button key={l} role="tab" aria-selected={active === l} aria-pressed={active === l} onClick={() => setActive(l)}>
+            {l}
           </button>
         ))}
       </div>
-      <PriceList groups={shown} />
+      <PriceList groups={groups.filter((g) => g.category === active)} />
     </>
   );
 }

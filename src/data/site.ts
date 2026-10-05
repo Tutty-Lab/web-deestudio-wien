@@ -11,7 +11,7 @@ export const INSTAGRAM = "https://www.instagram.com/dee.studio.wien/";
 /* ------------------------------------------------------------------ */
 
 /** `id` is the anchor on the Preise page, e.g. /dee-studio/preise#wimpern */
-export type PriceGroup = { id: string; title: string; note?: string; items: [string, string][] };
+export type PriceGroup = { id: string; /** Horizontal label in the price menu, like Treatwell. */ category: string; title: string; note?: string; items: [string, string][] };
 
 // Head Spa is offered at Dee Studio (Neubaugürtel) and is the service the client wants to promote.
 export const HEAD_SPA = {
@@ -40,6 +40,7 @@ export const HEAD_SPA = {
 const NAIL_PRICES: PriceGroup[] = [
   {
     id: "neues-set",
+    category: "Nägel",
     title: "Neues Set",
     note: "Neues Set / Entfernung altes Set + neues Set",
     items: [
@@ -51,6 +52,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "auffuellen",
+    category: "Nägel",
     title: "Auffüllen",
     items: [
       ["Ohne Farbe / Natur", "42 €"],
@@ -60,6 +62,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "gel-x-shellac",
+    category: "Nägel",
     title: "Gel-X & Shellac",
     items: [
       ["Gel-X neues Set mit Farbe", "50 €"],
@@ -70,6 +73,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "manikuere",
+    category: "Nägel",
     title: "Maniküre",
     items: [
       ["Basic Maniküre", "18 €"],
@@ -81,6 +85,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "pedikuere",
+    category: "Pediküre",
     title: "Pediküre",
     items: [
       ["Basic Pediküre", "40 €"],
@@ -93,6 +98,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "kombis",
+    category: "Pediküre",
     title: "Kombis",
     items: [
       ["Hände neues Set mit Farbe + Basic Pediküre mit Shellac", "99 €"],
@@ -101,6 +107,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "extras",
+    category: "Nägel",
     title: "Glitzer, Chrome & Extras",
     note: "Ab 1,6 cm Länge wird jeder weitere Millimeter extra berechnet.",
     items: [
@@ -120,11 +127,13 @@ const NAIL_PRICES: PriceGroup[] = [
 const DEE_ONLY_PRICES: PriceGroup[] = [
   {
     id: "head-spa",
+    category: "Head Spa & Massage",
     title: "Head Spa",
     items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
   },
   {
     id: "wimpern",
+    category: "Wimpern",
     title: "Wimpern",
     items: [
       ["Wimpernlifting", "65 €"],
@@ -138,6 +147,7 @@ const DEE_ONLY_PRICES: PriceGroup[] = [
   },
   {
     id: "massage",
+    category: "Head Spa & Massage",
     title: "Massage",
     items: [
       ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
@@ -149,6 +159,7 @@ const DEE_ONLY_PRICES: PriceGroup[] = [
   },
   {
     id: "pedikuere-massage",
+    category: "Pediküre",
     title: "Pediküre mit Massage",
     items: [
       ["Pediküre + Fußmassage", "ab 55 €"],
