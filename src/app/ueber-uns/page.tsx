@@ -46,7 +46,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="section section-dark">
+        <section id="team" className="section section-dark">
           <div className="wrap">
             <Reveal className="section-head">
               <p className="eyebrow">Team</p>

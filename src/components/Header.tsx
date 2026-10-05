@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { STUDIOS, studioPath, type Studio } from "@/data/site";
@@ -14,13 +14,14 @@ type Props = {
 
 type NavItem = { href: string; label: string; exact?: boolean; anchor?: boolean };
 
+// Every group page in the menu; the studios get their own dropdown (rendered separately).
 const GROUP_NAV: NavItem[] = [
   { href: "/ueber-uns", label: "Über uns" },
   { href: "/philosophie", label: "Philosophie" },
+  { href: "/ueber-uns#team", label: "Team", anchor: true },
   { href: "/hygiene", label: "Hygiene" },
   { href: "/bewertungen", label: "Bewertungen" },
   { href: "/magazin", label: "Magazin" },
-  { href: "/#studios", label: "Studios", anchor: true },
 ];
 
 function studioNav(s: Studio): NavItem[] {
@@ -40,6 +41,22 @@ export default function Header({ studio, transparent = false }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBar, setShowBar] = useState(false);
+  const [studiosOpen, setStudiosOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!studiosOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (!dropdownRef.current?.contains(e.target as Node)) setStudiosOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setStudiosOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [studiosOpen]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -98,6 +115,28 @@ export default function Header({ studio, transparent = false }: Props) {
                 {item.label}
               </Link>
             ))}
+            {!studio && (
+              <div ref={dropdownRef} className={`nav-item ${studiosOpen ? "open" : ""}`}>
+                <button
+                  className="nav-link"
+                  aria-expanded={studiosOpen}
+                  aria-haspopup="true"
+                  onClick={() => setStudiosOpen(!studiosOpen)}
+                >
+                  Studios <span className="caret" aria-hidden="true" />
+                </button>
+                <div className="dropdown">
+                  {STUDIOS.map((s) => (
+                    <Link key={s.slug} href={studioPath(s)} onClick={() => setStudiosOpen(false)}>
+                      <strong>{s.brand}</strong>
+                      <span>
+                        {s.street}, {s.city}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </nav>
 
           <button

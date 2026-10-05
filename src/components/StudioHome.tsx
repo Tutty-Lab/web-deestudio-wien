@@ -52,7 +52,6 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
                 <Link href={studioPath(s, "preise")} className="btn btn-secondary">
                   Alle Preise
                 </Link>
-                <BookButton studio={s.slug} />
               </div>
             </Reveal>
             <Reveal delay={100}>

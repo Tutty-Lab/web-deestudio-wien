@@ -465,7 +465,7 @@ img {
   flex: none;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .nav,
   .header-cta {
     display: none;
@@ -484,7 +484,7 @@ img {
 .mobile-cta {
   display: none;
 }
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .mobile-cta {
     position: fixed;
     z-index: 40;
@@ -1638,7 +1638,7 @@ img {
   border-bottom: 1px solid currentColor;
   transform: rotate(45deg);
 }
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .back-link {
     display: none;
   }
@@ -1864,4 +1864,15 @@ html {
 
 .prose .info-list {
   padding-left: 0;
+}
+
+/* Full group menu (7 entries incl. Studios dropdown) must fit down to the 960px breakpoint. */
+@media (max-width: 1240px) {
+  .nav {
+    gap: 18px;
+  }
+  .nav-link {
+    letter-spacing: 0.1em;
+    font-size: 11px;
+  }
 }
