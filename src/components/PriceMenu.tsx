@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import PriceList from "./PriceList";
 import type { PriceGroup } from "@/data/site";
 
-/** Price list grouped under horizontal labels (Nägel, Pediküre, Wimpern...), one label at a time. */
+// Item names that only make sense with their group ("Mit Farbe") get the group name in front.
+const needsGroup = (label: string) => /^(Mit |Ohne |Basic \+|Deluxe \+|Basis Paket|Premium Paket|VIP Paket)/.test(label);
+
+/** Treatwell-style price menu: horizontal labels (Alle, Nägel, ...), one flat list per label. */
 export default function PriceMenu({ groups }: { groups: PriceGroup[] }) {
-  const labels = [...new Set(groups.map((g) => g.category))];
-  const [active, setActive] = useState(labels[0]);
+  const ORDER = ["Nägel", "Gesicht", "Massage"];
+  const labels = ["Alle", ...[...new Set(groups.map((g) => g.category))].sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))];
+  const [active, setActive] = useState("Alle");
+  const rows = groups
+    .filter((g) => active === "Alle" || g.category === active)
+    .flatMap((g) => g.items.map(([label, price]) => [needsGroup(label) ? `${g.title} ${label[0].toLowerCase()}${label.slice(1)}` : label, price]));
 
   return (
     <>
@@ -18,7 +24,14 @@ export default function PriceMenu({ groups }: { groups: PriceGroup[] }) {
           </button>
         ))}
       </div>
-      <PriceList groups={groups.filter((g) => g.category === active)} />
+      <ul className="price-flat">
+        {rows.map(([label, price]) => (
+          <li key={label + price} className="price-row">
+            <span>{label}</span>
+            <span className="val">{price}</span>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

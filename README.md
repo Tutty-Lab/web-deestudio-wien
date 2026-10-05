@@ -66,7 +66,7 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 - Ảnh Head Spa sạch (ảnh hiện tại còn chữ của Instagram).
 - Mô tả dài và thời gian cho từng dịch vụ (trang Leistungen, hiện là bản nháp).
 - Điểm Google của Vanilla by Dee.
-- Bảng giá của Vanilla by Dee: hiện dùng chung bảng giá của Dee Studio, cần khách xác nhận.
+- Bảng giá Vanilla lấy từ Treatwell hi-nails-salon (giá gốc trước giảm giờ thấp điểm), cần khách xác nhận.
 
 ## Ghi chú pháp lý
 

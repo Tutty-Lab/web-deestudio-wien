@@ -1958,3 +1958,19 @@ html {
 html {
   scroll-padding-top: calc(var(--header-h) + 72px);
 }
+
+.price-flat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: clamp(32px, 6vw, 96px);
+}
+.price-flat li {
+  break-inside: avoid;
+}
+@media (max-width: 860px) {
+  .price-flat {
+    columns: 1;
+  }
+}

@@ -85,7 +85,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "pedikuere",
-    category: "Pediküre",
+    category: "Nägel",
     title: "Pediküre",
     items: [
       ["Basic Pediküre", "40 €"],
@@ -98,7 +98,7 @@ const NAIL_PRICES: PriceGroup[] = [
   },
   {
     id: "kombis",
-    category: "Pediküre",
+    category: "Nägel",
     title: "Kombis",
     items: [
       ["Hände neues Set mit Farbe + Basic Pediküre mit Shellac", "99 €"],
@@ -127,13 +127,13 @@ const NAIL_PRICES: PriceGroup[] = [
 const DEE_ONLY_PRICES: PriceGroup[] = [
   {
     id: "head-spa",
-    category: "Head Spa & Massage",
+    category: "Massage",
     title: "Head Spa",
     items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
   },
   {
     id: "wimpern",
-    category: "Wimpern",
+    category: "Gesicht",
     title: "Wimpern",
     items: [
       ["Wimpernlifting", "65 €"],
@@ -147,7 +147,7 @@ const DEE_ONLY_PRICES: PriceGroup[] = [
   },
   {
     id: "massage",
-    category: "Head Spa & Massage",
+    category: "Massage",
     title: "Massage",
     items: [
       ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
@@ -159,7 +159,7 @@ const DEE_ONLY_PRICES: PriceGroup[] = [
   },
   {
     id: "pedikuere-massage",
-    category: "Pediküre",
+    category: "Nägel",
     title: "Pediküre mit Massage",
     items: [
       ["Pediküre + Fußmassage", "ab 55 €"],
@@ -167,6 +167,63 @@ const DEE_ONLY_PRICES: PriceGroup[] = [
       ["Deluxe Pediküre + Deluxe Maniküre, jeweils mit Shellac", "130 €"],
       ["Deluxe Pediküre mit Shellac + Neues Set", "136 €"],
     ],
+  },
+];
+
+const VANILLA_PRICES: PriceGroup[] = [
+  {
+    id: "neues-set",
+    category: "Nägel",
+    title: "Nagelmodellage Acryl / Gel",
+    items: [
+      ["Neues Set mit Acryl (mit oder ohne Tips)", "55 €"],
+      ["Neues Set mit Gel (mit oder ohne Tips)", "55 €"],
+      ["Acryl / Gel auffüllen", "45 €"],
+      ["Entfernung Gel / Acryl", "ab 19 €"],
+      ["Zehennagelmodellage Acryl / Polygel", "45 €"],
+      ["Nagelreparatur", "ab 5 €"],
+    ],
+  },
+  {
+    id: "manikuere",
+    category: "Nägel",
+    title: "Maniküre",
+    items: [
+      ["Basis Maniküre ohne Lack", "25 €"],
+      ["Basis Maniküre mit Shellac (inkl. Entfernung)", "39 €"],
+      ["Deluxe Maniküre inkl. Handmaske", "ab 45 €"],
+      ["Nur Shellac lackieren", "30 €"],
+      ["Entfernung Shellac / Gellack", "ab 10 €"],
+    ],
+  },
+  {
+    id: "pedikuere",
+    category: "Nägel",
+    title: "Pediküre",
+    items: [
+      ["Basic Pediküre", "ab 45 €"],
+      ["Deluxe Pediküre inkl. Handtuch-Wrap und Augenmaske", "ab 65 €"],
+      ["Fußnägel mit Shellac lackieren (ohne Pediküre)", "ab 30 €"],
+    ],
+  },
+  {
+    id: "extras",
+    category: "Nägel",
+    title: "Nageldesign",
+    items: [
+      ["Steine pro Stück", "0,50 €"],
+      ["Nagelmuster pro Finger", "3 €"],
+      ["3D Blumen pro Finger", "8 €"],
+      ["Airbrush, Cateye Set oder Chrome Set", "15 €"],
+      ["Cateye mit Chrome", "25 €"],
+      ["Nagelmuster Set", "15 € bis 75 €"],
+    ],
+  },
+  {
+    id: "massage",
+    category: "Massage",
+    title: "Massage",
+    items: [["Fußmassage, 10 bis 20 Min.", "ab 19 €"]],
   },
 ];
 
@@ -357,8 +414,7 @@ export const STUDIOS: Studio[] = [
     cover: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
     interior: ["/images/nails/chrome-glazed-nails-natur-wien.webp", "/images/nails/acrylnaegel-modellage-wien.jpg"],
     services: ["nails", "pedikuere"],
-    // Same list as Dee Studio until the client confirms Vanilla's own prices.
-    prices: NAIL_PRICES,
+    prices: VANILLA_PRICES,
   },
 ];
 
