@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import PageHead, { crumbPath } from "@/components/PageHead";
 import PriceList from "@/components/PriceList";
 import BookButton from "@/components/BookButton";
+import SubNav from "@/components/SubNav";
 import JsonLd, { breadcrumbLd } from "@/components/JsonLd";
 import { getStudio, studioPath } from "@/data/site";
 
@@ -31,6 +32,7 @@ export default async function PricesPage({ params }: Params) {
       <JsonLd data={breadcrumbLd(crumbPath(crumbs, studioPath(s, "preise")))} />
       <main>
         <PageHead
+          variant="center"
           crumbs={crumbs}
           eyebrow={`${s.brand}, ${s.location}`}
           title="Preise"
@@ -43,15 +45,8 @@ export default async function PricesPage({ params }: Params) {
               .
             </>
           }
-        >
-          <nav className="chips" aria-label="Preisgruppen">
-            {s.prices.map((g) => (
-              <a key={g.id} href={`#${g.id}`}>
-                {g.title}
-              </a>
-            ))}
-          </nav>
-        </PageHead>
+        />
+        <SubNav label="Preisgruppen" items={s.prices.map((g) => ({ id: g.id, label: g.title }))} />
         <section className="section">
           <div className="wrap">
             <PriceList groups={s.prices} />

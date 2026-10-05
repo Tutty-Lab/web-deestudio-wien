@@ -40,6 +40,7 @@ export default async function HeadSpaPage({ params }: Params) {
       <JsonLd data={breadcrumbLd(crumbPath(crumbs, studioPath(studio, "head-spa")))} />
       <main>
         <PageHead
+          variant="center"
           crumbs={crumbs}
           eyebrow={`Exklusiv bei ${studio.brand}, ${studio.location}`}
           title="Head Spa"

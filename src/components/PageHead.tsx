@@ -3,16 +3,31 @@ import Link from "next/link";
 export type Crumb = { label: string; href?: string };
 
 type Props = {
-  /** Trail after "Start", e.g. [{ label: "Dee Studio", href: "/dee-studio" }, { label: "Preise" }] */
+  /** Trail after "Start"; shown on group pages only (studio pages use variant="center"). */
   crumbs: Crumb[];
   eyebrow?: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
   children?: React.ReactNode;
+  /** "center": compact centred head without visible breadcrumb, used inside studio sub-sites. */
+  variant?: "split" | "center";
 };
 
-/** Header block for every sub page: breadcrumb trail (always starting at Start) + page title. */
-export default function PageHead({ crumbs, eyebrow, title, intro, children }: Props) {
+/** Header block for sub pages. Breadcrumb JSON-LD is emitted by the page either way (see crumbPath). */
+export default function PageHead({ crumbs, eyebrow, title, intro, children, variant = "split" }: Props) {
+  if (variant === "center") {
+    return (
+      <section className="page-head page-head-center">
+        <div className="wrap">
+          {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+          <h1 className="display h-xl">{title}</h1>
+          {intro && <p className="lead">{intro}</p>}
+          {children}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="page-head">
       <div className="wrap">
@@ -53,7 +68,7 @@ export default function PageHead({ crumbs, eyebrow, title, intro, children }: Pr
   );
 }
 
-/** Breadcrumb trail as {name, path} for BreadcrumbList JSON-LD, matching what PageHead renders. */
+/** Breadcrumb trail as {name, path} for BreadcrumbList JSON-LD. */
 export function crumbPath(crumbs: Crumb[], currentPath: string) {
   return [
     { name: "Start", path: "/" },

@@ -1889,3 +1889,72 @@ html {
     flex-wrap: nowrap;
   }
 }
+
+/* ================= Centred page head (studio sub pages) ================= */
+.page-head-center {
+  padding: calc(var(--header-h) + clamp(48px, 7vw, 96px)) 0 clamp(40px, 5vw, 64px);
+  text-align: center;
+  border-bottom: 0;
+}
+.page-head-center .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page-head-center h1 {
+  margin: 14px 0 0;
+}
+.page-head-center .lead {
+  margin-top: 20px;
+}
+.page-head-center .btn-row {
+  justify-content: center;
+}
+
+/* Sticky section nav under the header */
+.subnav {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 30;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.subnav-inner {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.subnav-inner::-webkit-scrollbar {
+  display: none;
+}
+.subnav a {
+  flex: none;
+  padding: 18px 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease;
+}
+.subnav a:hover,
+.subnav a[aria-current] {
+  color: var(--fg);
+}
+.subnav a[aria-current] {
+  border-bottom-color: var(--fg);
+}
+@media (max-width: 860px) {
+  .subnav-inner {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+}
+html {
+  scroll-padding-top: calc(var(--header-h) + 72px);
+}

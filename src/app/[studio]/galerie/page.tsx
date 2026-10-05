@@ -38,6 +38,7 @@ export default async function GalleryPage({ params }: Params) {
       {photos.length > 0 && <JsonLd data={faqLd(GALLERY_TEXT.faqs)} />}
       <main>
         <PageHead
+          variant="center"
           crumbs={crumbs}
           eyebrow={`${s.brand}, ${s.location}`}
           title="Galerie"
