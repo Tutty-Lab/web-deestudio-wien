@@ -20,10 +20,10 @@ Site chung (Start) + 2 sub-site studio có cùng bộ trang. Tổng 20 trang.
 - `/dee-studio`: Übersicht, `/leistungen`, `/preise`, `/galerie`, `/head-spa`
 - `/vanilla-by-dee`: Übersicht, `/leistungen`, `/preise`, `/galerie` (noindex đến khi có ảnh riêng)
 
-Landing studio: Hero, Preise auf einen Blick, Leistungen, Head Spa (Dee), Das Studio, Galerie (8 ảnh), FAQ, Kontakt, khối về Start.
+Landing studio: Hero, bảng giá đầy đủ (lọc theo nhóm, mục menu „Preise“ nhảy tới đây), Leistungen, Head Spa (Dee), Das Studio, Galerie (8 ảnh), FAQ, Kontakt, khối về Start.
 
 Dữ liệu:
-- `src/data/site.ts`: `STUDIOS` (mỗi studio có `prices`, `highlights` tham chiếu vào `prices`, `services`, cờ `headSpa`), `SERVICES` (mô tả Leistungen, thời gian), `HEAD_SPA`
+- `src/data/site.ts`: `STUDIOS` (mỗi studio có `prices`, `services`, cờ `headSpa`), `SERVICES` (mô tả Leistungen, thời gian), `HEAD_SPA`
 - `src/data/gallery.ts`: `GALLERY` (mỗi ảnh có `studio` và `styles`), `STYLES` (bộ lọc), `GALLERY_TEXT`
 - `src/data/home.ts`: thư ngỏ, giá trị, team, hygiene, `REVIEWS`, `RATINGS`
 - `src/data/magazin.ts`: bài viết

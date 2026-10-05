@@ -1876,3 +1876,16 @@ html {
     font-size: 11px;
   }
 }
+
+/* Price category filter on studio landings */
+.price-tabs {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin-bottom: 40px;
+}
+@media (max-width: 600px) {
+  .price-tabs {
+    flex-wrap: nowrap;
+  }
+}

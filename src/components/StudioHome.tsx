@@ -4,17 +4,17 @@ import Header from "@/components/Header";
 import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
 import FAQ from "@/components/FAQ";
+import PriceMenu from "@/components/PriceMenu";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
 import HeadSpaFeature from "@/components/HeadSpaFeature";
 import { BackToStart } from "@/components/Blocks";
 import JsonLd, { salonLd } from "@/components/JsonLd";
-import { highlightsOf, servicesOf, studioPath, type Studio } from "@/data/site";
+import { servicesOf, studioPath, type Studio } from "@/data/site";
 import { galleryOf } from "@/data/gallery";
 
 export default function StudioHome({ studio: s }: { studio: Studio }) {
   const services = servicesOf(s);
-  const highlights = highlightsOf(s);
   const photos = galleryOf(s.slug);
 
   return (
@@ -39,33 +39,14 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
           </div>
         </section>
 
-        {/* 2. PRICES AT A GLANCE */}
+        {/* 2. FULL PRICE LIST (right on the landing, no extra click) */}
         <section className="section" id="preise">
-          <div className="wrap split top">
-            <Reveal>
+          <div className="wrap">
+            <Reveal className="section-head">
               <p className="eyebrow">{s.tagline}</p>
-              <h2 className="display h-lg" style={{ margin: "14px 0 24px" }}>
-                Preise auf einen Blick
-              </h2>
-              <p className="lead">Unsere beliebtesten Behandlungen. Alle Preise und Extras finden Sie in der Preisliste.</p>
-              <div className="btn-row" style={{ marginTop: 32 }}>
-                <Link href={studioPath(s, "preise")} className="btn btn-secondary">
-                  Alle Preise
-                </Link>
-              </div>
+              <h2 className="display h-lg">Preise</h2>
             </Reveal>
-            <Reveal delay={100}>
-              <ul className="glance">
-                {highlights.map((h) => (
-                  <li key={h.label}>
-                    <Link href={`${studioPath(s, "preise")}#${h.group}`} className="price-row">
-                      <span>{h.label}</span>
-                      <span className="val">{h.price}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+            <PriceMenu groups={s.prices} />
           </div>
         </section>
 

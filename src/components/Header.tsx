@@ -29,7 +29,7 @@ function studioNav(s: Studio): NavItem[] {
     { href: studioPath(s), label: "Übersicht", exact: true },
     { href: studioPath(s, "leistungen"), label: "Leistungen" },
     ...(s.headSpa ? [{ href: studioPath(s, "head-spa"), label: "Head Spa" }] : []),
-    { href: studioPath(s, "preise"), label: "Preise" },
+    { href: `${studioPath(s)}#preise`, label: "Preise", anchor: true },
     { href: studioPath(s, "galerie"), label: "Galerie" },
     { href: `${studioPath(s)}#kontakt`, label: "Kontakt", anchor: true },
   ];

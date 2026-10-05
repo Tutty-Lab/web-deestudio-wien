@@ -275,8 +275,6 @@ export type Studio = {
   /** Keys from SERVICES offered here. */
   services: string[];
   prices: PriceGroup[];
-  /** "Preise auf einen Blick": [price group id, item label], resolved from `prices` so both stay in sync. */
-  highlights: [string, string][];
   headSpa?: boolean;
 };
 
@@ -318,16 +316,6 @@ export const STUDIOS: Studio[] = [
     interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
     services: ["nails", "head-spa", "wimpern", "pedikuere", "massage"],
     prices: [...DEE_ONLY_PRICES, ...NAIL_PRICES],
-    highlights: [
-      ["neues-set", "Mit Farbe"],
-      ["auffuellen", "Mit Farbe"],
-      ["gel-x-shellac", "Shellac mit Farbe"],
-      ["pedikuere", "Basic Pediküre"],
-      ["head-spa", "Basis Paket „Essential Balance“, 45 Min."],
-      ["wimpern", "Wimpernverlängerung 1:1, Neuanlage"],
-      ["wimpern", "Wimpernlifting"],
-      ["massage", "Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min."],
-    ],
     headSpa: true,
   },
   {
@@ -360,15 +348,6 @@ export const STUDIOS: Studio[] = [
     services: ["nails", "pedikuere"],
     // Same list as Dee Studio until the client confirms Vanilla's own prices.
     prices: NAIL_PRICES,
-    highlights: [
-      ["neues-set", "Mit Farbe"],
-      ["auffuellen", "Mit Farbe"],
-      ["gel-x-shellac", "Gel-X neues Set mit Farbe"],
-      ["gel-x-shellac", "Shellac mit Farbe"],
-      ["manikuere", "Maniküre mit Shellac / French"],
-      ["pedikuere", "Basic Pediküre"],
-      ["pedikuere", "Deluxe Pediküre"],
-    ],
   },
 ];
 
@@ -382,19 +361,6 @@ export const studioPath = (s: Studio | string, sub = "") => {
 
 export const servicesOf = (s: Studio) =>
   s.services.map((k) => SERVICES.find((sv) => sv.key === k)).filter((sv): sv is Service => !!sv);
-
-/** Resolve highlight references to [label, price, group id]; fails the build if a reference is stale. */
-export function highlightsOf(s: Studio): { label: string; price: string; group: string }[] {
-  return s.highlights.map(([groupId, label]) => {
-    const item = s.prices.find((g) => g.id === groupId)?.items.find(([l]) => l === label);
-    if (!item) throw new Error(`Highlight "${label}" not found in ${s.slug} price group "${groupId}"`);
-    const group = s.prices.find((g) => g.id === groupId)!;
-    // Short labels read better at a glance: prefix the group when the item name alone is ambiguous.
-    const short =
-      label.startsWith("Mit ") || label.startsWith("Ohne ") ? `${group.title} ${label[0].toLowerCase()}${label.slice(1)}` : label;
-    return { label: short, price: item[1], group: groupId };
-  });
-}
 
 export const FAQ = [
   {
