@@ -107,7 +107,7 @@ export const ARTICLES: Article[] = [
       },
     ],
     links: [
-      { label: "Acrylnägel Galerie", href: "/dee-studio/galerie/acrylnaegel-wien" },
+      { label: "Acryl Galerie", href: "/dee-studio/galerie#acryl" },
       { label: "Preise", href: "/dee-studio/preise" },
     ],
   },

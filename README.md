@@ -8,33 +8,30 @@ Khách đã chốt phương án A (Classic).
 | Neubaugürtel | Dee Studio (có Head Spa) | Neubaugürtel 23a, 1150 Wien | +43 660 6868888 | Treatwell `dee-studio` |
 | Fasangasse | Vanilla by Dee / Hi Nails | Fasangasse 32, 1030 Wien | +43 660 9333999 | Treatwell `hi-nails-salon` |
 
-## Cấu trúc
+## Cấu trúc (spec 04.10.2026)
 
-Trang chủ là trang giới thiệu chung; mỗi studio là một site con riêng, có menu, footer và nút đặt lịch riêng.
+Site chung (Start) + 2 sub-site studio có cùng bộ trang. Tổng 20 trang.
 
-- `/`: trang giới thiệu chung: Thư ngỏ, Vision/Mission/Philosophie, Team, Hygiene, chọn studio, Bewertungen, Magazin
-- `/magazin` và `/magazin/{slug}`: bài viết SEO (nội dung trong `src/data/magazin.ts`)
-- `/dee-studio`: Dee Studio, Neubaugürtel (Nails, Lashes, Head Spa)
-  - `/dee-studio/head-spa`
-  - `/dee-studio/galerie` và 7 trang SEO `/dee-studio/galerie/{stil}`: french-nails-wien, chrome-nails-wien,
-    nail-art-wien, xxl-naegel-wien, acrylnaegel-wien, babyboomer-naegel-wien, wimpernverlaengerung-wien
-  - `/dee-studio/preise`
-- `/vanilla-by-dee`: Vanilla by Dee, Fasangasse (Nails, Pediküre)
-  - `/vanilla-by-dee/preise`
-- `/sitemap.xml`, `/robots.txt`: sinh tự động
+- `/`: Hero, chọn studio, thư ngỏ (rút gọn), Vision/Mission (rút gọn), Hygiene (3/6), Team, Bewertungen (rút gọn), Magazin
+- `/ueber-uns`, `/philosophie`, `/hygiene`: nội dung đầy đủ, khối „Mehr über Dee Studio“
+- `/bewertungen`: điểm Google theo studio + review thật. Khi `REVIEWS` rỗng: noindex, không vào sitemap, không xuất JSON-LD Review
+- `/magazin`, `/magazin/{slug}`: 3 bài
+- `/impressum`, `/datenschutz`
+- `/dee-studio`: Übersicht, `/leistungen`, `/preise`, `/galerie`, `/head-spa`
+- `/vanilla-by-dee`: Übersicht, `/leistungen`, `/preise`, `/galerie` (noindex đến khi có ảnh riêng)
 
-Mỗi studio trong `STUDIOS` (`src/data/site.ts`) tự bật các trang của mình:
-`headSpa: true` thì có trang Head Spa, `gallery: true` thì có Galerie và các trang SEO,
-`services` quyết định dịch vụ hiển thị. Khi Vanilla có ảnh riêng, bật `gallery` là có ngay galerie.
+Landing studio: Hero, Preise auf einen Blick, Leistungen, Head Spa (Dee), Das Studio, Galerie (8 ảnh), FAQ, Kontakt, khối về Start.
 
-Nội dung trang chủ: `src/data/home.ts`. Nội dung studio: `src/data/site.ts` (studio, dịch vụ, Head Spa, giá, FAQ) và `src/data/gallery.ts` (ảnh + trang SEO).
+Dữ liệu:
+- `src/data/site.ts`: `STUDIOS` (mỗi studio có `prices`, `highlights` tham chiếu vào `prices`, `services`, cờ `headSpa`), `SERVICES` (mô tả Leistungen, thời gian), `HEAD_SPA`
+- `src/data/gallery.ts`: `GALLERY` (mỗi ảnh có `studio` và `styles`), `STYLES` (bộ lọc), `GALLERY_TEXT`
+- `src/data/home.ts`: thư ngỏ, giá trị, team, hygiene, `REVIEWS`, `RATINGS`
+- `src/data/magazin.ts`: bài viết
 
-## Thêm ảnh hoặc kiểu móng mới
+## Thêm ảnh
 
-1. Đặt ảnh vào `public/images/nails/` với tên mô tả có từ khóa, ví dụ `french-nails-rosa-kurz-wien.webp`.
-2. Thêm một mục vào `GALLERY` trong `src/data/gallery.ts`: alt tiếng Đức mô tả rõ ảnh, `styles` là các trang SEO mà ảnh thuộc về.
-3. Kiểu móng mới: thêm một mục vào `STYLES` (slug dạng `keyword-wien`, title tối đa ~60 ký tự,
-   description tối đa ~155 ký tự, intro và FAQ viết riêng cho trang đó). Sitemap và footer tự cập nhật.
+1. Đặt ảnh vào `public/images/...` với tên mô tả có từ khóa.
+2. Thêm vào `GALLERY`: alt tiếng Đức, `studio` (slug), `styles` (slug bộ lọc). Galerie của studio chỉ hiện ảnh của chính nó; khi Vanilla có ảnh, trang tự bỏ noindex và vào sitemap.
 
 ## Dev
 
@@ -54,7 +51,7 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 - Bỏ `robots: noindex` trong `src/app/layout.tsx`.
 - Domain mặc định là `https://deestudio.at` (dùng cho canonical, sitemap, JSON-LD). Nếu khác, đặt
   `NEXT_PUBLIC_SITE_URL` trên Vercel.
-- Điền Impressum / Datenschutz (hiện là link `#`).
+- Điền các mục `[bitte ergänzen]` trong `/impressum` (chủ doanh nghiệp, UID, GISA/Firmenbuch, Gewerbe, Behörde) và duyệt `/datenschutz`.
 - Gửi sitemap lên Google Search Console sau khi trỏ domain.
 
 ## Cần khách cung cấp
@@ -67,8 +64,8 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 
 - Ảnh tiệm Vanilla by Dee (Fasangasse): hiện chưa có, đang dùng ảnh mẫu móng.
 - Ảnh Head Spa sạch (ảnh hiện tại còn chữ của Instagram).
-- Thêm ảnh cho từng kiểu móng, đặc biệt Chrome (2 ảnh), French, Babyboomer, Wimpern (3 ảnh).
-  Trang SEO càng nhiều ảnh thật càng tốt.
+- Mô tả dài và thời gian cho từng dịch vụ (trang Leistungen, hiện là bản nháp).
+- Điểm Google của Vanilla by Dee.
 - Bảng giá của Vanilla by Dee: hiện dùng chung bảng giá của Dee Studio, cần khách xác nhận.
 
 ## Ghi chú pháp lý

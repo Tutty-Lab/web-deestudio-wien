@@ -7,26 +7,29 @@ import FAQ from "@/components/FAQ";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
 import HeadSpaFeature from "@/components/HeadSpaFeature";
+import { BackToStart } from "@/components/Blocks";
 import JsonLd, { salonLd } from "@/components/JsonLd";
-import { SERVICES, studioPath, type Studio } from "@/data/site";
+import { highlightsOf, servicesOf, studioPath, type Studio } from "@/data/site";
+import { galleryOf } from "@/data/gallery";
 
 export default function StudioHome({ studio: s }: { studio: Studio }) {
-  const services = SERVICES.filter((sv) => s.services.includes(sv.key));
+  const services = servicesOf(s);
+  const highlights = highlightsOf(s);
+  const photos = galleryOf(s.slug);
 
   return (
     <>
       <Header studio={s} transparent />
       <JsonLd data={salonLd(s)} />
       <main>
-        {/* HERO */}
-        <section className="hero">
+        {/* 1. HERO */}
+        <section className="hero hero-short">
           <Image src={s.hero} alt={`${s.brand}, Nagelstudio ${s.district}`} fill priority sizes="100vw" />
           <div className="wrap hero-inner">
-            <h1 className="display h-xl">
-              Ja! Das ist
-              <br />
-              {s.brand}!
-            </h1>
+            <h1 className="display h-xl">{s.brand}</h1>
+            <p className="serif hero-sub">
+              {s.street}, {s.city}
+            </p>
             <div className="btn-row center">
               <BookButton studio={s.slug} className="btn btn-light" />
               <a className="btn btn-outline-light" href="#kontakt">
@@ -36,9 +39,70 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
           </div>
         </section>
 
+        {/* 2. PRICES AT A GLANCE */}
+        <section className="section" id="preise">
+          <div className="wrap split top">
+            <Reveal>
+              <p className="eyebrow">{s.tagline}</p>
+              <h2 className="display h-lg" style={{ margin: "14px 0 24px" }}>
+                Preise auf einen Blick
+              </h2>
+              <p className="lead">Unsere beliebtesten Behandlungen. Alle Preise und Extras finden Sie in der Preisliste.</p>
+              <div className="btn-row" style={{ marginTop: 32 }}>
+                <Link href={studioPath(s, "preise")} className="btn btn-secondary">
+                  Alle Preise
+                </Link>
+                <BookButton studio={s.slug} />
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <ul className="glance">
+                {highlights.map((h) => (
+                  <li key={h.label}>
+                    <Link href={`${studioPath(s, "preise")}#${h.group}`} className="price-row">
+                      <span>{h.label}</span>
+                      <span className="val">{h.price}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* 3. SERVICES */}
+        <section className="section section-alt">
+          <div className="wrap">
+            <Reveal className="section-head center">
+              <p className="eyebrow">Behandlungen</p>
+              <h2 className="display h-lg">Leistungen</h2>
+            </Reveal>
+            <div className="service-grid">
+              {services.map((sv, i) => (
+                <Reveal key={sv.key} delay={i * 80} className="service-tile group">
+                  <Link href={`${studioPath(s, "leistungen")}#${sv.key}`}>
+                    <div className="media bw zoom">
+                      <Image src={sv.image} alt={sv.title} fill sizes="(max-width: 1000px) 50vw, 25vw" />
+                    </div>
+                    <h3 className="display h-sm">{sv.title}</h3>
+                    <p>{sv.lead}</p>
+                    <p className="price">{sv.from}</p>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+            <div className="btn-row center" style={{ marginTop: 48 }}>
+              <Link href={studioPath(s, "leistungen")} className="btn btn-secondary">
+                Alle Leistungen
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. HEAD SPA (Dee Studio only) */}
         {s.headSpa && <HeadSpaFeature />}
 
-        {/* THE STUDIO */}
+        {/* 5. THE STUDIO */}
         <section className="section">
           <div className="wrap split">
             <Reveal>
@@ -58,60 +122,34 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
                   {p}
                 </p>
               ))}
-              <div className="btn-row" style={{ marginTop: 32 }}>
-                <BookButton studio={s.slug} />
-                <Link href={studioPath(s, "preise")} className="btn btn-secondary">
-                  Preise
-                </Link>
-              </div>
             </Reveal>
           </div>
         </section>
 
-        {/* SERVICES */}
+        {/* 6. GALLERY */}
         <section className="section section-alt">
           <div className="wrap">
             <Reveal className="section-head center">
-              <p className="eyebrow">Behandlungen</p>
-              <h2 className="display h-lg">Services</h2>
+              <p className="eyebrow">@dee.studio.wien</p>
+              <h2 className="display h-lg">Galerie</h2>
             </Reveal>
-            <div className="service-grid">
-              {services.map((sv, i) => (
-                <Reveal key={sv.key} delay={i * 80} className="service-tile group">
-                  <Link href={sv.key === "head-spa" ? studioPath(s, "head-spa") : studioPath(s, "preise")}>
-                    <div className="media bw zoom">
-                      <Image src={sv.image} alt={sv.title} fill sizes="(max-width: 1000px) 50vw, 25vw" />
-                    </div>
-                    <h3 className="display h-sm">{sv.title}</h3>
-                    <p>{sv.lead}</p>
-                    <p className="price">{sv.from}</p>
-                  </Link>
-                </Reveal>
-              ))}
+            {photos.length > 0 ? (
+              <Gallery items={photos} limit={8} bw />
+            ) : (
+              <p className="lead" style={{ margin: "0 auto", textAlign: "center" }}>
+                Fotos aus {s.brand} folgen in Kürze. Bis dahin finden Sie unsere Arbeiten auf Instagram.
+              </p>
+            )}
+            <div className="btn-row center" style={{ marginTop: 48 }}>
+              <Link href={studioPath(s, "galerie")} className="btn btn-secondary">
+                Zur Galerie
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* GALLERY */}
-        {s.gallery && (
-          <section className="section">
-            <div className="wrap">
-              <Reveal className="section-head center">
-                <p className="eyebrow">@dee.studio.wien</p>
-                <h2 className="display h-lg">Unsere Arbeiten</h2>
-              </Reveal>
-              <Gallery bw limit={8} />
-              <div className="btn-row center" style={{ marginTop: 48 }}>
-                <Link href={studioPath(s, "galerie")} className="btn btn-secondary">
-                  Zur Galerie
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* FAQ */}
-        <section className={`section ${s.gallery ? "section-alt" : ""}`}>
+        {/* 7. FAQ */}
+        <section className="section">
           <div className="wrap" style={{ maxWidth: 900 }}>
             <Reveal className="section-head center">
               <p className="eyebrow">FAQ</p>
@@ -121,8 +159,8 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section className={`section ${s.gallery ? "" : "section-alt"}`} id="kontakt">
+        {/* 8. CONTACT */}
+        <section className="section section-alt" id="kontakt">
           <div className="wrap split top">
             <Reveal>
               <p className="eyebrow">Besuchen Sie uns</p>
@@ -142,6 +180,9 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
             </Reveal>
           </div>
         </section>
+
+        {/* 9. BACK TO START */}
+        <BackToStart studio={s} />
       </main>
     </>
   );

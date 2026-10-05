@@ -1,10 +1,10 @@
-import { PRICES } from "@/data/site";
+import type { PriceGroup } from "@/data/site";
 
-export default function PriceList({ groups = PRICES }: { groups?: typeof PRICES }) {
+export default function PriceList({ groups }: { groups: PriceGroup[] }) {
   return (
     <div className="price-cols">
       {groups.map((g) => (
-        <div key={g.title} className="price-group">
+        <div key={g.id} id={g.id} className="price-group">
           <h2 className="display h-sm">{g.title}</h2>
           {g.note && <p className="price-note">{g.note}</p>}
           {g.items.map(([name, val]) => (

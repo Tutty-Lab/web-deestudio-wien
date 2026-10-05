@@ -1,97 +1,84 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import PageHead from "@/components/PageHead";
+import PageHead, { crumbPath } from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
+import FAQ from "@/components/FAQ";
 import BookButton from "@/components/BookButton";
-import JsonLd, { breadcrumbLd } from "@/components/JsonLd";
-import { STYLES, imagesForStyle } from "@/data/gallery";
-import { STUDIOS, getStudio, studioPath } from "@/data/site";
-import { soft } from "@/lib/text";
-
-export const dynamicParams = false;
-
-// Only studios with their own photo gallery get these pages.
-export function generateStaticParams() {
-  return STUDIOS.filter((s) => s.gallery).map((s) => ({ studio: s.slug }));
-}
+import JsonLd, { breadcrumbLd, faqLd } from "@/components/JsonLd";
+import { GALLERY_TEXT, galleryOf, stylesOf } from "@/data/gallery";
+import { INSTAGRAM, getStudio, studioPath } from "@/data/site";
 
 type Params = { params: Promise<{ studio: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = getStudio((await params).studio);
   if (!s) return {};
+  const empty = galleryOf(s.slug).length === 0;
   return {
-    title: `Nagel Galerie Wien | Nageldesign Ideen | ${s.brand}`,
-    description: `Nageldesign Ideen von ${s.brand} am ${s.location}: French Nails, Chrome, Nail Art, XXL, Acryl, Babyboomer und Wimpernverlängerung.`,
+    title: `Galerie | Nageldesign Ideen | ${s.brand} Wien`,
+    description: `Nageldesign Ideen von ${s.brand}: French Nails, Chrome, Nail Art, XXL, Acryl, Babyboomer und Wimpernverlängerung aus unserem Studio am ${s.location}.`,
     alternates: { canonical: studioPath(s, "galerie") },
+    // An empty gallery is thin content: keep it out of the index until photos exist.
+    ...(empty ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
 export default async function GalleryPage({ params }: Params) {
   const s = getStudio((await params).studio);
-  if (!s?.gallery) notFound();
+  if (!s) notFound();
+  const photos = galleryOf(s.slug);
+  const crumbs = [{ label: s.brand, href: studioPath(s) }, { label: "Galerie" }];
 
   return (
     <>
       <Header studio={s} />
-      <JsonLd
-        data={breadcrumbLd([
-          { name: s.brand, path: studioPath(s) },
-          { name: "Galerie", path: studioPath(s, "galerie") },
-        ])}
-      />
+      <JsonLd data={breadcrumbLd(crumbPath(crumbs, studioPath(s, "galerie")))} />
+      {photos.length > 0 && <JsonLd data={faqLd(GALLERY_TEXT.faqs)} />}
       <main>
         <PageHead
-          home={{ label: s.brand, href: studioPath(s) }}
-          crumbs={[{ label: "Galerie" }]}
-          eyebrow="Nageldesign Ideen aus Wien"
+          crumbs={crumbs}
+          eyebrow={`${s.brand}, ${s.location}`}
           title="Galerie"
-          intro={`Echte Arbeiten aus unserem Studio am ${s.location}. Wählen Sie einen Stil, um mehr Beispiele, Preise und Antworten zu sehen.`}
+          intro={photos.length > 0 ? GALLERY_TEXT.intro : `Fotos aus ${s.brand} folgen in Kürze.`}
         />
 
         <section className="section">
           <div className="wrap">
-            <Reveal className="section-head">
-              <p className="eyebrow">Nach Stil</p>
-              <h2 className="display h-lg">Stile entdecken</h2>
-            </Reveal>
-            <ul className="style-grid">
-              {STYLES.map((st) => {
-                const imgs = imagesForStyle(st.slug);
-                return (
-                  <li key={st.slug}>
-                    <Link href={studioPath(s, `galerie/${st.slug}`)} className="style-card group">
-                      <div className="media bw zoom">
-                        <Image src={imgs[0].src} alt={imgs[0].alt} fill sizes="(max-width: 600px) 50vw, 25vw" />
-                      </div>
-                      <h3 className="display h-sm">{soft(st.name)}</h3>
-                      <p>
-                        {imgs.length} {imgs.length === 1 ? "Beispiel" : "Beispiele"}
-                      </p>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            {photos.length > 0 ? (
+              <Gallery items={photos} filters={stylesOf(s.slug)} />
+            ) : (
+              <div className="empty-state">
+                <p className="lead">
+                  Wir fotografieren gerade unsere ersten Arbeiten in der {s.location}. Bis dahin finden Sie Inspiration auf
+                  Instagram.
+                </p>
+                <div className="btn-row center" style={{ marginTop: 24 }}>
+                  <a className="btn btn-secondary" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+                    Instagram ansehen
+                  </a>
+                  <BookButton studio={s.slug} />
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
-        <section className="section section-alt">
-          <div className="wrap">
-            <Reveal className="section-head">
-              <p className="eyebrow">@dee.studio.wien</p>
-              <h2 className="display h-lg">Alle Arbeiten</h2>
-            </Reveal>
-            <Gallery />
-            <div className="btn-row center" style={{ marginTop: 48 }}>
-              <BookButton studio={s.slug} />
+        {photos.length > 0 && (
+          <section className="section section-alt">
+            <div className="wrap" style={{ maxWidth: 900 }}>
+              <Reveal className="section-head">
+                <p className="eyebrow">Häufige Fragen</p>
+                <h2 className="display h-lg">Gut zu wissen</h2>
+              </Reveal>
+              <FAQ items={GALLERY_TEXT.faqs} />
+              <div className="btn-row" style={{ marginTop: 40 }}>
+                <BookButton studio={s.slug} />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </>
   );

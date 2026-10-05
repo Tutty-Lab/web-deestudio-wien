@@ -1,158 +1,17 @@
-export type Studio = {
-  /** URL segment of the studio's own sub-site, e.g. /dee-studio */
-  slug: string;
-  brand: string;
-  location: string;
-  district: string;
-  street: string;
-  city: string;
-  phone: string;
-  phoneHref: string;
-  email?: string;
-  booking: string;
-  mapQuery: string;
-  hours: { days: string; time: string }[];
-  transit?: string[];
-  tagline: string;
-  intro: string;
-  about: string[];
-  hero: string;
-  cover: string;
-  interior: string[];
-  /** Keys from SERVICES offered here. */
-  services: string[];
-  headSpa?: boolean;
-  /** Has its own gallery and SEO style pages. */
-  gallery?: boolean;
-};
-
-export const STUDIOS: Studio[] = [
-  {
-    slug: "dee-studio",
-    brand: "Dee Studio",
-    location: "Neubaugürtel",
-    district: "1150 Wien",
-    street: "Neubaugürtel 23a",
-    city: "1150 Wien",
-    phone: "+43 660 6868888",
-    phoneHref: "tel:+436606868888",
-    email: "info@deestudio.at",
-    booking: "https://buchung.treatwell.at/ort/dee-studio/",
-    mapQuery: "Neubaugürtel 23a, 1150 Wien",
-    hours: [
-      { days: "Mo - Fr", time: "09:00 - 19:00" },
-      { days: "Samstag", time: "09:00 - 18:00" },
-      { days: "Sonntag", time: "Geschlossen" },
-    ],
-    transit: [
-      "U6 Burggasse-Stadthalle, Ausgang Urban-Loritz-Platz",
-      "Straßenbahn 6, 9, 18, 49 bis Urban-Loritz-Platz",
-      "5 Minuten vom Westbahnhof",
-    ],
-    tagline: "Nails, Lashes, Head Spa & Massage",
-    intro:
-      "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
-    about: [
-      "Bei Dee Studio beginnt Schönheit mit Pflege. Unsere Artists arbeiten mit aktuellen Techniken und hochwertigen Produkten, für Nail Art, die Ihre Persönlichkeit zeigt.",
-      "Neu bei uns: der Head Spa. Eine Auszeit für Kopf und Seele, nur wenige Minuten vom Westbahnhof.",
-    ],
-    hero: "/images/nails/chrome-nails-silber-xxl-wien.webp",
-    cover: "/images/studio/dee-studio-neubauguertel-innen.webp",
-    interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
-    services: ["nails", "head-spa", "lashes", "pedicure", "massage"],
-    headSpa: true,
-    gallery: true,
-  },
-  {
-    slug: "vanilla-by-dee",
-    brand: "Vanilla by Dee",
-    location: "Fasangasse",
-    district: "1030 Wien",
-    street: "Fasangasse 32",
-    city: "1030 Wien",
-    phone: "+43 660 9333999",
-    phoneHref: "tel:+436609333999",
-    booking: "https://www.treatwell.at/ort/hi-nails-salon/",
-    mapQuery: "Fasangasse 32, 1030 Wien",
-    hours: [
-      { days: "Mo - Fr", time: "09:00 - 19:00" },
-      { days: "Samstag", time: "09:00 - 18:00" },
-      { days: "Sonntag", time: "Geschlossen" },
-    ],
-    tagline: "Nails & Pediküre",
-    intro: "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
-    about: [
-      "Vanilla by Dee bringt die Handschrift von Dee Studio in den dritten Bezirk. Sorgfältige Maniküre, kreatives Nageldesign und gepflegte Füße.",
-      "Ob schneller Shellac in der Mittagspause oder ein neues Set mit Nail Art: Wir nehmen uns Zeit für Sie.",
-    ],
-    // No photos of this studio yet: nail work stands in until the client sends interior shots.
-    hero: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
-    cover: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
-    interior: ["/images/nails/chrome-glazed-nails-natur-wien.webp", "/images/nails/acrylnaegel-modellage-wien.jpg"],
-    services: ["nails", "pedicure"],
-  },
-];
-
 export const SITE = {
   // Final domain; set NEXT_PUBLIC_SITE_URL on Vercel if it differs.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://deestudio.at").replace(/\/$/, ""),
-  name: "Dee Studio",
+  name: "Dee Studio Wien",
 };
 
-export const getStudio = (slug: string) => STUDIOS.find((s) => s.slug === slug);
+export const INSTAGRAM = "https://www.instagram.com/dee.studio.wien/";
 
-/** Path inside a studio sub-site, e.g. studioPath(s, "preise") gives /dee-studio/preise */
-export const studioPath = (s: Studio | string, sub = "") => {
-  const slug = typeof s === "string" ? s : s.slug;
-  return sub ? `/${slug}/${sub}` : `/${slug}`;
-};
+/* ------------------------------------------------------------------ */
+/* Prices                                                              */
+/* ------------------------------------------------------------------ */
 
-export type Service = {
-  key: string;
-  title: string;
-  lead: string;
-  image: string;
-  from: string;
-};
-
-export const SERVICES: Service[] = [
-  {
-    key: "nails",
-    title: "Nails",
-    lead: "Acryl, Gel-X, Shellac und Nail Art. Jedes Set ist ein Unikat.",
-    image: "/images/nails/french-nails-weiss-steine-wien.webp",
-    from: "ab 30 €",
-  },
-  {
-    key: "lashes",
-    title: "Lashes",
-    lead: "Wimpernverlängerung von natürlich bis Volumen.",
-    image: "/images/lashes/wimpern-natuerlich-wien.jpg",
-    from: "ab 65 €",
-  },
-  {
-    key: "head-spa",
-    title: "Head Spa",
-    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele. Exklusiv bei Dee Studio.",
-    image: "/images/headspa/head-spa-dee-studio-wien.jpg",
-    from: "ab 65 €",
-  },
-  {
-    key: "pedicure",
-    title: "Pediküre",
-    lead: "Basic oder Deluxe, für gepflegte Füße mit Shellac oder French.",
-    image: "/images/nails/french-nails-haende-fuesse-wien.webp",
-    from: "ab 40 €",
-  },
-  {
-    key: "massage",
-    title: "Massage",
-    lead: "Ganzkörper-, Rücken- und Nackenmassage, auch für Schwangere.",
-    // No massage photo yet; the treatment room stands in.
-    image: "/images/studio/dee-studio-pedikuere-neubauguertel.webp",
-    from: "ab 20 €",
-  },
-];
+/** `id` is the anchor on the Preise page, e.g. /dee-studio/preise#wimpern */
+export type PriceGroup = { id: string; title: string; note?: string; items: [string, string][] };
 
 // Head Spa is offered at Dee Studio (Neubaugürtel) and is the service the client wants to promote.
 export const HEAD_SPA = {
@@ -177,49 +36,10 @@ export const HEAD_SPA = {
   price: "ab 65 €",
 };
 
-export type PriceGroup = { title: string; note?: string; items: [string, string][] };
-
-/** Services only Dee Studio offers, shown above the shared nail price list. */
-export const DEE_EXTRA_PRICES: PriceGroup[] = [
+// Nail and pedicure prices from the old deestudio.at price list.
+const NAIL_PRICES: PriceGroup[] = [
   {
-    title: "Head Spa",
-    items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
-  },
-  {
-    title: "Wimpern",
-    items: [
-      ["Wimpernlifting", "65 €"],
-      ["Wimpernverlängerung 1:1, Neuanlage", "99 €"],
-      ["Light Volume 2:1 / 3:1, Neuanlage", "110 €"],
-      ["Mega Volume 5D bis 8D, Neuanlage", "120 €"],
-      ["Anime / Douyin / Manga Style", "130 €"],
-      ["Auffüllen (1:1, Light oder Mega Volume)", "55 €"],
-      ["Entfernung", "15 €"],
-    ],
-  },
-  {
-    title: "Massage",
-    items: [
-      ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
-      ["Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min.", "ab 40 €"],
-      ["Rückenmassage, 40 bis 75 Min.", "ab 40 €"],
-      ["Ganzkörpermassage, 75 bis 135 Min.", "ab 70 €"],
-      ["Massage für Schwangere, 75 bis 105 Min.", "ab 70 €"],
-    ],
-  },
-  {
-    title: "Pediküre mit Massage",
-    items: [
-      ["Pediküre + Fußmassage", "ab 55 €"],
-      ["Deluxe Pediküre + Fußmassage", "ab 75 €"],
-      ["Deluxe Pediküre + Deluxe Maniküre, jeweils mit Shellac", "130 €"],
-      ["Deluxe Pediküre mit Shellac + Neues Set", "136 €"],
-    ],
-  },
-];
-
-export const PRICES: PriceGroup[] = [
-  {
+    id: "neues-set",
     title: "Neues Set",
     note: "Neues Set / Entfernung altes Set + neues Set",
     items: [
@@ -230,6 +50,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "auffuellen",
     title: "Auffüllen",
     items: [
       ["Ohne Farbe / Natur", "42 €"],
@@ -238,6 +59,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "gel-x-shellac",
     title: "Gel-X & Shellac",
     items: [
       ["Gel-X neues Set mit Farbe", "50 €"],
@@ -247,6 +69,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "manikuere",
     title: "Maniküre",
     items: [
       ["Basic Maniküre", "18 €"],
@@ -257,6 +80,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "pedikuere",
     title: "Pediküre",
     items: [
       ["Basic Pediküre", "40 €"],
@@ -268,6 +92,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "kombis",
     title: "Kombis",
     items: [
       ["Hände neues Set mit Farbe + Basic Pediküre mit Shellac", "99 €"],
@@ -275,6 +100,7 @@ export const PRICES: PriceGroup[] = [
     ],
   },
   {
+    id: "extras",
     title: "Glitzer, Chrome & Extras",
     note: "Ab 1,6 cm Länge wird jeder weitere Millimeter extra berechnet.",
     items: [
@@ -289,6 +115,286 @@ export const PRICES: PriceGroup[] = [
     ],
   },
 ];
+
+// From Dee Studio's Treatwell menu (regular prices, before the 10 % off-peak discount).
+const DEE_ONLY_PRICES: PriceGroup[] = [
+  {
+    id: "head-spa",
+    title: "Head Spa",
+    items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
+  },
+  {
+    id: "wimpern",
+    title: "Wimpern",
+    items: [
+      ["Wimpernlifting", "65 €"],
+      ["Wimpernverlängerung 1:1, Neuanlage", "99 €"],
+      ["Light Volume 2:1 / 3:1, Neuanlage", "110 €"],
+      ["Mega Volume 5D bis 8D, Neuanlage", "120 €"],
+      ["Anime / Douyin / Manga Style", "130 €"],
+      ["Auffüllen (1:1, Light oder Mega Volume)", "55 €"],
+      ["Entfernung", "15 €"],
+    ],
+  },
+  {
+    id: "massage",
+    title: "Massage",
+    items: [
+      ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
+      ["Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min.", "ab 40 €"],
+      ["Rückenmassage, 40 bis 75 Min.", "ab 40 €"],
+      ["Ganzkörpermassage, 75 bis 135 Min.", "ab 70 €"],
+      ["Massage für Schwangere, 75 bis 105 Min.", "ab 70 €"],
+    ],
+  },
+  {
+    id: "pedikuere-massage",
+    title: "Pediküre mit Massage",
+    items: [
+      ["Pediküre + Fußmassage", "ab 55 €"],
+      ["Deluxe Pediküre + Fußmassage", "ab 75 €"],
+      ["Deluxe Pediküre + Deluxe Maniküre, jeweils mit Shellac", "130 €"],
+      ["Deluxe Pediküre mit Shellac + Neues Set", "136 €"],
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Services                                                            */
+/* ------------------------------------------------------------------ */
+
+export type Service = {
+  /** Also the anchor on the Leistungen page, e.g. /dee-studio/leistungen#pedikuere */
+  key: string;
+  title: string;
+  lead: string;
+  /** Leistungen page copy. Draft: confirm with the client. */
+  description: string[];
+  duration?: string;
+  image: string;
+  from: string;
+  /** Price group anchor on the Preise page. */
+  priceGroup: string;
+};
+
+export const SERVICES: Service[] = [
+  {
+    key: "nails",
+    title: "Nails",
+    lead: "Acryl, Gel-X, Shellac und Nail Art. Jedes Set ist ein Unikat.",
+    description: [
+      "Ob natürlich mit Shellac, als leichtes Gel-X Set oder als stabile Acryl-Modellage: Wir beraten Sie zu Form, Länge und Farbe und finden die Technik, die zu Ihrem Alltag passt.",
+      "Für Nail Art bringen Sie gerne Ihre Inspiration mit. Von French und Babyboomer über Chrome bis zu handgemalten Designs, Steinen und Charms setzen wir Ihre Idee um.",
+      "Nach drei bis vier Wochen empfehlen wir ein Auffüllen, damit Ihre Nägel stabil und schön bleiben.",
+    ],
+    image: "/images/nails/french-nails-weiss-steine-wien.webp",
+    from: "ab 30 €",
+    priceGroup: "neues-set",
+  },
+  {
+    key: "wimpern",
+    title: "Lashes",
+    lead: "Wimpernlifting und Wimpernverlängerung von natürlich bis Mega Volume.",
+    description: [
+      "Beim Wimpernlifting werden Ihre eigenen Wimpern sanft geschwungen, ganz ohne Extensions. Bei der Wimpernverlängerung setzen wir Extensions einzeln, von der klassischen 1:1 Technik über Light Volume bis zu Mega Volume.",
+      "Neu im Trend ist der Anime, Douyin oder Manga Style mit gezielten Spikes für einen ausdrucksstarken Blick. Zum Auffüllen kommen Sie nach etwa zwei bis drei Wochen.",
+    ],
+    duration: "60 bis 135 Min.",
+    image: "/images/lashes/wimpern-natuerlich-wien.jpg",
+    from: "ab 65 €",
+    priceGroup: "wimpern",
+  },
+  {
+    key: "head-spa",
+    title: "Head Spa",
+    lead: "Tiefenentspannung für Kopfhaut, Haar und Seele. Exklusiv bei Dee Studio.",
+    description: [
+      "Unser Head Spa verbindet Kopf-Akupressur, Massage für Nacken und Schultern, den beruhigenden Wasserbogen und Kopfhaut-Bedampfung zu einem Ritual.",
+      "Drei Pakete stehen zur Wahl: Essential Balance, Deep Relax & Care und das VIP Paket Luxury Healing Journey.",
+    ],
+    duration: "45 bis 90 Min.",
+    image: "/images/headspa/head-spa-dee-studio-wien.jpg",
+    from: "ab 65 €",
+    priceGroup: "head-spa",
+  },
+  {
+    key: "pedikuere",
+    title: "Pediküre",
+    lead: "Basic oder Deluxe, für gepflegte Füße mit Shellac oder French.",
+    description: [
+      "Die Basic Pediküre umfasst Fußbad, Nagelpflege und Hornhautbehandlung. Die Deluxe Pediküre nimmt sich mehr Zeit für Pflege und Entspannung.",
+      "Auf Wunsch mit Shellac, French oder Acryl, damit Hände und Füße zueinander passen.",
+    ],
+    image: "/images/nails/french-nails-haende-fuesse-wien.webp",
+    from: "ab 40 €",
+    priceGroup: "pedikuere",
+  },
+  {
+    key: "massage",
+    title: "Massage",
+    lead: "Ganzkörper-, Rücken- und Nackenmassage, auch für Schwangere.",
+    description: [
+      "Von der kurzen Kopfmassage bis zur Ganzkörpermassage: Unsere Massagen lösen Verspannungen und schenken Ihnen eine echte Pause vom Alltag.",
+      "Für werdende Mütter bieten wir eine eigene Massage für Schwangere an. Pediküre lässt sich mit einer Fußmassage kombinieren.",
+    ],
+    duration: "20 bis 135 Min.",
+    // No massage photo yet; the treatment room stands in.
+    image: "/images/studio/dee-studio-pedikuere-neubauguertel.webp",
+    from: "ab 20 €",
+    priceGroup: "massage",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Studios                                                             */
+/* ------------------------------------------------------------------ */
+
+export type Studio = {
+  /** URL segment of the studio's own sub-site, e.g. /dee-studio */
+  slug: string;
+  brand: string;
+  location: string;
+  district: string;
+  street: string;
+  city: string;
+  phone: string;
+  phoneHref: string;
+  email?: string;
+  booking: string;
+  /** Google Maps link used for "Bewertung schreiben" and directions. */
+  maps: string;
+  mapQuery: string;
+  hours: { days: string; time: string }[];
+  transit?: string[];
+  tagline: string;
+  intro: string;
+  about: string[];
+  hero: string;
+  cover: string;
+  interior: string[];
+  /** Keys from SERVICES offered here. */
+  services: string[];
+  prices: PriceGroup[];
+  /** "Preise auf einen Blick": [price group id, item label], resolved from `prices` so both stay in sync. */
+  highlights: [string, string][];
+  headSpa?: boolean;
+};
+
+const mapsLink = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+export const STUDIOS: Studio[] = [
+  {
+    slug: "dee-studio",
+    brand: "Dee Studio",
+    location: "Neubaugürtel",
+    district: "1150 Wien",
+    street: "Neubaugürtel 23a",
+    city: "1150 Wien",
+    phone: "+43 660 6868888",
+    phoneHref: "tel:+436606868888",
+    email: "info@deestudio.at",
+    booking: "https://buchung.treatwell.at/ort/dee-studio/",
+    maps: mapsLink("Dee Studio, Neubaugürtel 23a, 1150 Wien"),
+    mapQuery: "Neubaugürtel 23a, 1150 Wien",
+    hours: [
+      { days: "Mo - Fr", time: "09:00 - 19:00" },
+      { days: "Samstag", time: "09:00 - 18:00" },
+      { days: "Sonntag", time: "Geschlossen" },
+    ],
+    transit: [
+      "U6 Burggasse-Stadthalle, Ausgang Urban-Loritz-Platz",
+      "Straßenbahn 6, 9, 18, 49 bis Urban-Loritz-Platz",
+      "5 Minuten vom Westbahnhof",
+    ],
+    tagline: "Nails, Lashes, Head Spa & Massage",
+    intro:
+      "Unser erstes Studio im Herzen Wiens. Kreatives Nageldesign, Lashes und unser Head Spa in ruhiger, luxuriöser Atmosphäre.",
+    about: [
+      "Bei Dee Studio beginnt Schönheit mit Pflege. Unsere Artists arbeiten mit aktuellen Techniken und hochwertigen Produkten, für Nail Art, die Ihre Persönlichkeit zeigt.",
+      "Neu bei uns: der Head Spa. Eine Auszeit für Kopf und Seele, nur wenige Minuten vom Westbahnhof.",
+    ],
+    hero: "/images/nails/chrome-nails-silber-xxl-wien.webp",
+    cover: "/images/studio/dee-studio-neubauguertel-innen.webp",
+    interior: ["/images/studio/dee-studio-empfang-neubauguertel.webp", "/images/studio/dee-studio-pedikuere-neubauguertel.webp"],
+    services: ["nails", "head-spa", "wimpern", "pedikuere", "massage"],
+    prices: [...DEE_ONLY_PRICES, ...NAIL_PRICES],
+    highlights: [
+      ["neues-set", "Mit Farbe"],
+      ["auffuellen", "Mit Farbe"],
+      ["gel-x-shellac", "Shellac mit Farbe"],
+      ["pedikuere", "Basic Pediküre"],
+      ["head-spa", "Basis Paket „Essential Balance“, 45 Min."],
+      ["wimpern", "Wimpernverlängerung 1:1, Neuanlage"],
+      ["wimpern", "Wimpernlifting"],
+      ["massage", "Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min."],
+    ],
+    headSpa: true,
+  },
+  {
+    slug: "vanilla-by-dee",
+    brand: "Vanilla by Dee",
+    location: "Fasangasse",
+    district: "1030 Wien",
+    street: "Fasangasse 32",
+    city: "1030 Wien",
+    phone: "+43 660 9333999",
+    phoneHref: "tel:+436609333999",
+    booking: "https://www.treatwell.at/ort/hi-nails-salon/",
+    maps: mapsLink("Vanilla By Dee / Hi Nails, Fasangasse 32, 1030 Wien"),
+    mapQuery: "Fasangasse 32, 1030 Wien",
+    hours: [
+      { days: "Mo - Fr", time: "09:00 - 19:00" },
+      { days: "Samstag", time: "09:00 - 18:00" },
+      { days: "Sonntag", time: "Geschlossen" },
+    ],
+    tagline: "Nails & Pediküre",
+    intro: "Unser neues Studio im dritten Bezirk. Nails und Pediküre in heller, entspannter Atmosphäre.",
+    about: [
+      "Vanilla by Dee bringt die Handschrift von Dee Studio in den dritten Bezirk. Sorgfältige Maniküre, kreatives Nageldesign und gepflegte Füße.",
+      "Ob schneller Shellac in der Mittagspause oder ein neues Set mit Nail Art: Wir nehmen uns Zeit für Sie.",
+    ],
+    // No photos of this studio yet: Dee Studio nail work stands in until the client sends real shots.
+    hero: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
+    cover: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
+    interior: ["/images/nails/chrome-glazed-nails-natur-wien.webp", "/images/nails/acrylnaegel-modellage-wien.jpg"],
+    services: ["nails", "pedikuere"],
+    // Same list as Dee Studio until the client confirms Vanilla's own prices.
+    prices: NAIL_PRICES,
+    highlights: [
+      ["neues-set", "Mit Farbe"],
+      ["auffuellen", "Mit Farbe"],
+      ["gel-x-shellac", "Gel-X neues Set mit Farbe"],
+      ["gel-x-shellac", "Shellac mit Farbe"],
+      ["manikuere", "Maniküre mit Shellac / French"],
+      ["pedikuere", "Basic Pediküre"],
+      ["pedikuere", "Deluxe Pediküre"],
+    ],
+  },
+];
+
+export const getStudio = (slug: string) => STUDIOS.find((s) => s.slug === slug);
+
+/** Path inside a studio sub-site, e.g. studioPath(s, "preise") gives /dee-studio/preise */
+export const studioPath = (s: Studio | string, sub = "") => {
+  const slug = typeof s === "string" ? s : s.slug;
+  return sub ? `/${slug}/${sub}` : `/${slug}`;
+};
+
+export const servicesOf = (s: Studio) =>
+  s.services.map((k) => SERVICES.find((sv) => sv.key === k)).filter((sv): sv is Service => !!sv);
+
+/** Resolve highlight references to [label, price, group id]; fails the build if a reference is stale. */
+export function highlightsOf(s: Studio): { label: string; price: string; group: string }[] {
+  return s.highlights.map(([groupId, label]) => {
+    const item = s.prices.find((g) => g.id === groupId)?.items.find(([l]) => l === label);
+    if (!item) throw new Error(`Highlight "${label}" not found in ${s.slug} price group "${groupId}"`);
+    const group = s.prices.find((g) => g.id === groupId)!;
+    // Short labels read better at a glance: prefix the group when the item name alone is ambiguous.
+    const short =
+      label.startsWith("Mit ") || label.startsWith("Ohne ") ? `${group.title} ${label[0].toLowerCase()}${label.slice(1)}` : label;
+    return { label: short, price: item[1], group: groupId };
+  });
+}
 
 export const FAQ = [
   {
@@ -308,5 +414,3 @@ export const FAQ = [
     a: "Ja. Sollte innerhalb der ersten Tage etwas abbrechen, melden Sie sich bei uns. Wir kümmern uns darum.",
   },
 ];
-
-export const INSTAGRAM = "https://www.instagram.com/dee.studio.wien/";

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import PageHead from "@/components/PageHead";
+import PageHead, { crumbPath } from "@/components/PageHead";
 import PriceList from "@/components/PriceList";
 import BookButton from "@/components/BookButton";
-import { DEE_EXTRA_PRICES, HEAD_SPA, PRICES, getStudio, studioPath } from "@/data/site";
+import JsonLd, { breadcrumbLd } from "@/components/JsonLd";
+import { getStudio, studioPath } from "@/data/site";
 
 type Params = { params: Promise<{ studio: string }> };
 
@@ -22,33 +23,38 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function PricesPage({ params }: Params) {
   const s = getStudio((await params).studio);
   if (!s) notFound();
+  const crumbs = [{ label: s.brand, href: studioPath(s) }, { label: "Preise" }];
 
   return (
     <>
       <Header studio={s} />
+      <JsonLd data={breadcrumbLd(crumbPath(crumbs, studioPath(s, "preise")))} />
       <main>
         <PageHead
-          home={{ label: s.brand, href: studioPath(s) }}
-          crumbs={[{ label: "Preise" }]}
+          crumbs={crumbs}
           eyebrow={`${s.brand}, ${s.location}`}
           title="Preise"
           intro={
-            s.headSpa ? (
-              <>
-                Head Spa, Wimpern, Nails und Pediküre. Mehr zum{" "}
-                <Link href={studioPath(s, "head-spa")} style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
-                  Head Spa Ritual
-                </Link>
-                .
-              </>
-            ) : (
-              "Alle Preise für Nails und Pediküre. Online buchen oder einfach anrufen."
-            )
+            <>
+              {s.tagline}. Alle Behandlungen im Detail finden Sie unter{" "}
+              <Link href={studioPath(s, "leistungen")} style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
+                Leistungen
+              </Link>
+              .
+            </>
           }
-        />
+        >
+          <nav className="chips" aria-label="Preisgruppen">
+            {s.prices.map((g) => (
+              <a key={g.id} href={`#${g.id}`}>
+                {g.title}
+              </a>
+            ))}
+          </nav>
+        </PageHead>
         <section className="section">
           <div className="wrap">
-            <PriceList groups={s.slug === HEAD_SPA.studio ? [...DEE_EXTRA_PRICES, ...PRICES] : PRICES} />
+            <PriceList groups={s.prices} />
             <div className="btn-row center" style={{ marginTop: 16 }}>
               <BookButton studio={s.slug} />
             </div>

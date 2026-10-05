@@ -7,29 +7,29 @@ import { STUDIOS, studioPath, type Studio } from "@/data/site";
 import { useBooking } from "./BookingProvider";
 
 type Props = {
-  /** The studio sub-site this header belongs to; omitted on the group pages (landing, Magazin). */
+  /** The studio sub-site this header belongs to; omitted on group pages. */
   studio?: Studio;
   transparent?: boolean;
 };
 
 type NavItem = { href: string; label: string; exact?: boolean; anchor?: boolean };
 
-// Group site: sections of the landing page plus the articles.
 const GROUP_NAV: NavItem[] = [
-  { href: "/#ueber-uns", label: "Über uns", anchor: true },
-  { href: "/#philosophie", label: "Philosophie", anchor: true },
-  { href: "/#team", label: "Team", anchor: true },
-  { href: "/#hygiene", label: "Hygiene", anchor: true },
+  { href: "/ueber-uns", label: "Über uns" },
+  { href: "/philosophie", label: "Philosophie" },
+  { href: "/hygiene", label: "Hygiene" },
+  { href: "/bewertungen", label: "Bewertungen" },
   { href: "/magazin", label: "Magazin" },
   { href: "/#studios", label: "Studios", anchor: true },
 ];
 
 function studioNav(s: Studio): NavItem[] {
   return [
-    { href: studioPath(s), label: "Start", exact: true },
+    { href: studioPath(s), label: "Übersicht", exact: true },
+    { href: studioPath(s, "leistungen"), label: "Leistungen" },
     ...(s.headSpa ? [{ href: studioPath(s, "head-spa"), label: "Head Spa" }] : []),
-    ...(s.gallery ? [{ href: studioPath(s, "galerie"), label: "Galerie" }] : []),
     { href: studioPath(s, "preise"), label: "Preise" },
+    { href: studioPath(s, "galerie"), label: "Galerie" },
     { href: `${studioPath(s)}#kontakt`, label: "Kontakt", anchor: true },
   ];
 }
@@ -69,15 +69,23 @@ export default function Header({ studio, transparent = false }: Props) {
     <>
       <header className={`header ${variant}`}>
         <div className="wrap header-inner">
-          <Link
-            href={studio ? studioPath(studio) : "/"}
-            className="logo"
-            aria-label={studio ? `${studio.brand} Startseite` : "Dee Studio Wien"}
-            onClick={close}
-          >
-            {studio ? studio.brand : "Dee Studio"}
-            <small>{studio ? studio.location : "Wien"}</small>
-          </Link>
+          <div className="brand">
+            {studio && (
+              <Link href="/" className="back-link" onClick={close}>
+                <span className="chev" aria-hidden="true" />
+                Dee Studio Wien
+              </Link>
+            )}
+            <Link
+              href={studio ? studioPath(studio) : "/"}
+              className="logo"
+              aria-label={studio ? `${studio.brand} Übersicht` : "Dee Studio Wien Startseite"}
+              onClick={close}
+            >
+              {studio ? studio.brand : "Dee Studio"}
+              <small>{studio ? studio.location : "Wien"}</small>
+            </Link>
+          </div>
 
           <nav className="nav" aria-label="Hauptnavigation">
             {nav.map((item) => (
@@ -113,12 +121,18 @@ export default function Header({ studio, transparent = false }: Props) {
       </header>
 
       <nav className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-label="Mobile Navigation" aria-hidden={!menuOpen}>
+        {studio && (
+          <Link className="m-link m-back" href="/" onClick={close}>
+            Zur Startseite
+            <small>Dee Studio Wien</small>
+          </Link>
+        )}
         {nav.map((item) => (
           <Link key={item.href} className={`m-link ${isActive(item) ? "active" : ""}`} href={item.href} onClick={close}>
             {item.label}
           </Link>
         ))}
-        <p className="eyebrow group-label">{studio ? "Unsere anderen Studios" : "Zu den Studios"}</p>
+        <p className="eyebrow group-label">{studio ? "Unser anderes Studio" : "Zu den Studios"}</p>
         {others.map((s) => (
           <Link key={s.slug} className="m-link" href={studioPath(s)} onClick={close}>
             {s.brand}

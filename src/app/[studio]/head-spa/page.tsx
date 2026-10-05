@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import PageHead from "@/components/PageHead";
+import PageHead, { crumbPath } from "@/components/PageHead";
+import JsonLd, { breadcrumbLd } from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
@@ -31,14 +32,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function HeadSpaPage({ params }: Params) {
   const studio = getStudio((await params).studio);
   if (!studio?.headSpa) notFound();
+  const crumbs = [{ label: studio.brand, href: studioPath(studio) }, { label: "Head Spa" }];
 
   return (
     <>
       <Header studio={studio} />
+      <JsonLd data={breadcrumbLd(crumbPath(crumbs, studioPath(studio, "head-spa")))} />
       <main>
         <PageHead
-          home={{ label: studio.brand, href: studioPath(studio) }}
-          crumbs={[{ label: "Head Spa" }]}
+          crumbs={crumbs}
           eyebrow={`Exklusiv bei ${studio.brand}, ${studio.location}`}
           title="Head Spa"
           intro={HEAD_SPA.lead}

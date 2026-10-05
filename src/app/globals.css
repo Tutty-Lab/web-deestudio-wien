@@ -1609,3 +1609,259 @@ img {
   background: currentColor;
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
+
+/* ================= Spec 04.10: studio sub-sites ================= */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.back-link:hover {
+  opacity: 1;
+}
+/* Back chevron drawn with borders, no arrow glyph. */
+.chev {
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+@media (max-width: 960px) {
+  .back-link {
+    display: none;
+  }
+}
+.m-back {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+}
+
+/* Preise auf einen Blick */
+.glance {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.glance .price-row {
+  padding: 16px 0;
+  font-size: 16px;
+  transition: padding 0.25s var(--ease);
+}
+.glance .price-row:hover {
+  padding-left: 8px;
+}
+
+/* Anchor chips under page heads */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.chips a {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.chips a:hover {
+  border-color: var(--fg);
+}
+html {
+  scroll-padding-top: calc(var(--header-h) + 24px);
+}
+
+/* Leistungen: alternate image side on desktop */
+@media (min-width: 861px) {
+  .order-last-desktop {
+    order: 2;
+  }
+}
+
+/* Mehr über Dee Studio */
+.link-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 28px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease;
+}
+.link-card:hover {
+  border-color: var(--fg);
+}
+.link-card span:last-child {
+  color: var(--muted);
+  font-size: 14px;
+}
+@media (max-width: 860px) {
+  .link-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Values on the landing link to /philosophie */
+.value a {
+  display: block;
+}
+
+/* Gallery as buttons + lightbox */
+.gal-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.gal-item {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+}
+.gal-tabs button[aria-pressed="true"] {
+  color: var(--fg);
+  border-bottom-color: currentColor;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(10, 10, 10, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px;
+  animation: fade 0.2s ease;
+}
+.lb-figure {
+  margin: 0;
+  width: min(1000px, 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lb-image {
+  position: relative;
+  flex: 1;
+}
+.lb-figure figcaption {
+  color: #d6d6d3;
+  font-size: 13px;
+  text-align: center;
+}
+.lb-close,
+.lb-nav {
+  position: absolute;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.lb-close {
+  top: 8px;
+  right: 8px;
+}
+.lb-close::before,
+.lb-close::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+.lb-close::after {
+  transform: rotate(-45deg);
+}
+.lb-nav {
+  top: 50%;
+  translate: 0 -50%;
+}
+.lb-nav.prev {
+  left: 8px;
+}
+.lb-nav.next {
+  right: 8px;
+}
+.lb-nav::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+}
+.lb-nav.prev::before {
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+.lb-nav.next::before {
+  transform: translate(-70%, -50%) rotate(-135deg);
+}
+
+.empty-state {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.empty-state .lead {
+  margin: 0 auto;
+}
+
+/* Ratings and reviews */
+.rating-start {
+  align-items: flex-start;
+  text-align: left;
+}
+.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.review {
+  padding: 24px;
+  border: 1px solid var(--line);
+}
+.review p:first-child {
+  margin: 0 0 12px;
+  line-height: 1.75;
+}
+
+.prose .info-list {
+  padding-left: 0;
+}
