@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { INSTAGRAM, STUDIOS, studioPath, type Studio } from "@/data/site";
 import { STATIC_PAGES } from "@/data/home";
+import { CookieSettingsLink } from "./CookieConsent";
 
 /** Footer of a studio sub-site, or the group footer when no studio is given. */
 export default function Footer({ studio }: { studio?: Studio }) {
@@ -131,6 +132,7 @@ export default function Footer({ studio }: { studio?: Studio }) {
           <nav aria-label="Rechtliches">
             <Link href="/impressum">Impressum</Link>
             <Link href="/datenschutz">Datenschutz</Link>
+            <CookieSettingsLink />
           </nav>
         </div>
       </div>

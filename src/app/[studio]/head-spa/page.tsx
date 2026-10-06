@@ -90,6 +90,11 @@ export default async function HeadSpaPage({ params }: Params) {
                   <h3 className="display h-sm">{p.name}</h3>
                   <p className="package-meta">{p.duration}</p>
                   <p className="package-price">{p.price}</p>
+                  <ul className="checklist package-list">
+                    {p.highlights.map((h) => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
                   <BookButton studio={studio.slug} className="btn btn-secondary">
                     Buchen
                   </BookButton>
@@ -97,7 +102,7 @@ export default async function HeadSpaPage({ params }: Params) {
               ))}
             </ul>
             <p className="price-note" style={{ textAlign: "center", marginTop: 24 }}>
-              Online zu Nebenzeiten bis zu 10 % günstiger.
+              {HEAD_SPA.stylingNote}
             </p>
           </div>
         </section>

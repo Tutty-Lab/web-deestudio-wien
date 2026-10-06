@@ -14,14 +14,26 @@ type Props = {
 
 type NavItem = { href: string; label: string; exact?: boolean; anchor?: boolean };
 
-// Every group page in the menu; the studios get their own dropdown (rendered separately).
-const GROUP_NAV: NavItem[] = [
+// Group pages. Desktop shows Studios and Über uns as dropdowns (see GROUP_MENU), mobile lists everything.
+const ABOUT: NavItem[] = [
   { href: "/ueber-uns", label: "Über uns" },
-  { href: "/philosophie", label: "Philosophie" },
   { href: "/ueber-uns#team", label: "Team", anchor: true },
+  { href: "/philosophie", label: "Philosophie" },
   { href: "/hygiene", label: "Hygiene" },
+];
+const GROUP_NAV: NavItem[] = [
+  ...ABOUT,
   { href: "/bewertungen", label: "Bewertungen" },
   { href: "/magazin", label: "Magazin" },
+  { href: "/#faq", label: "FAQ", anchor: true },
+];
+type MenuEntry = { label: string; href?: string; anchor?: boolean; items?: { href: string; label: string; sub?: string }[] };
+const GROUP_MENU: MenuEntry[] = [
+  { label: "Studios", items: STUDIOS.map((s) => ({ href: studioPath(s), label: s.brand, sub: `${s.street}, ${s.city}` })) },
+  { label: "Über uns", items: ABOUT.map((a) => ({ href: a.href, label: a.label })) },
+  { label: "Bewertungen", href: "/bewertungen" },
+  { label: "Magazin", href: "/magazin" },
+  { label: "FAQ", href: "/#faq", anchor: true },
 ];
 
 function studioNav(s: Studio): NavItem[] {
@@ -41,22 +53,22 @@ export default function Header({ studio, transparent = false }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBar, setShowBar] = useState(false);
-  const [studiosOpen, setStudiosOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!studiosOpen) return;
+    if (!openMenu) return;
     const onDown = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) setStudiosOpen(false);
+      if (!dropdownRef.current?.contains(e.target as Node)) setOpenMenu(null);
     };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setStudiosOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenMenu(null);
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [studiosOpen]);
+  }, [openMenu]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -104,39 +116,48 @@ export default function Header({ studio, transparent = false }: Props) {
             </Link>
           </div>
 
-          <nav className="nav" aria-label="Hauptnavigation">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`nav-link ${isActive(item) ? "active" : ""}`}
-                aria-current={isActive(item) ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-            {!studio && (
-              <div ref={dropdownRef} className={`nav-item ${studiosOpen ? "open" : ""}`}>
-                <button
-                  className="nav-link"
-                  aria-expanded={studiosOpen}
-                  aria-haspopup="true"
-                  onClick={() => setStudiosOpen(!studiosOpen)}
-                >
-                  Studios <span className="caret" aria-hidden="true" />
-                </button>
-                <div className="dropdown">
-                  {STUDIOS.map((s) => (
-                    <Link key={s.slug} href={studioPath(s)} onClick={() => setStudiosOpen(false)}>
-                      <strong>{s.brand}</strong>
-                      <span>
-                        {s.street}, {s.city}
-                      </span>
+          <nav className="nav" aria-label="Hauptnavigation" ref={studio ? undefined : (dropdownRef as React.Ref<HTMLElement>)}>
+            {studio
+              ? nav.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`nav-link ${isActive(item) ? "active" : ""}`}
+                    aria-current={isActive(item) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                ))
+              : GROUP_MENU.map((m) =>
+                  m.items ? (
+                    <div key={m.label} className={`nav-item ${openMenu === m.label ? "open" : ""}`}>
+                      <button
+                        className={`nav-link ${m.items.some((it) => !it.href.includes("#") && pathname.startsWith(it.href)) ? "active" : ""}`}
+                        aria-expanded={openMenu === m.label}
+                        aria-haspopup="true"
+                        onClick={() => setOpenMenu(openMenu === m.label ? null : m.label)}
+                      >
+                        {m.label} <span className="caret" aria-hidden="true" />
+                      </button>
+                      <div className="dropdown">
+                        {m.items.map((it) => (
+                          <Link key={it.href} href={it.href} onClick={() => setOpenMenu(null)}>
+                            <strong>{it.label}</strong>
+                            {it.sub && <span>{it.sub}</span>}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      key={m.label}
+                      href={m.href!}
+                      className={`nav-link ${!m.anchor && pathname.startsWith(m.href!) ? "active" : ""}`}
+                    >
+                      {m.label}
                     </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+                  )
+                )}
           </nav>
 
           <button

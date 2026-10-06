@@ -49,24 +49,23 @@ Connect repo trên Vercel: Framework Preset **Next.js**, để mặc định cá
 ## Trước khi go-live
 
 - Bỏ `robots: noindex` trong `src/app/layout.tsx`.
-- Domain mặc định là `https://deestudio.at` (dùng cho canonical, sitemap, JSON-LD). Nếu khác, đặt
-  `NEXT_PUBLIC_SITE_URL` trên Vercel.
-- Điền các mục `[bitte ergänzen]` trong `/impressum` (chủ doanh nghiệp, UID, GISA/Firmenbuch, Gewerbe, Behörde) và duyệt `/datenschutz`.
+- Domain mặc định `https://deestudio.at`. Nếu khác, đặt `NEXT_PUBLIC_SITE_URL` trên Vercel.
+- Google Analytics: đặt `NEXT_PUBLIC_GA_ID` (dạng `G-XXXXXXX`) trên Vercel. GA chỉ tải sau khi khách bấm „Alle akzeptieren“ trong cookie banner.
 - Gửi sitemap lên Google Search Console sau khi trỏ domain.
+
+## Dữ liệu chính
+
+- Bảng giá: `src/data/prices.ts` theo PDF chính thức (10/2026). Massage toàn thân lấy từ Treatwell.
+- Impressum/Datenschutz: `src/data/legal.ts`. Cần khách xác nhận „Einzelunternehmen“ và cơ quan quản lý (MBA 15).
+- FAQ: `src/data/faq.ts` (trang chủ, Dee Studio, Vanilla) kèm JSON-LD FAQPage.
+- Ảnh gốc khách gửi (HEIC, PDF) để ngoài repo; bản web nằm trong `public/images/studio` và `public/images/headspa`.
 
 ## Cần khách cung cấp
 
-- Tên và ảnh thật của team (hiện chỉ có 3 nhóm: Nail, Lash, Head Spa, không có tên người).
-- Xác nhận các quy trình vệ sinh trong `HYGIENE` (`src/data/home.ts`).
-- Review thật (Google/Treatwell, có sự đồng ý) để đưa vào `REVIEWS`. Không dùng review bịa (UWG). Điểm Google 4,8 trong `RATING` cần cập nhật khi thay đổi.
-- Ảnh massage (hiện dùng ảnh phòng pedicure).
-- Duyệt lại thư ngỏ, tầm nhìn, sứ mệnh, triết lý và 3 bài Magazin.
-
-- Ảnh tiệm Vanilla by Dee (Fasangasse): hiện chưa có, đang dùng ảnh mẫu móng.
-- Ảnh Head Spa sạch (ảnh hiện tại còn chữ của Instagram).
-- Mô tả dài và thời gian cho từng dịch vụ (trang Leistungen, hiện là bản nháp).
-- Điểm Google của Vanilla by Dee.
-- Bảng giá Vanilla lấy từ Treatwell hi-nails-salon (giá gốc trước giảm giờ thấp điểm), cần khách xác nhận.
+- Mã Google Analytics (G-...).
+- Review thật từ Google/Treatwell (có đồng ý) cho `REVIEWS`. Không dùng review bịa (UWG).
+- Ảnh mẫu móng làm tại Vanilla by Dee (hiện Galerie Vanilla chỉ có ảnh nội thất).
+- Tên/ảnh team, xác nhận quy trình vệ sinh, duyệt bản nháp tiếng Đức.
 
 ## Ghi chú pháp lý
 

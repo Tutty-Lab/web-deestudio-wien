@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Josefin_Sans, Montserrat, Cormorant_Garamond } from "next/font/google";
 import BookingProvider from "@/components/BookingProvider";
+import CookieConsent from "@/components/CookieConsent";
 import { SITE } from "@/data/site";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <BookingProvider>
             {children}
           </BookingProvider>
+          <CookieConsent />
         </div>
       </body>
     </html>

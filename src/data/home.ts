@@ -57,7 +57,7 @@ export const TEAM = {
   groups: [
     { title: "Nail Artists", text: "Acryl, Gel-X, Shellac und Nail Art von Hand.", image: "/images/nails/acrylnaegel-modellage-wien.jpg" },
     { title: "Lash Artists", text: "Wimpernverlängerung von 1:1 bis Mega Volume.", image: "/images/lashes/wimpernverlaengerung-wien.jpg" },
-    { title: "Head Spa & Massage", text: "Akupressur, Kopfhautpflege und Körpermassagen.", image: "/images/headspa/head-spa-dee-studio-wien.jpg" },
+    { title: "Head Spa & Massage", text: "Akupressur, Kopfhautpflege und Körpermassagen.", image: "/images/headspa/head-spa-raum-dee-studio.jpg" },
   ],
 };
 

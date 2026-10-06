@@ -5,9 +5,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Rating from "@/components/Rating";
-import JsonLd, { salonLd } from "@/components/JsonLd";
+import HeroShow from "@/components/HeroShow";
+import FAQ from "@/components/FAQ";
+import { GENERAL_FAQ } from "@/data/faq";
+import JsonLd, { faqLd, salonLd } from "@/components/JsonLd";
 import { STUDIOS, studioPath } from "@/data/site";
-import { GREETING, HYGIENE, LETTER, RATINGS, REVIEWS, TEAM, VALUES } from "@/data/home";
+import { GREETING, HYGIENE, LETTER, RATINGS, REVIEWS, VALUES } from "@/data/home";
 import { ARTICLES } from "@/data/magazin";
 
 export const metadata: Metadata = {
@@ -16,6 +19,14 @@ export const metadata: Metadata = {
     "Dee Studio Wien: zwei Nagelstudios. Dee Studio am Neubaugürtel (1150) mit Nails, Lashes, Head Spa und Massage, Vanilla by Dee in der Fasangasse (1030).",
   alternates: { canonical: "/" },
 };
+
+const HERO_IMAGES = [
+  { src: "/images/studio/dee-studio-lounge-neubauguertel.jpg", alt: "Lounge von Dee Studio" },
+  { src: "/images/nails/french-nails-weiss-steine-wien.webp", alt: "French Nails" },
+  { src: "/images/headspa/head-spa-liegen-dee-studio.jpg", alt: "Head Spa bei Dee Studio" },
+  { src: "/images/studio/vanilla-by-dee-nagelplaetze-fasangasse.jpg", alt: "Vanilla by Dee" },
+  { src: "/images/nails/nail-art-smiley-schachbrett-wien.webp", alt: "Nail Art" },
+];
 
 /** Group start page. Company sections are short teasers; the full text lives on the static pages. */
 export default function LandingPage() {
@@ -28,27 +39,19 @@ export default function LandingPage() {
       {STUDIOS.map((s) => (
         <JsonLd key={s.slug} data={salonLd(s)} />
       ))}
+      <JsonLd data={faqLd(GENERAL_FAQ)} />
       <main>
         {/* 1. HERO */}
-        <section className="hero hero-short">
-          <Image src="/images/studio/dee-studio-neubauguertel-innen.webp" alt="Dee Studio Wien" fill priority sizes="100vw" />
-          <div className="wrap hero-inner">
-            <h1 className="display h-xl">
-              Ja! Das ist
-              <br />
-              Dee Studio!
-            </h1>
-            <p className="serif hero-sub">Zwei Studios in Wien</p>
-            <div className="btn-row center">
-              <a className="btn btn-light" href="#studios">
-                Studio wählen
-              </a>
-              <Link className="btn btn-outline-light" href="/ueber-uns">
-                Über uns
-              </Link>
-            </div>
+        <HeroShow images={HERO_IMAGES} lines={["Ja! Das ist", "Dee Studio!"]} sub="Zwei Studios in Wien">
+          <div className="btn-row center">
+            <a className="btn btn-light" href="#studios">
+              Studio wählen
+            </a>
+            <Link className="btn btn-outline-light" href="/ueber-uns">
+              Über uns
+            </Link>
           </div>
-        </section>
+        </HeroShow>
 
         {/* 2. GREETING + STUDIOS */}
         <section id="studios" className="section">
@@ -164,30 +167,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* 6. TEAM */}
-        <section className="section section-alt">
-          <div className="wrap">
-            <Reveal className="section-head">
-              <p className="eyebrow">Team</p>
-              <h2 className="display h-lg">Die Menschen hinter Dee Studio</h2>
-              <p className="lead">{TEAM.intro}</p>
-            </Reveal>
-            <ul className="team-grid">
-              {TEAM.groups.map((g, i) => (
-                <Reveal as="li" key={g.title} delay={i * 80} className="group">
-                  <div className="media bw zoom" style={{ aspectRatio: "4 / 5" }}>
-                    <Image src={g.image} alt={g.title} fill sizes="(max-width: 860px) 100vw, 33vw" />
-                  </div>
-                  <h3 className="display h-sm" style={{ marginTop: 16 }}>
-                    {g.title}
-                  </h3>
-                  <p className="team-text">{g.text}</p>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-
         {/* 7. REVIEWS (short) */}
         <section className="section section-dark">
           <div className="wrap">
@@ -213,6 +192,17 @@ export default function LandingPage() {
                 Alle Bewertungen
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="section section-alt" id="faq">
+          <div className="wrap" style={{ maxWidth: 900 }}>
+            <Reveal className="section-head center">
+              <p className="eyebrow">FAQ</p>
+              <h2 className="display h-lg">Häufige Fragen</h2>
+            </Reveal>
+            <FAQ items={GENERAL_FAQ} />
           </div>
         </section>
 

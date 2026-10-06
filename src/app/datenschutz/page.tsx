@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageHead, { crumbPath } from "@/components/PageHead";
 import JsonLd, { breadcrumbLd } from "@/components/JsonLd";
+import { OWNER } from "@/data/legal";
 
 export const metadata: Metadata = {
   title: "Datenschutz | Dee Studio Wien",
@@ -18,7 +19,7 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: "Verantwortlicher",
     p: [
-      "Verantwortlich für die Datenverarbeitung auf dieser Website ist der im Impressum genannte Betreiber von Dee Studio Wien, Neubaugürtel 23a, 1150 Wien, E-Mail info@deestudio.at.",
+      `Verantwortlich für die Datenverarbeitung auf dieser Website ist ${OWNER.name}, ${OWNER.business}, ${OWNER.seat}, Telefon ${OWNER.phone}, E-Mail ${OWNER.email}.`,
     ],
   },
   {
@@ -29,9 +30,17 @@ const SECTIONS: { h: string; p: string[] }[] = [
     ],
   },
   {
-    h: "Cookies und Analyse",
+    h: "Cookies und Einwilligung",
     p: [
-      "Diese Website setzt keine Cookies zu Analyse- oder Werbezwecken und verwendet keine Tracking-Tools. Schriftarten werden lokal von unserem Server geladen, es findet keine Verbindung zu Google Fonts statt.",
+      "Beim ersten Besuch fragen wir, ob Sie neben den technisch notwendigen Speicherungen auch Analyse-Cookies erlauben. Ihre Auswahl speichern wir im lokalen Speicher Ihres Browsers. Sie können sie jederzeit über den Link Cookie-Einstellungen im Fußbereich der Website ändern oder widerrufen.",
+      "Schriftarten werden lokal von unserem Server geladen, es findet keine Verbindung zu Google Fonts statt.",
+    ],
+  },
+  {
+    h: "Google Analytics",
+    p: [
+      "Nur wenn Sie Alle akzeptieren wählen, nutzen wir Google Analytics 4 (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland), um die Nutzung unserer Website statistisch auszuwerten. Dabei werden Cookies gesetzt und Daten wie gekürzte IP-Adresse, Geräteinformationen und besuchte Seiten verarbeitet, gegebenenfalls auch in den USA. Werbefunktionen sind deaktiviert.",
+      "Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Ohne Einwilligung wird Google Analytics nicht geladen. Die Übermittlung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework.",
     ],
   },
   {
@@ -56,7 +65,7 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: "Ihre Rechte",
     p: [
-      "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Wenden Sie sich dazu an info@deestudio.at.",
+      `Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Wenden Sie sich dazu an ${OWNER.email}.`,
       "Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt, können Sie sich bei der Österreichischen Datenschutzbehörde (dsb.gv.at) beschweren.",
     ],
   },

@@ -22,7 +22,7 @@ export const ARTICLES: Article[] = [
       "Was ist ein Head Spa, wie läuft die Behandlung ab und für wen lohnt sie sich? Alles über Akupressur, Wasserbogen und Kopfhautpflege bei Dee Studio Wien.",
     h1: "Head Spa in Wien: Was passiert bei einer Behandlung?",
     date: "2026-10-04",
-    image: "/images/headspa/head-spa-dee-studio-wien.jpg",
+    image: "/images/headspa/head-spa-liegen-dee-studio.jpg",
     imageAlt: "Head Spa Behandlung bei Dee Studio Wien",
     readMin: 4,
     lead: "Der Head Spa kommt ursprünglich aus Japan und ist dort längst ein fester Teil der Wellness-Kultur. Seit Kurzem gibt es ihn auch bei Dee Studio am Neubaugürtel. Hier erfahren Sie, was Sie bei einer Behandlung erwartet.",

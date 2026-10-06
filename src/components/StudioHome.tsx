@@ -9,7 +9,8 @@ import BookButton from "@/components/BookButton";
 import StudioInfo from "@/components/StudioInfo";
 import HeadSpaFeature from "@/components/HeadSpaFeature";
 import { BackToStart } from "@/components/Blocks";
-import JsonLd, { salonLd } from "@/components/JsonLd";
+import JsonLd, { faqLd, salonLd } from "@/components/JsonLd";
+import { faqFor } from "@/data/faq";
 import { servicesOf, studioPath, type Studio } from "@/data/site";
 import { galleryOf } from "@/data/gallery";
 
@@ -21,6 +22,7 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
     <>
       <Header studio={s} transparent />
       <JsonLd data={salonLd(s)} />
+      <JsonLd data={faqLd(faqFor(s.slug))} />
       <main>
         {/* 1. HERO */}
         <section className="hero hero-short">
@@ -135,7 +137,7 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
               <p className="eyebrow">FAQ</p>
               <h2 className="display h-lg">Gut zu wissen</h2>
             </Reveal>
-            <FAQ />
+            <FAQ items={faqFor(s.slug)} />
           </div>
         </section>
 

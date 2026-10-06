@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FAQ as DEFAULT_ITEMS } from "@/data/site";
+import { GENERAL_FAQ as DEFAULT_ITEMS } from "@/data/faq";
 
 type Item = { q: string; a: string };
 

@@ -17,9 +17,11 @@ export const STYLES: { slug: string; name: string }[] = [
   { slug: "acryl", name: "Acryl" },
   { slug: "babyboomer", name: "Babyboomer" },
   { slug: "wimpern", name: "Wimpern" },
+  { slug: "studio", name: "Studio" },
 ];
 
 const DEE = "dee-studio";
+const VANILLA = "vanilla-by-dee";
 
 export const GALLERY: GalleryItem[] = [
   {
@@ -59,10 +61,10 @@ export const GALLERY: GalleryItem[] = [
     styles: ["xxl", "babyboomer", "nail-art"],
   },
   {
-    src: "/images/headspa/head-spa-dee-studio-wien.jpg",
-    alt: "Head Spa Behandlung bei Dee Studio Neubaugürtel",
+    src: "/images/headspa/head-spa-liegen-dee-studio.jpg",
+    alt: "Head Spa Liegen mit warmem Licht bei Dee Studio Neubaugürtel",
     studio: DEE,
-    styles: [],
+    styles: ["studio"],
   },
   {
     src: "/images/nails/babyboomer-ombre-kristalle-wien.jpg",
@@ -110,14 +112,26 @@ export const GALLERY: GalleryItem[] = [
     src: "/images/studio/dee-studio-nagelplaetze-neubauguertel.webp",
     alt: "Nagelplätze im Dee Studio am Neubaugürtel, 1150 Wien",
     studio: DEE,
-    styles: [],
+    styles: ["studio"],
   },
   {
     src: "/images/studio/pedikuere-studio-wien.jpg",
     alt: "Pediküre-Plätze im Studio, Dee Studio Wien",
     studio: DEE,
-    styles: [],
+    styles: ["studio"],
   },
+  { src: "/images/studio/dee-studio-lounge-neubauguertel.jpg", alt: "Lounge von Dee Studio am Neubaugürtel, Wien", studio: DEE, styles: ["studio"] },
+  { src: "/images/headspa/head-spa-raum-dee-studio.jpg", alt: "Head Spa Raum bei Dee Studio Wien", studio: DEE, styles: ["studio"] },
+  { src: "/images/studio/dee-studio-nagelbar-neubauguertel.jpg", alt: "Nagelbar von Dee Studio, 1150 Wien", studio: DEE, styles: ["studio"] },
+  { src: "/images/studio/dee-studio-pedikuere-stuehle.jpg", alt: "Pediküre-Stühle bei Dee Studio Wien", studio: DEE, styles: ["studio"] },
+  { src: "/images/studio/dee-studio-eingang-neubauguertel.jpg", alt: "Eingang Dee Studio, Neubaugürtel 23a, 1150 Wien", studio: DEE, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-nagelplaetze-fasangasse.jpg", alt: "Nagelplätze bei Vanilla by Dee, Fasangasse, 1030 Wien", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-eingang-fasangasse.jpg", alt: "Eingang Vanilla by Dee, Fasangasse 32, 1030 Wien", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-pedikuere-fasangasse.jpg", alt: "Pediküre-Stühle bei Vanilla by Dee Wien", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-farbauswahl.jpg", alt: "Große Farbauswahl an Gellacken bei Vanilla by Dee", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-farbmuster.jpg", alt: "Farbmuster für Nägel bei Vanilla by Dee, Wien", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-lounge.jpg", alt: "Wartebereich bei Vanilla by Dee, 1030 Wien", studio: VANILLA, styles: ["studio"] },
+  { src: "/images/studio/vanilla-by-dee-farbmuster-regal.jpg", alt: "Regal mit Farbmustern bei Vanilla by Dee", studio: VANILLA, styles: ["studio"] },
 ];
 
 export const galleryOf = (studio: string) => GALLERY.filter((g) => g.studio === studio);
