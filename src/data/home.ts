@@ -129,6 +129,42 @@ export const RATINGS: StudioRating[] = [
   },
 ];
 
+/**
+ * What customers repeatedly praise in the Google reviews, summarised in our own words (read 07.10.2026).
+ * This is an editorial summary, not individual reviews: no names, no quotes, no Review schema.
+ */
+export const REVIEW_HIGHLIGHTS: { studio: string; items: { title: string; text: string }[] }[] = [
+  {
+    studio: "dee-studio",
+    items: [
+      {
+        title: "Hygiene wie in einer Praxis",
+        text: "Am häufigsten erwähnen Kundinnen unsere Hygiene: Jede Kundin bekommt ein eigenes, steril verpacktes Instrumentenset, das wir vor ihren Augen öffnen und nach der Behandlung desinfizieren und sterilisieren.",
+      },
+      {
+        title: "Wünsche, die wirklich umgesetzt werden",
+        text: "Stammkundinnen schreiben, dass wir zuhören, zwischendurch nachfragen und das Ergebnis jedes Mal so wird, wie sie es sich vorgestellt haben. Deshalb kommen sie immer wieder in unser Nagelstudio im 15. Bezirk.",
+      },
+      {
+        title: "Große Auswahl an Farben und Designs",
+        text: "Gelobt wird die Auswahl: sehr viele Gel-Farben, Steinchen, Nail Art und Formen, von French und Babyboomer bis zu Chrome Nails und XXL.",
+      },
+      {
+        title: "Schnell einen Termin",
+        text: "Mehrere Kundinnen haben noch am selben Tag einen Termin bekommen. Online über Treatwell buchen geht rund um die Uhr.",
+      },
+      {
+        title: "Modernes Studio und Head Spa zum Entspannen",
+        text: "Das moderne, helle Studio am Neubaugürtel fällt vielen sofort auf. Beim Premium Head Spa mit rund 70 Minuten beginnt die Behandlung mit Entspannung im Massagesessel, bevor Kopfhaut und Haare gepflegt werden.",
+      },
+      {
+        title: "Freundliches, professionelles Team",
+        text: "Immer wieder genannt: freundlich, aufmerksam, professionell. Kundinnen fühlen sich gut aufgehoben und empfehlen uns weiter.",
+      },
+    ],
+  },
+];
+
 export const STATIC_PAGES = [
   { href: "/ueber-uns", label: "Über uns", text: "Unser Brief an Sie" },
   { href: "/philosophie", label: "Philosophie", text: "Vision, Mission und Werte" },

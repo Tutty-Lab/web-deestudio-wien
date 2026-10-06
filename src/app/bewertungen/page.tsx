@@ -7,7 +7,7 @@ import BookButton from "@/components/BookButton";
 import { MoreAbout } from "@/components/Blocks";
 import Rating from "@/components/Rating";
 import JsonLd, { breadcrumbLd, reviewsLd } from "@/components/JsonLd";
-import { RATINGS, REVIEWS } from "@/data/home";
+import { RATINGS, REVIEWS, REVIEW_HIGHLIGHTS } from "@/data/home";
 import { STUDIOS } from "@/data/site";
 
 const hasReviews = REVIEWS.length > 0 || RATINGS.length > 0;
@@ -43,6 +43,7 @@ export default function ReviewsPage() {
         {STUDIOS.map((s, i) => {
           const rating = RATINGS.find((r) => r.studio === s.slug);
           const reviews = REVIEWS.filter((r) => r.studio === s.slug);
+          const highlights = REVIEW_HIGHLIGHTS.find((h) => h.studio === s.slug)?.items;
           return (
             <section key={s.slug} className={`section ${i % 2 ? "section-alt" : ""}`}>
               <div className="wrap">
@@ -105,6 +106,22 @@ export default function ReviewsPage() {
                     )}
                   </div>
                 </div>
+                {highlights && (
+                  <div style={{ marginTop: 64 }}>
+                    <h3 className="display h-md">Was Kundinnen auf Google besonders hervorheben</h3>
+                    <p className="price-note" style={{ marginTop: 8 }}>
+                      Unsere Zusammenfassung der Google Bewertungen. Die einzelnen Bewertungen lesen Sie im Original auf Google.
+                    </p>
+                    <ul className="highlight-grid">
+                      {highlights.map((h) => (
+                        <li key={h.title}>
+                          <h4>{h.title}</h4>
+                          <p>{h.text}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </section>
           );
