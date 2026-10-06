@@ -96,7 +96,38 @@ export type Review = {
 export const REVIEWS: Review[] = [];
 
 /** Public Google ratings (Google Maps, October 2026). Vanilla by Dee: add once the client sends it. */
-export const RATINGS: { studio: string; value: string; source: "Google" }[] = [{ studio: "dee-studio", value: "4,8", source: "Google" }];
+export type StudioRating = {
+  studio: string;
+  value: string;
+  count: number;
+  source: "Google";
+  /** Google Maps listing (opens on the reviews). */
+  url: string;
+  /** Topics Google itself extracts from the reviews, most frequent first. */
+  topics?: string[];
+  checked: string;
+};
+
+// Real figures read from the Google Maps listings on 07.10.2026. Update when they change.
+export const RATINGS: StudioRating[] = [
+  {
+    studio: "dee-studio",
+    value: "4,8",
+    count: 182,
+    source: "Google",
+    url: "https://maps.google.com/?cid=7490871630833466170",
+    topics: ["zufrieden", "Team", "hygienisch", "höflich", "Termin", "perfekt", "Preise"],
+    checked: "Oktober 2026",
+  },
+  {
+    studio: "vanilla-by-dee",
+    value: "5,0",
+    count: 4,
+    source: "Google",
+    url: "https://maps.google.com/?cid=3744932003794973387",
+    checked: "Oktober 2026",
+  },
+];
 
 export const STATIC_PAGES = [
   { href: "/ueber-uns", label: "Über uns", text: "Unser Brief an Sie" },

@@ -10,14 +10,14 @@ import JsonLd, { breadcrumbLd, reviewsLd } from "@/components/JsonLd";
 import { RATINGS, REVIEWS } from "@/data/home";
 import { STUDIOS } from "@/data/site";
 
-const hasReviews = REVIEWS.length > 0;
+const hasReviews = REVIEWS.length > 0 || RATINGS.length > 0;
 
 export const metadata: Metadata = {
   title: "Bewertungen & Erfahrungen | Dee Studio Wien",
   description:
-    "Erfahrungen unserer Kundinnen mit Dee Studio am Neubaugürtel und Vanilla by Dee in der Fasangasse. Google Bewertung 4,8 von 5.",
+    "Erfahrungen unserer Kundinnen mit Dee Studio am Neubaugürtel und Vanilla by Dee in der Fasangasse. Google Bewertung 4,8 von 5 aus über 180 Bewertungen.",
   alternates: { canonical: "/bewertungen" },
-  // Without real reviews on the page there is nothing to index yet.
+  // Without real ratings or reviews on the page there is nothing to index yet.
   ...(hasReviews ? {} : { robots: { index: false, follow: true } }),
 };
 
@@ -37,7 +37,7 @@ export default function ReviewsPage() {
           crumbs={crumbs}
           eyebrow="Erfahrungen unserer Kundinnen"
           title="Bewertungen: Dee Studio Wien"
-          intro="Was Kundinnen über unsere Studios sagen. Wir veröffentlichen nur echte Bewertungen von Google und Treatwell."
+          intro="Was Kundinnen über unsere Studios sagen. Alle Zahlen stammen direkt von Google, die Bewertungen lesen Sie dort im Original."
         />
 
         {STUDIOS.map((s, i) => {
@@ -55,13 +55,13 @@ export default function ReviewsPage() {
                 <div className="split top">
                   <div>
                     {rating ? (
-                      <Rating value={rating.value} label={`${rating.source} Bewertung`} align="start" />
+                      <Rating value={rating.value} label={`${rating.count} ${rating.source} Bewertungen`} align="start" />
                     ) : (
                       <p className="lead">Für {s.brand} sammeln wir gerade die ersten Bewertungen.</p>
                     )}
                     <div className="btn-row" style={{ marginTop: 28 }}>
-                      <a className="btn btn-secondary" href={s.maps} target="_blank" rel="noopener noreferrer">
-                        Bewertung schreiben
+                      <a className="btn btn-secondary" href={rating?.url ?? s.maps} target="_blank" rel="noopener noreferrer">
+                        Bewertungen lesen
                       </a>
                       <BookButton studio={s.slug} />
                     </div>
@@ -79,17 +79,29 @@ export default function ReviewsPage() {
                         ))}
                       </ul>
                     ) : (
+                      <>
+                      {rating?.topics && (
+                        <div style={{ marginBottom: 28 }}>
+                          <p className="eyebrow">Häufig genannt in den Google Bewertungen</p>
+                          <ul className="topic-list">
+                            {rating.topics.map((topic) => (
+                              <li key={topic}>{topic}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                       <p className="lead">
                         Lesen Sie die Erfahrungen unserer Kundinnen direkt auf{" "}
-                        <a href={s.maps} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
+                        <a href={rating?.url ?? s.maps} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
                           Google
                         </a>{" "}
                         oder{" "}
                         <a href={s.booking} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>
                           Treatwell
                         </a>
-                        .
+                        . Stand: {rating?.checked ?? "Oktober 2026"}.
                       </p>
+                      </>
                     )}
                   </div>
                 </div>

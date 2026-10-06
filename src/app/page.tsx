@@ -174,7 +174,7 @@ export default function LandingPage() {
               <p className="eyebrow">Bewertungen</p>
               <h2 className="display h-lg">Was unsere Kundinnen sagen</h2>
             </Reveal>
-            {rating && <Rating value={rating.value} label={`${rating.source} Bewertung, ${studioOf(rating.studio)?.brand}`} />}
+            {rating && <Rating value={rating.value} label={`${rating.count} ${rating.source} Bewertungen, ${studioOf(rating.studio)?.brand}`} />}
             {REVIEWS.length > 0 && (
               <ul className="values" style={{ marginTop: 48 }}>
                 {REVIEWS.slice(0, 3).map((r) => (
