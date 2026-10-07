@@ -1,0 +1,30 @@
+# Static Next.js export on Hostinger (LiteSpeed/Apache)
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# HTTPS redirect is handled by Hostinger (SSL settings), not here, to avoid loops behind the CDN.
+
+# Folders like /bewertungen/ exist next to bewertungen.html; never auto-append a slash.
+DirectorySlash Off
+
+# /preise/ -> /preise (canonical URLs have no trailing slash)
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# /preise -> /preise.html
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)$ /$1.html [L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

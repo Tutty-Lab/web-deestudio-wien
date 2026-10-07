@@ -1,5 +1,5 @@
 export const SITE = {
-  // Final domain; set NEXT_PUBLIC_SITE_URL on Vercel if it differs.
+  // Final domain; set NEXT_PUBLIC_SITE_URL at build time if it differs.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://deestudio.at").replace(/\/$/, ""),
   name: "Dee Studio Wien",
 };
