@@ -26,7 +26,7 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
       <main>
         {/* 1. HERO */}
         <section className="hero hero-short">
-          <Image src={s.hero} alt={`${s.brand}, Nagelstudio ${s.district}`} fill priority sizes="100vw" />
+          <Image src={s.hero} alt={`${s.brand}, Nagelstudio ${s.district}`} fill priority sizes="100vw" style={{ objectPosition: "72% center" }} />
           <div className="wrap hero-inner">
             <h1 className="display h-xl">{s.brand}</h1>
             <p className="serif hero-sub">
@@ -89,7 +89,7 @@ export default function StudioHome({ studio: s }: { studio: Studio }) {
           <div className="wrap split">
             <Reveal>
               <div className="media" style={{ aspectRatio: "4 / 5" }}>
-                <Image src={s.cover} alt={`${s.brand} ${s.location}`} fill sizes="(max-width: 860px) 100vw, 50vw" />
+                <Image src={s.studioImage ?? s.cover} alt={`${s.brand} ${s.location}`} fill sizes="(max-width: 860px) 100vw, 50vw" />
               </div>
             </Reveal>
             <Reveal delay={100}>

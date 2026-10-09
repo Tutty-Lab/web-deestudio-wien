@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 };
 
 const HERO_IMAGES = [
-  { src: "/images/studio/dee-studio-lounge-neubauguertel.jpg", alt: "Lounge von Dee Studio" },
+  { src: "/images/hero/dee-studio-manikuere-hero.jpg", alt: "Maniküre bei Dee Studio Wien", position: "72% center" },
   { src: "/images/nails/french-nails-weiss-steine-wien.webp", alt: "French Nails" },
-  { src: "/images/headspa/head-spa-liegen-dee-studio.jpg", alt: "Head Spa bei Dee Studio" },
+  { src: "/images/studio/dee-studio-nagelbar-neubauguertel.jpg", alt: "Nagelbar von Dee Studio" },
   { src: "/images/studio/vanilla-by-dee-nagelplaetze-fasangasse.jpg", alt: "Vanilla by Dee" },
   { src: "/images/nails/nail-art-smiley-schachbrett-wien.webp", alt: "Nail Art" },
 ];

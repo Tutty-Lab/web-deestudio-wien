@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 type Props = {
-  images: { src: string; alt: string }[];
+  images: { src: string; alt: string; position?: string }[];
   lines: string[];
   sub?: string;
   children?: React.ReactNode;
@@ -29,7 +29,7 @@ export default function HeroShow({ images, lines, sub, children, interval = 6000
       <div className="hero-slides" aria-hidden="true">
         {images.map((img, k) => (
           <div key={img.src} className={`hero-slide ${k === i ? "on" : ""}`}>
-            <Image src={img.src} alt="" fill priority={k === 0} sizes="100vw" />
+            <Image src={img.src} alt="" fill priority={k === 0} sizes="100vw" style={img.position ? { objectPosition: img.position } : undefined} />
           </div>
         ))}
       </div>

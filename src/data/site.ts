@@ -1,6 +1,6 @@
 export const SITE = {
   // Final domain; set NEXT_PUBLIC_SITE_URL at build time if it differs.
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://deestudio.at").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://deestudio.eu").replace(/\/$/, ""),
   name: "Dee Studio Wien",
 };
 
@@ -122,6 +122,8 @@ export type Studio = {
   about: string[];
   hero: string;
   cover: string;
+  /** Portrait photo next to the studio text on the studio page; falls back to cover. */
+  studioImage?: string;
   interior: string[];
   /** Keys from SERVICES offered here. */
   services: string[];
@@ -164,8 +166,9 @@ export const STUDIOS: Studio[] = [
       "Bei Dee Studio beginnt Schönheit mit Pflege. Unsere Artists arbeiten mit aktuellen Techniken und hochwertigen Produkten, für Nail Art, die Ihre Persönlichkeit zeigt.",
       "Neu bei uns: der Head Spa. Eine Auszeit für Kopf und Seele, nur wenige Minuten vom Westbahnhof.",
     ],
-    hero: "/images/studio/dee-studio-lounge-neubauguertel.jpg",
-    cover: "/images/studio/dee-studio-lounge-neubauguertel.jpg",
+    hero: "/images/hero/dee-studio-manikuere-hero.jpg",
+    cover: "/images/studio/dee-studio-nagelplaetze-neubauguertel.webp",
+    studioImage: "/images/studio/dee-studio-empfang-neubauguertel.webp",
     interior: ["/images/studio/dee-studio-eingang-neubauguertel.jpg", "/images/studio/dee-studio-pedikuere-stuehle.jpg"],
     services: ["nails", "head-spa", "wimpern", "pedikuere", "massage"],
     from: { nails: "ab 28 €", wimpern: "ab 65 €", "head-spa": "ab 65 €", pedikuere: "ab 45 €", massage: "ab 20 €" },

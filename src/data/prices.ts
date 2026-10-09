@@ -9,7 +9,7 @@ export const HEAD_SPA = {
   title: "Head Spa",
   tagline: "Relax. Refresh. Glow.",
   lead: "Unser Head Spa verbindet traditionelle östliche Methoden mit moderner Kopfhautpflege: Akupressur, Massage mit Kräuteröl, Wasserbogen und Kopfhaut-Bedampfung für tiefe Entspannung.",
-  images: ["/images/headspa/head-spa-liegen-dee-studio.jpg", "/images/headspa/head-spa-raum-dee-studio.jpg"],
+  images: ["/images/headspa/head-spa-behandlung-dee-studio.jpg", "/images/headspa/head-spa-liegen-dee-studio.jpg", "/images/headspa/head-spa-raum-dee-studio.jpg"],
   steps: [
     { title: "Akupressur", text: "Kopf-Akupressur und Meridian-Öffnung lösen Verspannungen und fördern die Durchblutung." },
     { title: "Massage", text: "Massage für Nacken und Schultern, in den größeren Paketen intensiv mit Kräuteröl." },
