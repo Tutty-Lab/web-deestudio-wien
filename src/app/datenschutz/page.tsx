@@ -32,15 +32,15 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: "Cookies und Einwilligung",
     p: [
-      "Beim ersten Besuch fragen wir, ob Sie neben den technisch notwendigen Speicherungen auch Analyse-Cookies erlauben. Ihre Auswahl speichern wir im lokalen Speicher Ihres Browsers. Sie können sie jederzeit über den Link Cookie-Einstellungen im Fußbereich der Website ändern oder widerrufen.",
+      "Beim ersten Besuch fragen wir, ob Sie neben den technisch notwendigen Speicherungen auch Analyse- und Marketing-Cookies erlauben. Ihre Auswahl speichern wir im lokalen Speicher Ihres Browsers. Sie können sie jederzeit über den Link Cookie-Einstellungen im Fußbereich der Website ändern oder widerrufen.",
       "Schriftarten werden lokal von unserem Server geladen, es findet keine Verbindung zu Google Fonts statt.",
     ],
   },
   {
-    h: "Google Analytics",
+    h: "Google Analytics und Google Ads",
     p: [
-      "Nur wenn Sie Alle akzeptieren wählen, nutzen wir Google Analytics 4 (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland), um die Nutzung unserer Website statistisch auszuwerten. Dabei werden Cookies gesetzt und Daten wie gekürzte IP-Adresse, Geräteinformationen und besuchte Seiten verarbeitet, gegebenenfalls auch in den USA. Werbefunktionen sind deaktiviert.",
-      "Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Ohne Einwilligung wird Google Analytics nicht geladen. Die Übermittlung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework.",
+      "Nur wenn Sie Alle akzeptieren wählen, nutzen wir Google Analytics 4 (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland), um die Nutzung unserer Website statistisch auszuwerten. Dabei werden Cookies gesetzt und Daten wie gekürzte IP-Adresse, Geräteinformationen und besuchte Seiten verarbeitet, gegebenenfalls auch in den USA. Außerdem messen wir mit Google Ads (Conversion-Tracking), ob Besucherinnen und Besucher, die über eine Anzeige kommen, einen Termin buchen oder uns anrufen. Diese Daten können von Google auch für personalisierte Werbung genutzt werden.",
+      "Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Ohne Einwilligung werden Google Analytics und Google Ads nicht geladen. Die Übermittlung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework.",
     ],
   },
   {

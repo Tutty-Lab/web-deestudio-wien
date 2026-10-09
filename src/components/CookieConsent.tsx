@@ -22,13 +22,25 @@ function loadAnalytics() {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer.push(arguments);
   };
-  window.gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "granted" });
+  // Only runs after "Alle akzeptieren", so every consent signal is granted (Consent Mode v2).
+  window.gtag("consent", "default", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted", analytics_storage: "granted" });
   window.gtag("js", new Date());
   window.gtag("config", GA_ID, { anonymize_ip: true });
   const s = document.createElement("script");
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
   document.head.appendChild(s);
+  document.addEventListener("click", trackClick, true);
+}
+
+/** Booking (Treatwell) and phone clicks as GA4 events, tagged by studio, for Google Ads conversions. */
+function trackClick(e: MouseEvent) {
+  const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+  if (!a || !window.gtag) return;
+  const href = a.href;
+  const studio = /hi-nails|9333999/.test(href) ? "vanilla" : /dee-studio|6868888/.test(href) ? "dee" : "unknown";
+  if (href.startsWith("tel:")) window.gtag("event", "phone_click", { studio, page: location.pathname });
+  else if (href.includes("treatwell.")) window.gtag("event", "book_click", { studio, page: location.pathname });
 }
 
 const read = (): Choice | null => {
@@ -69,7 +81,7 @@ export default function CookieConsent() {
     <div className="cookie" role="dialog" aria-live="polite" aria-label="Cookie-Einstellungen">
       <p>
         Wir verwenden notwendige Cookies für den Betrieb der Website. Mit Ihrer Zustimmung nutzen wir außerdem Google
-        Analytics, um unsere Website zu verbessern. Mehr in der <Link href="/datenschutz">Datenschutzerklärung</Link>.
+        Analytics und Google Ads, um unsere Website zu verbessern und den Erfolg unserer Werbung zu messen. Mehr in der <Link href="/datenschutz">Datenschutzerklärung</Link>.
       </p>
       <div className="cookie-actions">
         <button className="btn btn-secondary btn-sm" onClick={() => decide("necessary")}>
