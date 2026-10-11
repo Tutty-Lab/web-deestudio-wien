@@ -51,7 +51,7 @@ export default function StudioInfo({ studio, showMap = true, showTitle = true }:
           Route planen
         </a>
       </div>
-      {showMap && <MapEmbed query={studio.mapQuery} title={`Karte ${studio.brand}`} />}
+      {showMap && <MapEmbed query={studio.mapQuery} title={`Karte ${studio.brand}`} image={`/images/map/${studio.slug}.webp`} />}
     </div>
   );
 }

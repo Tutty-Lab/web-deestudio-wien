@@ -55,6 +55,9 @@ const read = (): Choice | null => {
   }
 };
 
+/** True once the visitor chose "Alle akzeptieren". */
+export const hasAnalyticsConsent = () => read() === "all";
+
 export default function CookieConsent() {
   const [open, setOpen] = useState(false);
 
@@ -73,6 +76,7 @@ export default function CookieConsent() {
       localStorage.setItem(KEY, choice);
     } catch {}
     setOpen(false);
+    window.dispatchEvent(new Event("consent-change"));
     if (choice === "all") loadAnalytics();
     // Withdrawing consent: reload so the analytics script is gone.
     else if (before === "all") window.location.reload();

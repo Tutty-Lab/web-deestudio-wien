@@ -1,35 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { hasAnalyticsConsent } from "./CookieConsent";
 
 /**
- * Google Maps is only requested after the visitor opts in (two-click solution),
- * so no personal data goes to Google on page load (DSGVO).
+ * Shows a self-hosted, colored map image right away (OpenStreetMap data, no request to Google).
+ * The interactive Google map loads automatically once the visitor accepted all cookies, or on click (DSGVO).
  */
-export default function MapEmbed({ query, title }: { query: string; title: string }) {
+export default function MapEmbed({ query, title, image }: { query: string; title: string; image: string }) {
   const [load, setLoad] = useState(false);
   const q = encodeURIComponent(query);
+  const external = `https://www.google.com/maps/search/?api=1&query=${q}`;
+
+  useEffect(() => {
+    const sync = () => hasAnalyticsConsent() && setLoad(true);
+    sync();
+    window.addEventListener("consent-change", sync);
+    return () => window.removeEventListener("consent-change", sync);
+  }, []);
 
   return (
     <div className="map-box">
       {load ? (
-        <iframe title={title} src={`https://www.google.com/maps?q=${q}&z=16&output=embed`} />
+        <iframe title={title} src={`https://www.google.com/maps?q=${q}&z=16&output=embed`} loading="lazy" />
       ) : (
-        <div className="map-consent">
-          <p className="map-address">{query}</p>
-          <button className="btn btn-secondary btn-sm" onClick={() => setLoad(true)}>
-            Karte anzeigen
-          </button>
-          <a
-            className="map-external"
-            href={`https://www.google.com/maps/search/?api=1&query=${q}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            In Google Maps öffnen
+        <>
+          <a className="map-static" href={external} target="_blank" rel="noopener noreferrer" aria-label={`${query} in Google Maps öffnen`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={image} alt={`Karte: ${query}`} loading="lazy" />
           </a>
-          <p>Beim Anzeigen der Karte werden Daten an Google übertragen.</p>
-        </div>
+          <div className="map-bar">
+            <span className="map-address">{query}</span>
+            <button className="btn btn-secondary btn-sm" onClick={() => setLoad(true)}>
+              Interaktive Karte
+            </button>
+          </div>
+          <span className="map-credit">© OpenStreetMap-Mitwirkende</span>
+        </>
       )}
     </div>
   );

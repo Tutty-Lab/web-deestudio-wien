@@ -940,7 +940,7 @@ img {
   text-underline-offset: 4px;
 }
 
-/* Two-click map: nothing loads from Google until the visitor asks. */
+/* Map: static OSM image first, Google iframe after consent or click. */
 .map-box {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -953,7 +953,57 @@ img {
   width: 100%;
   height: 100%;
   border: 0;
-  filter: grayscale(1);
+}
+.map-box {
+  overflow: hidden;
+}
+.map-static,
+.map-static img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.map-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 16px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+.map-bar .map-address {
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.map-bar .btn {
+  flex: none;
+}
+.map-credit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 6px;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+@media (max-width: 420px) {
+  .map-bar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
 }
 .map-consent {
   position: absolute;
@@ -1255,7 +1305,7 @@ img {
     font-size: 14px;
   }
   .map-box {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
   }
   .footer-top {
     grid-template-columns: 1fr;

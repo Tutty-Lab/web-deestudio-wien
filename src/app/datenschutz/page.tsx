@@ -46,8 +46,8 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: "Google Maps",
     p: [
-      "Auf unseren Studio-Seiten können Sie eine Karte von Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) anzeigen. Die Karte wird erst geladen, wenn Sie auf „Karte anzeigen“ klicken. Erst dann werden Daten wie Ihre IP-Adresse an Google übertragen, gegebenenfalls auch in die USA.",
-      "Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, die Sie durch den Klick erteilen.",
+      "Auf unseren Studio-Seiten zeigen wir zunächst ein Kartenbild, das auf unserem eigenen Server liegt (Kartendaten © OpenStreetMap-Mitwirkende). Dabei werden keine Daten an Dritte übertragen.",
+      "Die interaktive Karte von Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) wird nur geladen, wenn Sie auf „Interaktive Karte“ klicken oder im Cookie-Hinweis Alle akzeptieren gewählt haben. Erst dann werden Daten wie Ihre IP-Adresse an Google übertragen, gegebenenfalls auch in die USA. Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.",
     ],
   },
   {
