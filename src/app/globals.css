@@ -1058,7 +1058,7 @@ img {
   margin: 0;
   padding: 0;
 }
-.footer a:hover {
+.footer a:not(.btn):hover {
   color: #fff;
   text-decoration: underline;
   text-underline-offset: 4px;
