@@ -25,8 +25,8 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: "Hosting und Server-Logfiles",
     p: [
-      "Diese Website wird als statische Website bei Vercel Inc. gehostet. Beim Aufruf werden technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browsertyp in Server-Logfiles verarbeitet, um die Website sicher und stabil bereitzustellen.",
-      "Rechtsgrundlage ist unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO. Eine Übermittlung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework bzw. von Standardvertragsklauseln.",
+      "Diese Website wird bei Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaka, Zypern, gehostet. Die Server stehen in einem Rechenzentrum in Frankfurt am Main (Deutschland). Beim Aufruf werden technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browsertyp in Server-Logfiles verarbeitet, um die Website sicher und stabil bereitzustellen.",
+      "Rechtsgrundlage ist unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO. Mit Hostinger besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.",
     ],
   },
   {

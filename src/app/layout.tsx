@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     "Pediküre Wien",
   ],
   icons: { icon: "/favicon.png" },
-  // Remove before pointing the real domain here; keeps the vercel.app preview out of search results.
+  // Remove before pointing the real domain here; keeps the preview on deestudio.eu out of search results.
   robots: { index: false, follow: false },
   openGraph: {
     title: "Dee Studio | Nails, Lashes & Head Spa in Wien",

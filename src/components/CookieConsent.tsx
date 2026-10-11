@@ -33,14 +33,17 @@ function loadAnalytics() {
   document.addEventListener("click", trackClick, true);
 }
 
-/** Booking (Treatwell) and phone clicks as GA4 events, tagged by studio, for Google Ads conversions. */
+/** Booking (Treatwell), phone and directions clicks as GA4 events, tagged by studio, for Google Ads conversions. */
 function trackClick(e: MouseEvent) {
   const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
   if (!a || !window.gtag) return;
   const href = a.href;
-  const studio = /hi-nails|9333999/.test(href) ? "vanilla" : /dee-studio|6868888/.test(href) ? "dee" : "unknown";
+  const studio = /hi-nails|9333999|fasangasse/i.test(href) ? "vanilla" : /dee-studio|6868888|neubaug/i.test(href) ? "dee" : "unknown";
   if (href.startsWith("tel:")) window.gtag("event", "phone_click", { studio, page: location.pathname });
   else if (href.includes("treatwell.")) window.gtag("event", "book_click", { studio, page: location.pathname });
+  // Event name matches the GA4 conversion imported into Google Ads.
+  else if (/google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/.test(href))
+    window.gtag("event", "ads_conversion_get_directions", { studio, page: location.pathname });
 }
 
 const read = (): Choice | null => {

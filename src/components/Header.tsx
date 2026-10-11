@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { STUDIOS, studioPath, type Studio } from "@/data/site";
+import { STUDIOS, studioPath, type Studio, LOGO } from "@/data/site";
 import { useBooking } from "./BookingProvider";
 
 type Props = {
@@ -111,8 +111,15 @@ export default function Header({ studio, transparent = false }: Props) {
               aria-label={studio ? `${studio.brand} Übersicht` : "Dee Studio Wien Startseite"}
               onClick={close}
             >
-              {studio ? studio.brand : "Dee Studio"}
-              <small>{studio ? studio.location : "Wien"}</small>
+              {studio?.slug === "vanilla-by-dee" ? (
+                <>
+                  {studio.brand}
+                  <small>{studio.location}</small>
+                </>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="logo-img" src={LOGO.src} width={LOGO.width} height={LOGO.height} alt="Dee Studio, Nails & More" />
+              )}
             </Link>
           </div>
 

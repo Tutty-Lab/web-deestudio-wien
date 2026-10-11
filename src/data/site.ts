@@ -5,6 +5,9 @@ export const SITE = {
 };
 
 export const INSTAGRAM = "https://www.instagram.com/dee.studio.wien/";
+export const INSTAGRAM_HANDLE = "@dee.studio.wien";
+/** Gold Dee Studio logo (transparent, 417x147). Vanilla by Dee keeps its text logo. */
+export const LOGO = { src: "/logo-dee-studio.webp", width: 417, height: 147 };
 
 import { DEE_PRICES, HEAD_SPA, VANILLA_PRICES, type PriceGroup } from "./prices";
 

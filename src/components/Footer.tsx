@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { INSTAGRAM, STUDIOS, studioPath, type Studio } from "@/data/site";
+import { INSTAGRAM, INSTAGRAM_HANDLE, LOGO, STUDIOS, studioPath, type Studio } from "@/data/site";
 import { STATIC_PAGES } from "@/data/home";
 import { CookieSettingsLink } from "./CookieConsent";
 
@@ -10,18 +10,35 @@ export default function Footer({ studio }: { studio?: Studio }) {
   return (
     <footer className="footer">
       <div className="wrap">
+        <div className="footer-insta">
+          <div>
+            <p className="eyebrow">Instagram</p>
+            <p className="display h-md">Neue Designs jede Woche</p>
+            <p>Folgen Sie {INSTAGRAM_HANDLE} für aktuelle Nail Art, Aktionen und freie Termine.</p>
+          </div>
+          <a className="btn btn-outline-light" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+            Auf Instagram folgen
+          </a>
+        </div>
         <div className="footer-top">
           <div>
             <Link href={studio ? studioPath(studio) : "/"} className="logo" style={{ fontSize: 22 }}>
-              {studio ? studio.brand : "Dee Studio"}
-              <small>{studio ? studio.location : "Wien"}</small>
+              {studio?.slug === "vanilla-by-dee" ? (
+                <>
+                  {studio.brand}
+                  <small>{studio.location}</small>
+                </>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="logo-img" src={LOGO.src} width={LOGO.width} height={LOGO.height} alt="Dee Studio, Nails & More" />
+              )}
             </Link>
             <p style={{ marginTop: 24, maxWidth: 300, color: "#a3a3a0" }}>
               {studio ? studio.tagline : "Nails, Lashes, Head Spa und Massage. Zwei Studios in Wien."}
             </p>
             <p style={{ marginTop: 16 }}>
               <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-                Instagram @dee.studio.wien
+                Instagram {INSTAGRAM_HANDLE}
               </a>
             </p>
             {studio && (
@@ -129,6 +146,7 @@ export default function Footer({ studio }: { studio?: Studio }) {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Dee Studio Wien</span>
+          <span>Made by TuttyLab</span>
           <nav aria-label="Rechtliches">
             <Link href="/impressum">Impressum</Link>
             <Link href="/datenschutz">Datenschutz</Link>

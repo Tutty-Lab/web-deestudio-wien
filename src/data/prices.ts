@@ -243,14 +243,9 @@ export const DEE_PRICES: PriceGroup[] = [
   {
     id: "head-spa",
     category: "Massage",
-    title: "Head Spa",
-    items: HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
-  },
-  {
-    id: "massage",
-    category: "Massage",
-    title: "Körpermassage",
+    title: "Head Spa & Massage",
     items: [
+      ...HEAD_SPA.packages.map((p) => [`${p.note} „${p.name}“, ${p.duration}`, p.price] as [string, string]),
       ["Kopfmassage, 20 bis 40 Min.", "ab 20 €"],
       ["Schulter-, Rücken- & Nackenmassage, 45 bis 60 Min.", "ab 40 €"],
       ["Rückenmassage, 40 bis 75 Min.", "ab 40 €"],

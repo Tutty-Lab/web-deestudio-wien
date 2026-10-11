@@ -15,7 +15,7 @@ export const LETTER = {
     "Danke, dass Sie uns Ihr Vertrauen schenken. Wir freuen uns auf Ihren Besuch.",
   ],
   signature: "Ihr Dee Studio Team",
-  image: "/images/studio/dee-studio-empfang-team-neubauguertel.jpg",
+  image: "/images/studio/dee-studio-empfang-neubauguertel.webp",
 };
 
 export const VALUES = [
