@@ -2,6 +2,7 @@ import Link from "next/link";
 import { INSTAGRAM, INSTAGRAM_HANDLE, LOGO, STUDIOS, studioPath, type Studio } from "@/data/site";
 import { STATIC_PAGES } from "@/data/home";
 import { CookieSettingsLink } from "./CookieConsent";
+import InstagramIcon from "./InstagramIcon";
 
 /** Footer of a studio sub-site, or the group footer when no studio is given. */
 export default function Footer({ studio }: { studio?: Studio }) {
@@ -16,13 +17,13 @@ export default function Footer({ studio }: { studio?: Studio }) {
             <p className="display h-md">Neue Designs jede Woche</p>
             <p>Folgen Sie {INSTAGRAM_HANDLE} für aktuelle Nail Art, Aktionen und freie Termine.</p>
           </div>
-          <a className="btn btn-outline-light" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-            Auf Instagram folgen
+          <a className="btn btn-outline-light btn-icon" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+            <InstagramIcon /> Auf Instagram folgen
           </a>
         </div>
         <div className="footer-top">
           <div>
-            <Link href={studio ? studioPath(studio) : "/"} className="logo" style={{ fontSize: 22 }}>
+            <Link href={studio ? studioPath(studio) : "/"} className="logo footer-logo" style={{ fontSize: 22 }}>
               {studio?.slug === "vanilla-by-dee" ? (
                 <>
                   {studio.brand}
@@ -37,8 +38,8 @@ export default function Footer({ studio }: { studio?: Studio }) {
               {studio ? studio.tagline : "Nails, Lashes, Head Spa und Massage. Zwei Studios in Wien."}
             </p>
             <p style={{ marginTop: 16 }}>
-              <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-                Instagram {INSTAGRAM_HANDLE}
+              <a className="icon-link" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+                <InstagramIcon /> {INSTAGRAM_HANDLE}
               </a>
             </p>
             {studio && (
@@ -146,7 +147,12 @@ export default function Footer({ studio }: { studio?: Studio }) {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Dee Studio Wien</span>
-          <span>Made by TuttyLab</span>
+          <span>
+            Made by{" "}
+            <a href="https://tuttylab.vn" target="_blank" rel="noopener">
+              TuttyLab
+            </a>
+          </span>
           <nav aria-label="Rechtliches">
             <Link href="/impressum">Impressum</Link>
             <Link href="/datenschutz">Datenschutz</Link>

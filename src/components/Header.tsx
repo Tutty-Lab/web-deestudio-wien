@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { STUDIOS, studioPath, type Studio, LOGO } from "@/data/site";
+import { STUDIOS, studioPath, type Studio, LOGO, INSTAGRAM } from "@/data/site";
+import InstagramIcon from "./InstagramIcon";
 import { useBooking } from "./BookingProvider";
 
 type Props = {
@@ -167,6 +168,10 @@ export default function Header({ studio, transparent = false }: Props) {
                 )}
           </nav>
 
+          <a className="header-insta" href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Dee Studio auf Instagram">
+            <InstagramIcon size={20} />
+          </a>
+
           <button
             className={`btn btn-sm header-cta ${variant === "transparent" ? "btn-outline-light" : "btn-primary"}`}
             onClick={() => openBooking(studio?.slug)}
@@ -215,6 +220,9 @@ export default function Header({ studio, transparent = false }: Props) {
         >
           Termin buchen
         </button>
+        <a className="btn btn-secondary m-insta" href={INSTAGRAM} target="_blank" rel="noopener noreferrer" onClick={close}>
+          <InstagramIcon /> Instagram
+        </a>
       </nav>
 
       <div className={`mobile-cta ${showBar && !menuOpen ? "show" : ""}`}>

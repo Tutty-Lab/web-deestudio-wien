@@ -2241,36 +2241,101 @@ html {
   line-height: 1.7;
 }
 
-/* Logo image (Dee Studio) and Instagram band in the footer */
-.logo-img {
+/* Logo image (Dee Studio) */
+.logo .logo-img {
   display: block;
+  align-self: flex-start;
   height: 44px;
   width: auto;
+  max-width: none;
+  object-fit: contain;
 }
-.footer .logo-img {
-  height: 56px;
+.footer-logo .logo-img {
+  height: 52px;
 }
 @media (max-width: 600px) {
-  .logo-img {
-    height: 36px;
+  .logo .logo-img {
+    height: 34px;
+  }
+  .footer-logo .logo-img {
+    height: 44px;
   }
 }
+
+/* Instagram */
+.ig-icon {
+  flex: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.header-insta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  color: inherit;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.header-insta:hover {
+  opacity: 1;
+}
+.btn-icon,
+.m-insta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (max-width: 1080px) {
+  .header-insta {
+    margin-left: auto;
+    margin-right: 4px;
+  }
+}
+.mobile-menu .m-insta {
+  margin-top: 12px;
+}
+
+/* Instagram band in the footer */
 .footer-insta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px 48px;
-  flex-wrap: wrap;
   padding-bottom: 48px;
   margin-bottom: 48px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid #2a2a2a;
 }
 .footer-insta .h-md {
-  margin: 8px 0 10px;
+  margin: 10px 0 12px;
   color: #fff;
 }
 .footer-insta p:last-child {
   margin: 0;
   max-width: 460px;
   color: #a3a3a0;
+}
+.footer-bottom a {
+  color: #f5f5f3;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 760px) {
+  .footer-insta {
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-insta .btn {
+    width: 100%;
+  }
 }
